@@ -1,5 +1,12 @@
 import model.Board;
 
+
+/**
+ * This program is meant to provide some experience for members with Git and GitHub.
+ *
+ * @author David Hoang
+ * @version Winter 2023
+ */
 public final class SandBox {
 
     private SandBox() {
