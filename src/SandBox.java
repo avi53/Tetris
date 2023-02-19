@@ -7,6 +7,7 @@ import model.Board;
  * @author David Hoang
  * @author Avinash Bavisetty
  * @author Yonas Omega
+ * @author Jose Rodriguez
  * @version Winter 2023
  */
 public final class SandBox {
