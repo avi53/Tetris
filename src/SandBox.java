@@ -5,7 +5,7 @@ import model.Board;
  * This program is meant to provide some experience for members with Git and GitHub.
  *
  * @author David Hoang
- * @author Avinash Bavisetty
+ * @author Avinash Bavisetty (merging this brnach into master)
  * @author Yonas Omega
  * @author Jose Rodriguez
  * @version Winter 2023
