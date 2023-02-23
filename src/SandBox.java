@@ -35,7 +35,6 @@ public final class SandBox {
         System.out.println(b);
         b.drop();
         System.out.println(b);
-
     }
 
 }
