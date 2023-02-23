@@ -1,4 +1,5 @@
 import model.Board;
+import view.guiwindow;
 
 
 /**
@@ -17,6 +18,7 @@ public final class SandBox {
     }
 
     public static void main(final String[] theArgs) {
+        guiwindow guiwindow = new guiwindow();
         final Board b = new Board();
         b.newGame();
         System.out.print(b);
