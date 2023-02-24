@@ -96,6 +96,7 @@ public class GUIWINDOW extends JPanel {
         add(eastPanel, BorderLayout.EAST);
 
     }
+
 /**
  * Creates a JFrame to demonstrate BorderLayout.
  * It is OK, even typical to include a main method
