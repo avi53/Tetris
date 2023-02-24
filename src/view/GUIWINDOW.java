@@ -31,7 +31,7 @@ public class GUIWINDOW extends JPanel {
     private final JFrame myFrame = new JFrame(" Our Frame");
 
     /**
-     * Creates LayOutManager on Jpanel.
+     * Creates LayOutManager on JPanel.
      */
     public GUIWINDOW() {
         setLayout(new BorderLayout());
@@ -48,12 +48,11 @@ public class GUIWINDOW extends JPanel {
 
     private void frame() {
         myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        myFrame.setContentPane(this.
         myFrame.setSize(FRAME_WIDTH, FRAME_HEIGTH);
         myFrame.setVisible(true);
-        myFrame.setLayout(null);
+        myFrame.pack();
         myFrame.setResizable(true);
-        myFrame.setLayout(new BorderLayout());
-        myFrame.setLayout(new BorderLayout());
     }
 
     private void centerpanel() {
