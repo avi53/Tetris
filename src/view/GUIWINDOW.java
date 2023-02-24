@@ -28,34 +28,37 @@ public class GUIWINDOW extends JPanel {
     private static final int BLUE_HEIGHT = 200;
 
     /** frame of the gui window.*/
-    private final JFrame myFrame = new JFrame(" Our Frame");
+    //private final JFrame myFrame = new JFrame(" Our Frame");
 
     /**
      * Creates LayOutManager on JPanel.
      */
     public GUIWINDOW() {
         setLayout(new BorderLayout());
-        frame();
+        //frame();
 
         final westpiece westpiece = new westpiece();
         final southpiece southpiece = new southpiece();
 
-        centerpanel();
+        centerPanel();
         eastpanel();
         add(westpiece, BorderLayout.WEST);
         add(southpiece, BorderLayout.SOUTH);
     }
 
+    /**
     private void frame() {
+        final GUIWINDOW mainPanel = new GUIWINDOW();
         myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        myFrame.setContentPane(this.
+        myFrame.setContentPane(mainPanel);
         myFrame.setSize(FRAME_WIDTH, FRAME_HEIGTH);
         myFrame.setVisible(true);
         myFrame.pack();
         myFrame.setResizable(true);
-    }
+    }.
+     */
 
-    private void centerpanel() {
+    private void centerPanel() {
 
         final JPanel centerPanel = new JPanel();
 
@@ -67,7 +70,7 @@ public class GUIWINDOW extends JPanel {
 
         centerPanel.add(colorPanel);
 
-        myFrame.add(centerPanel, BorderLayout.CENTER);
+        add(centerPanel, BorderLayout.CENTER);
     }
 
     private void eastpanel() {
@@ -82,15 +85,33 @@ public class GUIWINDOW extends JPanel {
 
         eastPanel.add(colorPanel2);
 
-        final JPanel bluepanel = new JPanel();
+        final JPanel bluePanel = new JPanel();
 
-        bluepanel.setBackground(Color.BLUE);
+        bluePanel.setBackground(Color.BLUE);
 
-        bluepanel.setPreferredSize(new Dimension(BLUE_WIDTH, BLUE_HEIGHT));
+        bluePanel.setPreferredSize(new Dimension(BLUE_WIDTH, BLUE_HEIGHT));
 
-        colorPanel2.add(bluepanel);
+        colorPanel2.add(bluePanel);
 
-        myFrame.add(eastPanel, BorderLayout.EAST);
+        add(eastPanel, BorderLayout.EAST);
 
+    }
+/**
+ * Creates a JFrame to demonstrate BorderLayout.
+ * It is OK, even typical to include a main method
+ * in the same class file as a GUI for testing purposes.
+
+ *
+ * @param theArgs Command line arguments, ignored.
+ */
+    public static void main(final String[] theArgs) {
+        final GUIWINDOW mainPanel = new GUIWINDOW();
+        final JFrame frame = new JFrame(" Our Frame");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setContentPane(mainPanel);
+        frame.setSize(FRAME_WIDTH, FRAME_HEIGTH);
+        frame.setVisible(true);
+        frame.pack();
+        frame.setResizable(true);
     }
 }
