@@ -30,8 +30,11 @@ public class GUIWINDOW extends JPanel {
     /** frame of the gui window.*/
     protected JFrame myFrame = new JFrame();
 
+    /**
+     * Creates LayOutManager on Jpanel.
+     */
     public GUIWINDOW() {
-
+        setLayout(new BorderLayout());
         frame();
 
         final westpiece westpiece = new westpiece();
