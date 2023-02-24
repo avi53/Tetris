@@ -28,7 +28,7 @@ public class GUIWINDOW extends JPanel {
     private static final int BLUE_HEIGHT = 200;
 
     /** frame of the gui window.*/
-    protected JFrame myFrame = new JFrame();
+    private final JFrame myFrame = new JFrame(" Our Frame");
 
     /**
      * Creates LayOutManager on Jpanel.
