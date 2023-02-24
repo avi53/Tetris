@@ -42,8 +42,8 @@ public class GUIWINDOW extends JPanel {
 
         centerpanel();
         eastpanel();
-        myFrame.add(westpiece, BorderLayout.WEST);
-        myFrame.add(southpiece, BorderLayout.SOUTH);
+        add(westpiece, BorderLayout.WEST);
+        add(southpiece, BorderLayout.SOUTH);
     }
 
     private void frame() {
