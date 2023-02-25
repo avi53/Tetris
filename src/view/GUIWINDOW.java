@@ -28,14 +28,13 @@ public class GUIWINDOW extends JPanel {
     private static final int BLUE_HEIGHT = 200;
 
     /** frame of the gui window.*/
-    //private final JFrame myFrame = new JFrame(" Our Frame");
+    private static final JFrame WINDOW = new JFrame(" Our Frame");
 
     /**
      * Creates LayOutManager on JPanel.
      */
     public GUIWINDOW() {
         setLayout(new BorderLayout());
-        //frame();
 
         final westpiece westpiece = new westpiece();
         final southpiece southpiece = new southpiece();
@@ -46,17 +45,21 @@ public class GUIWINDOW extends JPanel {
         add(southpiece, BorderLayout.SOUTH);
     }
 
+
     /**
-    private void frame() {
-        final GUIWINDOW mainPanel = new GUIWINDOW();
-        myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        myFrame.setContentPane(mainPanel);
-        myFrame.setSize(FRAME_WIDTH, FRAME_HEIGTH);
-        myFrame.setVisible(true);
-        myFrame.pack();
-        myFrame.setResizable(true);
-    }.
+     * Create the GUI and show it.  For thread safety,
+     * this method should be invoked from the
+     * event-dispatching thread.
      */
+    public static void frame(final GUIWINDOW thePanel) {
+        WINDOW.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        WINDOW.setContentPane(thePanel);
+        WINDOW.setSize(FRAME_WIDTH, FRAME_HEIGTH);
+        WINDOW.setVisible(true);
+        WINDOW.pack();
+        WINDOW.setResizable(true);
+    }
+
 
     private void centerPanel() {
 
@@ -106,13 +109,9 @@ public class GUIWINDOW extends JPanel {
  * @param theArgs Command line arguments, ignored.
  */
     public static void main(final String[] theArgs) {
-        final GUIWINDOW mainPanel = new GUIWINDOW();
-        final JFrame frame = new JFrame(" Our Frame");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setContentPane(mainPanel);
-        frame.setSize(FRAME_WIDTH, FRAME_HEIGTH);
-        frame.setVisible(true);
-        frame.pack();
-        frame.setResizable(true);
+        final GUIWINDOW panel = new GUIWINDOW();
+        frame(panel);
+
+
     }
 }
