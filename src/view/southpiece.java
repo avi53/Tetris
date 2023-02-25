@@ -1,27 +1,30 @@
 package view;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import javax.swing.JPanel;
+
 
 /**
- * Instructions, black border with text saying white text instructions
+ * Instructions, black border with text saying white text instructions.
  */
 public class southpiece extends JPanel {
+    /** South piece width.*/
+    private static final int SOUTH_WIDTH = 100;
 
-    /** The background color. */
+    /** South piece height.*/
+    private static final int SOUTH_HEIGHT = 100;
 
+    /** South piece JPanel.*/
+    private final JPanel mySouth = this;
 
     public southpiece() {
-        this.setBackground(Color.BLACK);
-        this.setPreferredSize(new Dimension(100,100));
-        addInsidePanel();
+        createSouthPiece();
     }
 
-    public void addInsidePanel(){
-        JLabel userInfo = new JLabel("Instructions: ");
-        userInfo.setBackground(Color.WHITE);
-
-        this.add(userInfo, BorderLayout.CENTER);
-        this.setVisible(true);
+    public void createSouthPiece() {
+        mySouth.setBackground(Color.BLACK);
+        mySouth.setPreferredSize(new Dimension(SOUTH_WIDTH, SOUTH_HEIGHT));
     }
+
 }
