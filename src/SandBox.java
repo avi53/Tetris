@@ -1,6 +1,7 @@
 import model.Board;
 
 
+
 /**
  * This program is meant to provide some experience for members with Git and GitHub.
  *
@@ -17,6 +18,8 @@ public final class SandBox {
     }
 
     public static void main(final String[] theArgs) {
+
+
         final Board b = new Board();
         b.newGame();
         System.out.print(b);
@@ -33,7 +36,6 @@ public final class SandBox {
         System.out.println(b);
         b.drop();
         System.out.println(b);
-
     }
 
 }
