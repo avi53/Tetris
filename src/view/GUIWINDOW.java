@@ -47,6 +47,7 @@ public class GUIWINDOW extends JPanel {
      * Creates LayOutManager on JPanel.
      */
     public GUIWINDOW() {
+        super();
         setLayout(new BorderLayout());
 
         final westpiece westpiece = new westpiece();
