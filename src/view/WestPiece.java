@@ -25,10 +25,11 @@ public class WestPiece extends JPanel {
     private final JPanel myWest = this;
 
     public WestPiece() {
+        super();
         createWestPiece();
     }
 
-    public void createWestPiece() {
+    private void createWestPiece() {
         myWest.setPreferredSize(new Dimension(WEST_WIDTH, WEST_HEIGHT));
         myWest.setBackground(Color.GREEN);
     }

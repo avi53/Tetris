@@ -29,7 +29,7 @@ public class SouthPiece extends JPanel {
         createSouthPiece();
     }
 
-    public void createSouthPiece() {
+    private void createSouthPiece() {
         mySouth.setBackground(Color.BLACK);
         mySouth.setPreferredSize(new Dimension(SOUTH_WIDTH, SOUTH_HEIGHT));
     }
