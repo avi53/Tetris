@@ -50,8 +50,8 @@ public class GUIWINDOW extends JPanel {
         super();
         setLayout(new BorderLayout());
 
-        final westpiece westpiece = new westpiece();
-        final southpiece southpiece = new southpiece();
+        final WestPiece westpiece = new WestPiece();
+        final SouthPiece southpiece = new SouthPiece();
 
         centerPanel();
         eastpanel();
@@ -89,6 +89,7 @@ public class GUIWINDOW extends JPanel {
 
         centerPanel.add(colorPanel);
 
+        add(centerPanel, BorderLayout.CENTER);
         add(centerPanel, BorderLayout.CENTER);
     }
 

@@ -7,8 +7,14 @@ import javax.swing.JPanel;
 
 /**
  * Score user, user information, Green.
+ *
+ * @author David Hoang
+ * @author Avinash Bavisetty
+ * @author Yonas Omega
+ * @author Jose Rodriguez
+ * @version Winter 2023
  */
-public class westpiece extends JPanel {
+public class WestPiece extends JPanel {
     /** West piece width.*/
     private static final int WEST_WIDTH = 100;
 
@@ -18,7 +24,7 @@ public class westpiece extends JPanel {
     /** West piece JPanel.*/
     private final JPanel myWest = this;
 
-    public westpiece() {
+    public WestPiece() {
         createWestPiece();
     }
 
