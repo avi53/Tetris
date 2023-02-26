@@ -11,9 +11,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 
-
-
-
+/**
+ * This program is meant to create and show the GUI Frame.
+ * @author David Hoang
+ * @author Avinash Bavisetty
+ * @author Yonas Omega
+ * @author Jose Rodriguez
+ * @version Winter 2023
+ */
 public class GUIWINDOW extends JPanel {
     /** frame width.*/
     private static final int FRAME_WIDTH = 500;
@@ -157,7 +162,7 @@ public class GUIWINDOW extends JPanel {
     private JMenuItem buildSimpleMenuItem(final String theText) {
         final JMenuItem item = new JMenuItem(theText);
         item.addActionListener(theEvent ->
-                JOptionPane.showMessageDialog(GUIWINDOW.this, theText));
+                JOptionPane.showMessageDialog(this, theText));
         return item;
     }
 
