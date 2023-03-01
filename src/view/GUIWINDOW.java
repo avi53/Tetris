@@ -65,10 +65,10 @@ public class GUIWINDOW extends JPanel {
      * this method should be invoked from the
      * event-dispatching thread.
      */
-    public void frame(final GUIWINDOW thePanel) {
+    public void frame() {
         WINDOW.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        WINDOW.setContentPane(thePanel);
-        WINDOW.setJMenuBar(thePanel.createMenu());
+        WINDOW.setContentPane(this);
+        WINDOW.setJMenuBar(this.createMenu());
         WINDOW.setSize(FRAME_WIDTH, FRAME_HEIGTH);
         WINDOW.setVisible(true);
 
@@ -178,7 +178,7 @@ public class GUIWINDOW extends JPanel {
  */
     public static void main(final String[] theArgs) {
         final GUIWINDOW panel = new GUIWINDOW();
-        panel.frame(panel);
+        panel.frame();
 
 
     }

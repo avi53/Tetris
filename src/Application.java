@@ -28,7 +28,7 @@ public  final class Application {
 
     public static void main(final String[] theArgs) {
         final GUIWINDOW panel = new GUIWINDOW();
-        panel.frame(panel);
+        panel.frame();
 
 
     }
