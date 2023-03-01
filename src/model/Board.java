@@ -7,6 +7,7 @@
 package model;
 
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -36,7 +37,12 @@ import model.wallkicks.WallKick;
 public class Board implements PropertyChangeEnabledBoardControls {
 
     // Class constants
-    
+
+
+    /** ADDED by group 6
+     * Manager for Property Change Listeners.
+     */
+    private final PropertyChangeSupport myPcs;
     /**
      * Default width of a Tetris game board.
      */
@@ -115,6 +121,7 @@ public class Board implements PropertyChangeEnabledBoardControls {
      */
     public Board(final int theWidth, final int theHeight) {
         super();
+        myPcs = new PropertyChangeSupport(this);
         myWidth = theWidth;
         myHeight = theHeight;
         myFrozenBlocks = new LinkedList<Block[]>();
@@ -544,22 +551,24 @@ public class Board implements PropertyChangeEnabledBoardControls {
 
     @Override
     public void addPropertyChangeListener(PropertyChangeListener theListener) {
+        myPcs.addPropertyChangeListener(theListener);
 
     }
 
     @Override
     public void addPropertyChangeListener(String thePropertyName, PropertyChangeListener theListener) {
-
+        myPcs.addPropertyChangeListener(thePropertyName, theListener);
     }
 
     @Override
     public void removePropertyChangeListener(PropertyChangeListener theListener) {
+        myPcs.removePropertyChangeListener(theListener);
 
     }
 
     @Override
     public void removePropertyChangeListener(String thePropertyName, PropertyChangeListener theListener) {
-
+        myPcs.removePropertyChangeListener(thePropertyName, theListener);
     }
 
 
