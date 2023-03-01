@@ -6,6 +6,7 @@
 
 package model;
 
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -32,7 +33,7 @@ import model.wallkicks.WallKick;
  * @author Alan Fowler
  * @version 1.3
  */
-public class Board implements BoardControls {
+public class Board implements PropertyChangeEnabledBoardControls {
 
     // Class constants
     
@@ -182,7 +183,6 @@ public class Board implements BoardControls {
     
     /**
      * Advances the board by one 'step'.
-     * 
      * This could include
      * - moving the current piece down 1 line
      * - freezing the current piece if appropriate
@@ -540,9 +540,29 @@ public class Board implements BoardControls {
         if (share && !myGameOver) {
             // TODO Publish Update!
         }
-    }    
+    }
 
-    
+    @Override
+    public void addPropertyChangeListener(PropertyChangeListener theListener) {
+
+    }
+
+    @Override
+    public void addPropertyChangeListener(String thePropertyName, PropertyChangeListener theListener) {
+
+    }
+
+    @Override
+    public void removePropertyChangeListener(PropertyChangeListener theListener) {
+
+    }
+
+    @Override
+    public void removePropertyChangeListener(String thePropertyName, PropertyChangeListener theListener) {
+
+    }
+
+
     // Inner classes
 
     /**
