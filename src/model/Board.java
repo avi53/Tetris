@@ -32,7 +32,7 @@ import model.wallkicks.WallKick;
  * @author Alan Fowler
  * @version 1.3
  */
-public class Board {
+public class Board implements BoardControls {
 
     // Class constants
     
