@@ -65,7 +65,7 @@ public class GUIWINDOW extends JPanel {
      * this method should be invoked from the
      * event-dispatching thread.
      */
-    public static void frame(final GUIWINDOW thePanel) {
+    public void frame(final GUIWINDOW thePanel) {
         WINDOW.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         WINDOW.setContentPane(thePanel);
         WINDOW.setJMenuBar(thePanel.createMenu());
@@ -168,7 +168,6 @@ public class GUIWINDOW extends JPanel {
         return item;
     }
 
-
     /**
  * Creates a JFrame to demonstrate BorderLayout.
  * It is OK, even typical to include a main method
@@ -179,7 +178,7 @@ public class GUIWINDOW extends JPanel {
  */
     public static void main(final String[] theArgs) {
         final GUIWINDOW panel = new GUIWINDOW();
-        frame(panel);
+        panel.frame(panel);
 
 
     }
