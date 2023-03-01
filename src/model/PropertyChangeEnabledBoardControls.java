@@ -15,6 +15,18 @@ import java.beans.PropertyChangeListener;
  * @version Winter 2023
  */
 public interface PropertyChangeEnabledBoardControls extends BoardControls {
+
+    /**
+     * These are the constant property values.
+     *
+     */
+
+
+    /**
+     * A property name for the current Light in the simulation.
+     */
+    String PROPERTY_GAME_OVER = "GAMEOVER";
+
     /**
      * Add a PropertyChangeListener to the listener list. The listener is registered for
      * all properties. The same listener object may be added more than once, and will be
