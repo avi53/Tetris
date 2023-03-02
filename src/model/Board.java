@@ -479,12 +479,13 @@ public class Board implements PropertyChangeEnabledBoardControls {
     private void setPoint(final List<Block[]> theBoard,
                           final Point thePoint,
                           final Block theBlock) {
-        
+        final boolean oldGameOver=  myGameOver;
         if (isPointOnBoard(theBoard, thePoint)) { 
             final Block[] row = theBoard.get(thePoint.y());
             row[thePoint.x()] = theBlock;
         } else if (!myGameOver) {
             myGameOver = true;
+            myPcs.firePropertyChange(PROPERTY_GAME_OVER,oldGameOver,myGameOver);
             // TODO Publish Update!
         }
     }
