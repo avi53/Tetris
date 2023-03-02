@@ -24,22 +24,10 @@ public class GUIWINDOW extends JPanel {
     private static final int FRAME_WIDTH = 500;
     /** frame height.*/
     private static final int FRAME_HEIGTH = 600;
-
     /** center width.*/
     private static final int CENTER_WIDTH = 300;
     /** center height.*/
     private static final int CENTER_HEIGHT = 500;
-
-    /** east width.*/
-    private static final int EAST_WIDTH = 200;
-    /** east height.*/
-    private static final int EAST_HEIGHT = 500;
-
-    /** blue square width.*/
-    private static final int BLUE_WIDTH = 200;
-    /** blue square height.*/
-    private static final int BLUE_HEIGHT = 200;
-
     /** frame of the gui window.*/
     private static final JFrame WINDOW = new JFrame(" Our Frame");
 
@@ -52,11 +40,13 @@ public class GUIWINDOW extends JPanel {
 
         final WestPiece westpiece = new WestPiece();
         final SouthPiece southpiece = new SouthPiece();
+        final EastPiece eastpiece = new EastPiece();
 
         centerPanel();
-        eastpanel();
+
         add(westpiece, BorderLayout.WEST);
         add(southpiece, BorderLayout.SOUTH);
+        add(eastpiece, BorderLayout.EAST);
     }
 
 
@@ -93,29 +83,6 @@ public class GUIWINDOW extends JPanel {
         add(centerPanel, BorderLayout.CENTER);
     }
 
-    private void eastpanel() {
-
-        final JPanel eastPanel = new JPanel();
-
-        final JPanel colorPanel2 = new JPanel();
-
-        colorPanel2.setBackground(Color.BLACK);
-
-        colorPanel2.setPreferredSize(new Dimension(EAST_WIDTH, EAST_HEIGHT));
-
-        eastPanel.add(colorPanel2);
-
-        final JPanel bluePanel = new JPanel();
-
-        bluePanel.setBackground(Color.BLUE);
-
-        bluePanel.setPreferredSize(new Dimension(BLUE_WIDTH, BLUE_HEIGHT));
-
-        colorPanel2.add(bluePanel);
-
-        add(eastPanel, BorderLayout.EAST);
-
-    }
     /**
      * Build the menu bar for this GUI. This method will need
      * to be called where access to a JFrame occurs. You attach
@@ -182,4 +149,5 @@ public class GUIWINDOW extends JPanel {
 
 
     }
+
 }
