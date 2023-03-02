@@ -418,6 +418,7 @@ public class Board implements PropertyChangeEnabledBoardControls {
      */
     private void checkRows() {
         final List<Integer> completeRows = new ArrayList<>();
+        final int oldCompleteRows = completeRows.size();
         for (final Block[] row : myFrozenBlocks) {
             boolean complete = true;
             for (final Block b : row) {
@@ -428,6 +429,7 @@ public class Board implements PropertyChangeEnabledBoardControls {
             }
             if (complete) {
                 completeRows.add(myFrozenBlocks.indexOf(row));
+                myPcs.firePropertyChange(PROPERTY_COMPLETE_ROWS_LIST,oldCompleteRows,completeRows.size());
              // TODO Publish Update!
             }
         }
