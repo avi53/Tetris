@@ -34,6 +34,12 @@ public interface PropertyChangeEnabledBoardControls extends BoardControls {
      * A property name for the myDrop status.
      */
     String PROPERTY_SEQUENCE_INDEX = "INDEX";
+    /**
+     * A property name for the size of the list of frozen blocks is changed.
+     */
+    String PROPERTY_FROZEN_BLOCKS_SIZE= "SIZE";
+
+
 
     /**
      * Add a PropertyChangeListener to the listener list. The listener is registered for

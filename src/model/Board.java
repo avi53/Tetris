@@ -178,7 +178,6 @@ public class Board implements PropertyChangeEnabledBoardControls {
         myPcs.firePropertyChange(PROPERTY_DROP,oldDrop,myDrop);
         myPcs.firePropertyChange(PROPERTY_SEQUENCE_INDEX,oldSequenceIndex,mySequenceIndex);
 
-
     }
 
     /**
@@ -215,6 +214,7 @@ public class Board implements PropertyChangeEnabledBoardControls {
      * Clear full lines.
      */
     public void down() {
+        final int oldFrozenBlocksListSize =myFrozenBlocks.size();
         if (!move(myCurrentPiece.down())) {
             // the piece froze, so clear lines and update current piece
             addPieceToBoardData(myFrozenBlocks, myCurrentPiece);
@@ -222,6 +222,7 @@ public class Board implements PropertyChangeEnabledBoardControls {
             if (!myGameOver) {
                 myCurrentPiece = nextMovablePiece(false);
             }
+            myPcs.firePropertyChange(PROPERTY_FROZEN_BLOCKS_SIZE,oldFrozenBlocksListSize,myFrozenBlocks.size());
             // TODO Publish Update!
         }
     }
