@@ -133,7 +133,7 @@ public class Board implements PropertyChangeEnabledBoardControls {
          *  are initialized by the newGame() method.
          */
     }
-    
+
 
     // public queries
     
@@ -557,7 +557,6 @@ public class Board implements PropertyChangeEnabledBoardControls {
             // TODO Publish Update!
         }
     }
-
     @Override
     public void addPropertyChangeListener(PropertyChangeListener theListener) {
         myPcs.addPropertyChangeListener(theListener);
@@ -579,6 +578,7 @@ public class Board implements PropertyChangeEnabledBoardControls {
     public void removePropertyChangeListener(String thePropertyName, PropertyChangeListener theListener) {
         myPcs.removePropertyChangeListener(thePropertyName, theListener);
     }
+
 
 
     // Inner classes
