@@ -1,8 +1,13 @@
 package view;
 
+import model.Board;
+import model.PropertyChangeEnabledBoardControls;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -19,7 +24,7 @@ import javax.swing.JPanel;
  * @author Jose Rodriguez
  * @version Winter 2023
  */
-public class GUIWINDOW extends JPanel {
+public class GUIWINDOW extends JPanel implements PropertyChangeListener {
     /** frame width.*/
     private static final int FRAME_WIDTH = 500;
     /** frame height.*/
@@ -48,7 +53,6 @@ public class GUIWINDOW extends JPanel {
         add(southpiece, BorderLayout.SOUTH);
         add(eastpiece, BorderLayout.EAST);
     }
-
 
     /**
      * Create the GUI and show it.  For thread safety,
@@ -79,7 +83,6 @@ public class GUIWINDOW extends JPanel {
 
         centerPanel.add(colorPanel);
 
-        add(centerPanel, BorderLayout.CENTER);
         add(centerPanel, BorderLayout.CENTER);
     }
 
@@ -150,4 +153,17 @@ public class GUIWINDOW extends JPanel {
 
     }
 
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+
+        String property_name = evt.getPropertyName();
+
+        if (property_name.equals(Board.PROPERTY_DROP) ||
+                property_name.equals(Board.PROPERTY_GAME_OVER) ||
+                property_name.equals(Board.PROPERTY_SEQUENCE_INDEX)) {
+
+            repaint();
+        }
+
+    }
 }
