@@ -6,6 +6,8 @@
 
 package model;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -32,10 +34,15 @@ import model.wallkicks.WallKick;
  * @author Alan Fowler
  * @version 1.3
  */
-public class Board {
+public class Board implements PropertyChangeEnabledBoardControls {
 
     // Class constants
-    
+
+
+    /** ADDED by group 6
+     * Manager for Property Change Listeners.
+     */
+    private final PropertyChangeSupport myPcs;
     /**
      * Default width of a Tetris game board.
      */
@@ -114,6 +121,7 @@ public class Board {
      */
     public Board(final int theWidth, final int theHeight) {
         super();
+        myPcs = new PropertyChangeSupport(this);
         myWidth = theWidth;
         myHeight = theHeight;
         myFrozenBlocks = new LinkedList<Block[]>();
@@ -161,11 +169,12 @@ public class Board {
         for (int h = 0; h < myHeight; h++) {
             myFrozenBlocks.add(new Block[myWidth]);
         }
-
+        final boolean old=  myGameOver;
         myGameOver = false;
         myCurrentPiece = nextMovablePiece(true);
         myDrop = false;
-        
+        myPcs.firePropertyChange(PROPERTY_GAME_OVER,old,myGameOver);
+
         // TODO Publish Update!
     }
 
@@ -182,7 +191,6 @@ public class Board {
     
     /**
      * Advances the board by one 'step'.
-     * 
      * This could include
      * - moving the current piece down 1 line
      * - freezing the current piece if appropriate
@@ -540,9 +548,31 @@ public class Board {
         if (share && !myGameOver) {
             // TODO Publish Update!
         }
-    }    
+    }
 
-    
+    @Override
+    public void addPropertyChangeListener(PropertyChangeListener theListener) {
+        myPcs.addPropertyChangeListener(theListener);
+
+    }
+
+    @Override
+    public void addPropertyChangeListener(String thePropertyName, PropertyChangeListener theListener) {
+        myPcs.addPropertyChangeListener(thePropertyName, theListener);
+    }
+
+    @Override
+    public void removePropertyChangeListener(PropertyChangeListener theListener) {
+        myPcs.removePropertyChangeListener(theListener);
+
+    }
+
+    @Override
+    public void removePropertyChangeListener(String thePropertyName, PropertyChangeListener theListener) {
+        myPcs.removePropertyChangeListener(thePropertyName, theListener);
+    }
+
+
     // Inner classes
 
     /**
