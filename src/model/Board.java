@@ -215,6 +215,7 @@ public class Board implements PropertyChangeEnabledBoardControls {
      */
     public void down() {
         final int oldFrozenBlocksListSize =myFrozenBlocks.size();
+        final   MovableTetrisPiece oldMyCurrentPiece= myCurrentPiece;
         if (!move(myCurrentPiece.down())) {
             // the piece froze, so clear lines and update current piece
             addPieceToBoardData(myFrozenBlocks, myCurrentPiece);
@@ -223,6 +224,7 @@ public class Board implements PropertyChangeEnabledBoardControls {
                 myCurrentPiece = nextMovablePiece(false);
             }
             myPcs.firePropertyChange(PROPERTY_FROZEN_BLOCKS_SIZE,oldFrozenBlocksListSize,myFrozenBlocks.size());
+            myPcs.firePropertyChange(PROPERTY_CURRENT_PIECE,oldMyCurrentPiece,myCurrentPiece);
             // TODO Publish Update!
         }
     }

@@ -38,6 +38,10 @@ public interface PropertyChangeEnabledBoardControls extends BoardControls {
      * A property name for the size of the list of frozen blocks is changed.
      */
     String PROPERTY_FROZEN_BLOCKS_SIZE= "SIZE";
+    /**
+     * A property name for when current piece has  changed.
+     */
+    String PROPERTY_CURRENT_PIECE= "CURRENT_PIECE";
 
 
 
