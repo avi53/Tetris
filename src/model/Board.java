@@ -358,11 +358,13 @@ public class Board implements PropertyChangeEnabledBoardControls {
      * @return True if the move succeeded
      */
     private boolean move(final MovableTetrisPiece theMovedPiece) {
+        final boolean oldDrop= myDrop;
         boolean result = false;
         if (isPieceLegal(theMovedPiece)) {
             myCurrentPiece = theMovedPiece;
             result = true;
             if (!myDrop) {
+                myPcs.firePropertyChange(PROPERTY_DROP,oldDrop,myDrop);
                 // TODO Publish Update!
             }
         }
