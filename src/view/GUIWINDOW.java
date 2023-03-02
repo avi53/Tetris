@@ -2,6 +2,7 @@ package view;
 
 import model.Board;
 import model.PropertyChangeEnabledBoardControls;
+import model.KeyHandler;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -35,6 +36,7 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
     private static final int CENTER_HEIGHT = 500;
     /** frame of the gui window.*/
     private static final JFrame WINDOW = new JFrame(" Our Frame");
+    KeyHandler keyH = new KeyHandler(this);
 
     /**
      * Creates LayOutManager on JPanel.
@@ -52,6 +54,8 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
         add(westpiece, BorderLayout.WEST);
         add(southpiece, BorderLayout.SOUTH);
         add(eastpiece, BorderLayout.EAST);
+        this.addKeyListener(keyH);
+        this.setFocusable(true);
     }
 
     /**
