@@ -23,9 +23,13 @@ public interface PropertyChangeEnabledBoardControls extends BoardControls {
 
 
     /**
-     * A property name for the current Light in the simulation.
+     * A property name for the current GAME_OVER property in the game.
      */
     String PROPERTY_GAME_OVER = "GAMEOVER";
+    /**
+     * A property name for the myDrop status.
+     */
+    String PROPERTY_DROP = "DROP";
 
     /**
      * Add a PropertyChangeListener to the listener list. The listener is registered for
