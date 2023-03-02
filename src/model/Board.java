@@ -551,7 +551,7 @@ public class Board implements PropertyChangeEnabledBoardControls {
      * Prepares the Next movable piece for preview.
      */
     private void prepareNextMovablePiece() {
-        
+        final boolean oldGameOver=  myGameOver;
         final boolean share = myNextPiece != null;
         if (myNonRandomPieces == null || myNonRandomPieces.isEmpty()) {
             myNextPiece = TetrisPiece.getRandomPiece();
@@ -560,6 +560,7 @@ public class Board implements PropertyChangeEnabledBoardControls {
             myNextPiece = myNonRandomPieces.get(mySequenceIndex++);
         }
         if (share && !myGameOver) {
+            myPcs.firePropertyChange(PROPERTY_GAME_OVER,oldGameOver,myGameOver);
             // TODO Publish Update!
         }
     }
