@@ -362,8 +362,9 @@ public class Board implements PropertyChangeEnabledBoardControls {
         final boolean oldDrop= myDrop;
         boolean result = false;
         if (isPieceLegal(theMovedPiece)) {
-            myPcs.firePropertyChange(PROPERTY_CURRENT_PIECE,oldMyCurrentPiece,myCurrentPiece);
+
             myCurrentPiece = theMovedPiece;
+            myPcs.firePropertyChange(PROPERTY_CURRENT_PIECE,oldMyCurrentPiece,myCurrentPiece);
             result = true;
             if (!myDrop) {
                 myPcs.firePropertyChange(PROPERTY_DROP,oldDrop,myDrop);
