@@ -30,6 +30,10 @@ public interface PropertyChangeEnabledBoardControls extends BoardControls {
      * A property name for the myDrop status.
      */
     String PROPERTY_DROP = "DROP";
+    /**
+     * A property name for the myDrop status.
+     */
+    String PROPERTY_SEQUENCE_INDEX = "INDEX";
 
     /**
      * Add a PropertyChangeListener to the listener list. The listener is registered for

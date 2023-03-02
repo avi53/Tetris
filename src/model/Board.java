@@ -163,7 +163,7 @@ public class Board implements PropertyChangeEnabledBoardControls {
      * and before each new game.
      */
     public void newGame() {
-        
+        final int oldSequenceIndex= mySequenceIndex;
         mySequenceIndex = 0;
         myFrozenBlocks.clear();
         for (int h = 0; h < myHeight; h++) {
@@ -176,6 +176,9 @@ public class Board implements PropertyChangeEnabledBoardControls {
         myDrop = false;
         myPcs.firePropertyChange(PROPERTY_GAME_OVER,oldGameOver,myGameOver);
         myPcs.firePropertyChange(PROPERTY_DROP,oldDrop,myDrop);
+        myPcs.firePropertyChange(PROPERTY_SEQUENCE_INDEX,oldSequenceIndex,mySequenceIndex);
+
+
     }
 
     /**
