@@ -1,13 +1,15 @@
 package view;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
+import model.Board;
+import model.PropertyChangeEnabledBoardControls;
+
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import javax.swing.JPanel;
 
-public class EastPiece extends JPanel implements PropertyChangeListener {
+public class EastPiece extends JPanel {
     /** East piece width.*/
     private static final int EAST_WIDTH = 200;
 
@@ -20,6 +22,10 @@ public class EastPiece extends JPanel implements PropertyChangeListener {
     private static final int BLUE_HEIGHT = 200;
     /** East piece JPanel.*/
     private final JPanel myEastPanel = new JPanel();
+    /**
+     * Board object to be referenced.
+     */
+    private Board tetrisBoard = new Board();
 
     /**
      * East piece constructor. Initialize the east piece panel.
@@ -39,18 +45,40 @@ public class EastPiece extends JPanel implements PropertyChangeListener {
         add(myEastPanel, BorderLayout.EAST);
     }
 
+    private void createNextPiecePanel() {
+        final NextPiecePanel nextPiecePanel = new NextPiecePanel();
+        myEastPanel.add(nextPiecePanel);
+        tetrisBoard.addPropertyChangeListener(PropertyChangeEnabledBoardControls.PROPERTY_STEP, nextPiecePanel);
+    }
+
     /**
      * Create the panel which displays the next piece.
      */
-    private void createNextPiecePanel() {
-        final JPanel bluePanel = new JPanel();
-        bluePanel.setBackground(Color.BLUE);
-        bluePanel.setPreferredSize(new Dimension(BLUE_WIDTH, BLUE_HEIGHT));
-        myEastPanel.add(bluePanel);
-    }
+    private static final class NextPiecePanel extends JPanel implements PropertyChangeListener {
+        private final JPanel myNextPiecePanel = new JPanel();
 
-    @Override
-    public void propertyChange(final PropertyChangeEvent theEvent) {
+        private NextPiecePanel() {
+            super();
+            createAndShowPanel();
 
+        }
+
+        public void paintComponent(final Graphics theGraphics) {
+
+        }
+
+        private void createAndShowPanel() {
+            myNextPiecePanel.setBackground(Color.BLUE);
+            myNextPiecePanel.setPreferredSize(new Dimension(BLUE_WIDTH, BLUE_HEIGHT));
+            add(myNextPiecePanel);
+
+        }
+
+        @Override
+        public void propertyChange(PropertyChangeEvent theEvent) {
+            if (Board.PROPERTY_CURRENT_PIECE.equals(theEvent.getPropertyName())) {
+                repaint();
+            }
+        }
     }
 }
