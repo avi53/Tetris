@@ -39,6 +39,10 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
     private static final JFrame WINDOW = new JFrame(" Our Frame");
     KeyHandler keyH = new KeyHandler(this);
     TimeTicker time = new TimeTicker();
+    /**
+     * Board object to be referenced.
+     */
+    private Board tetrisBoard = new Board();
 
     /**
      * Creates LayOutManager on JPanel.
@@ -51,7 +55,7 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
         final SouthPiece southpiece = new SouthPiece();
         final EastPiece eastpiece = new EastPiece();
         final CenterPanel centerpiece = new CenterPanel();
-
+        tetrisBoard.addPropertyChangeListener(PropertyChangeEnabledBoardControls.PROPERTY_STEP,centerpiece);
         add(centerpiece, BorderLayout.CENTER);
         add(westpiece, BorderLayout.WEST);
         add(southpiece, BorderLayout.SOUTH);
@@ -147,17 +151,4 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
 
     }
 
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-
-        String property_name = evt.getPropertyName();
-
-        if (property_name.equals(Board.PROPERTY_DROP) ||
-                property_name.equals(Board.PROPERTY_GAME_OVER) ||
-                property_name.equals(Board.PROPERTY_SEQUENCE_INDEX)) {
-
-            repaint();
-        }
-
-    }
 }
