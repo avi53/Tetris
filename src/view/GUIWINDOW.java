@@ -151,17 +151,4 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
 
     }
 
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-
-        String property_name = evt.getPropertyName();
-
-        if (property_name.equals(Board.PROPERTY_DROP) ||
-                property_name.equals(Board.PROPERTY_GAME_OVER) ||
-                property_name.equals(Board.PROPERTY_SEQUENCE_INDEX)) {
-
-            repaint();
-        }
-
-    }
 }
