@@ -18,7 +18,6 @@ public class CenterPanel extends JPanel implements PropertyChangeListener {
     public CenterPanel() {
         super();
         createCenterPiece();
-        Board.addPropertyChangeListener((PropertyChangeListener) myCenterPanel);
     }
 
     private void createCenterPiece() {

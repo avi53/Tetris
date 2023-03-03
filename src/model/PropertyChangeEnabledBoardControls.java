@@ -21,7 +21,10 @@ public interface PropertyChangeEnabledBoardControls extends BoardControls {
      *
      */
 
-
+    /**
+     * A property name for the current step property in the game.
+     */
+    String PROPERTY_STEP = "STEP";
     /**
      * A property name for the current GAME_OVER property in the game.
      */
