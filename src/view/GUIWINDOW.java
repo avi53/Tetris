@@ -1,8 +1,14 @@
 package view;
 
+import model.Board;
+import model.PropertyChangeEnabledBoardControls;
+import model.KeyHandler;
+import model.TimeTicker;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -10,6 +16,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
 
 /**
  * This program is meant to create and show the GUI Frame.
@@ -25,7 +32,13 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
     /** frame height.*/
     private static final int FRAME_HEIGTH = 600;
     /** center width.*/
+    private static final int CENTER_WIDTH = 300;
+    /** center height.*/
+    private static final int CENTER_HEIGHT = 500;
+    /** frame of the gui window.*/
     private static final JFrame WINDOW = new JFrame(" Our Frame");
+    KeyHandler keyH = new KeyHandler(this);
+    TimeTicker time = new TimeTicker();
 
     /**
      * Creates LayOutManager on JPanel.
@@ -34,15 +47,21 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
         super();
         setLayout(new BorderLayout());
 
-        final CenterPanel centerpiece = new CenterPanel();
         final WestPiece westpiece = new WestPiece();
         final SouthPiece southpiece = new SouthPiece();
         final EastPiece eastpiece = new EastPiece();
 
-        add(centerpiece, BorderLayout.CENTER);
+        centerPanel();
+
         add(westpiece, BorderLayout.WEST);
         add(southpiece, BorderLayout.SOUTH);
         add(eastpiece, BorderLayout.EAST);
+        this.addKeyListener(keyH);
+        this.setFocusable(true);
+
+        WINDOW.getContentPane().add(time);
+        WINDOW.pack();
+        WINDOW.setVisible(true);
     }
 
     /**
@@ -59,6 +78,22 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
 
         WINDOW.pack();
         WINDOW.setResizable(true);
+    }
+
+
+    private void centerPanel() {
+
+        final JPanel centerPanel = new JPanel();
+
+        final JPanel colorPanel = new JPanel();
+
+        colorPanel.setBackground(Color.RED);
+
+        colorPanel.setPreferredSize(new Dimension(CENTER_WIDTH, CENTER_HEIGHT));
+
+        centerPanel.add(colorPanel);
+
+        add(centerPanel, BorderLayout.CENTER);
     }
 
     /**
@@ -125,6 +160,20 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
         final GUIWINDOW panel = new GUIWINDOW();
         panel.frame();
 
+
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+
+        String property_name = evt.getPropertyName();
+
+        if (property_name.equals(Board.PROPERTY_DROP) ||
+                property_name.equals(Board.PROPERTY_GAME_OVER) ||
+                property_name.equals(Board.PROPERTY_SEQUENCE_INDEX)) {
+
+            repaint();
+        }
 
     }
 }
