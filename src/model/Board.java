@@ -553,11 +553,15 @@ public class Board implements PropertyChangeEnabledBoardControls {
     private void prepareNextMovablePiece() {
         final boolean oldGameOver=  myGameOver;
         final boolean share = myNextPiece != null;
+        final TetrisPiece myOldNextPiece = myNextPiece;
         if (myNonRandomPieces == null || myNonRandomPieces.isEmpty()) {
             myNextPiece = TetrisPiece.getRandomPiece();
+            myPcs.firePropertyChange(PROPERTY_NEXT_PIECE,myOldNextPiece,myNextPiece);
+
         } else {
             mySequenceIndex %= myNonRandomPieces.size();
             myNextPiece = myNonRandomPieces.get(mySequenceIndex++);
+            myPcs.firePropertyChange(PROPERTY_NEXT_PIECE,myOldNextPiece,myNextPiece);
         }
         if (share && !myGameOver) {
             myPcs.firePropertyChange(PROPERTY_GAME_OVER,oldGameOver,myGameOver);
