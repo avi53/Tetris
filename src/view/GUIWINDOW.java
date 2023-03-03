@@ -2,12 +2,11 @@ package view;
 
 import model.Board;
 import model.PropertyChangeEnabledBoardControls;
-import model.KeyHandler;
 import model.TimeTicker;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import javax.swing.JFrame;
@@ -37,7 +36,6 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
     private static final int CENTER_HEIGHT = 500;
     /** frame of the gui window.*/
     private static final JFrame WINDOW = new JFrame(" Our Frame");
-    KeyHandler keyH = new KeyHandler(this);
     TimeTicker time = new TimeTicker();
     /**
      * Board object to be referenced.
@@ -60,12 +58,14 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
         add(westpiece, BorderLayout.WEST);
         add(southpiece, BorderLayout.SOUTH);
         add(eastpiece, BorderLayout.EAST);
-        this.addKeyListener(keyH);
-        this.setFocusable(true);
 
-        WINDOW.getContentPane().add(time);
-        WINDOW.pack();
-        WINDOW.setVisible(true);
+        addKeyListener(new ControlKeyListener());
+        setFocusable(true);
+        requestFocus();
+
+//        WINDOW.getContentPane().add(time);
+//        WINDOW.pack();
+//        WINDOW.setVisible(true);
     }
 
     /**
@@ -82,6 +82,29 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
 
         WINDOW.pack();
         WINDOW.setResizable(true);
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+
+    }
+
+    class ControlKeyListener extends KeyAdapter {
+        @Override
+        public void keyPressed(final KeyEvent theEvent) {
+            if (theEvent.getKeyCode() == KeyEvent.VK_S) {
+                System.out.println("down");
+                tetrisBoard.down();
+            }
+            if (theEvent.getKeyCode() == KeyEvent.VK_A) {
+                System.out.println("left");
+                tetrisBoard.left();
+            }
+            if (theEvent.getKeyCode() == KeyEvent.VK_D) {
+                System.out.println("right");
+                tetrisBoard.right();
+            }
+        }
     }
 
     /**
@@ -150,5 +173,4 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
 
 
     }
-
 }
