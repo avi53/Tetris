@@ -565,7 +565,7 @@ public class Board implements PropertyChangeEnabledBoardControls {
         }
     }
     @Override
-    public void addPropertyChangeListener(PropertyChangeListener theListener) {
+    public static void addPropertyChangeListener(PropertyChangeListener theListener) {
         myPcs.addPropertyChangeListener(theListener);
 
     }
