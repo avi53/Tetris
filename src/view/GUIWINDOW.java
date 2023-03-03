@@ -50,9 +50,9 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
         final WestPiece westpiece = new WestPiece();
         final SouthPiece southpiece = new SouthPiece();
         final EastPiece eastpiece = new EastPiece();
+        final CenterPanel centerpiece = new CenterPanel();
 
-        centerPanel();
-
+        add(centerpiece, BorderLayout.CENTER);
         add(westpiece, BorderLayout.WEST);
         add(southpiece, BorderLayout.SOUTH);
         add(eastpiece, BorderLayout.EAST);
@@ -78,22 +78,6 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
 
         WINDOW.pack();
         WINDOW.setResizable(true);
-    }
-
-
-    private void centerPanel() {
-
-        final JPanel centerPanel = new JPanel();
-
-        final JPanel colorPanel = new JPanel();
-
-        colorPanel.setBackground(Color.RED);
-
-        colorPanel.setPreferredSize(new Dimension(CENTER_WIDTH, CENTER_HEIGHT));
-
-        centerPanel.add(colorPanel);
-
-        add(centerPanel, BorderLayout.CENTER);
     }
 
     /**
