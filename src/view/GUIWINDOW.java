@@ -53,7 +53,8 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
         final SouthPiece southpiece = new SouthPiece();
         final EastPiece eastpiece = new EastPiece();
         final CenterPanel centerpiece = new CenterPanel();
-        tetrisBoard.addPropertyChangeListener(PropertyChangeEnabledBoardControls.PROPERTY_STEP,centerpiece);
+        tetrisBoard.addPropertyChangeListener(centerpiece);
+        tetrisBoard.addPropertyChangeListener(eastpiece);
         add(centerpiece, BorderLayout.CENTER);
         add(westpiece, BorderLayout.WEST);
         add(southpiece, BorderLayout.SOUTH);
