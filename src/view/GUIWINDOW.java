@@ -1,8 +1,5 @@
 package view;
 
-import model.Board;
-import model.PropertyChangeEnabledBoardControls;
-import model.TimeTicker;
 
 import java.awt.BorderLayout;
 import java.awt.event.KeyAdapter;
@@ -15,6 +12,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import model.Board;
+import model.TimeTicker;
 
 
 /**
@@ -36,11 +35,14 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
     private static final int CENTER_HEIGHT = 500;
     /** frame of the gui window.*/
     private static final JFrame WINDOW = new JFrame(" Our Frame");
-    TimeTicker time = new TimeTicker();
+    /**
+     * Time object.
+     */
+     TimeTicker  myTime = new TimeTicker();
     /**
      * Board object to be referenced.
      */
-    private Board tetrisBoard = new Board();
+    private Board myTetrisBoard = new Board();
 
     /**
      * Creates LayOutManager on JPanel.
@@ -53,8 +55,8 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
         final SouthPiece southpiece = new SouthPiece();
         final EastPiece eastpiece = new EastPiece();
         final CenterPanel centerpiece = new CenterPanel();
-        tetrisBoard.addPropertyChangeListener(centerpiece);
-        tetrisBoard.addPropertyChangeListener(eastpiece);
+        myTetrisBoard.addPropertyChangeListener(centerpiece);
+        myTetrisBoard.addPropertyChangeListener(eastpiece);
         add(centerpiece, BorderLayout.CENTER);
         add(westpiece, BorderLayout.WEST);
         add(southpiece, BorderLayout.SOUTH);
@@ -86,7 +88,7 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
     }
 
     @Override
-    public void propertyChange(PropertyChangeEvent evt) {
+    public void propertyChange(final PropertyChangeEvent evt) {
 
     }
 
@@ -95,15 +97,15 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
         public void keyPressed(final KeyEvent theEvent) {
             if (theEvent.getKeyCode() == KeyEvent.VK_S) {
                 System.out.println("down");
-                tetrisBoard.down();
+                myTetrisBoard.down();
             }
             if (theEvent.getKeyCode() == KeyEvent.VK_A) {
                 System.out.println("left");
-                tetrisBoard.left();
+                myTetrisBoard.left();
             }
             if (theEvent.getKeyCode() == KeyEvent.VK_D) {
                 System.out.println("right");
-                tetrisBoard.right();
+                myTetrisBoard.right();
             }
         }
     }
@@ -160,18 +162,5 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
         return item;
     }
 
-    /**
- * Creates a JFrame to demonstrate BorderLayout.
- * It is OK, even typical to include a main method
- * in the same class file as a GUI for testing purposes.
 
- *
- * @param theArgs Command line arguments, ignored.
- */
-    public static void main(final String[] theArgs) {
-        final GUIWINDOW panel = new GUIWINDOW();
-        panel.frame();
-
-
-    }
 }
