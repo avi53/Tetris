@@ -48,7 +48,7 @@ public class EastPiece extends JPanel implements PropertyChangeListener {
 
         @Override
         public void propertyChange(PropertyChangeEvent theEvent) {
-            if (Board.PROPERTY_CURRENT_PIECE.equals(theEvent.getPropertyName())) {
+            if (Board.PROPERTY_NEXT_PIECE.equals(theEvent.getPropertyName())) {
                 repaint();
             }
         }
