@@ -1,13 +1,14 @@
 package view;
 
-import model.Board;
-import model.PropertyChangeEnabledBoardControls;
 
-import java.awt.*;
-import java.awt.geom.Rectangle2D;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import javax.swing.JPanel;
+import model.Board;
+
 
 public class EastPiece extends JPanel implements PropertyChangeListener {
 
@@ -21,10 +22,7 @@ public class EastPiece extends JPanel implements PropertyChangeListener {
 
     /** East piece JPanel.*/
     private final JPanel myEastPanel = new JPanel();
-    /**
-     * Board object to be referenced.
-     */
-    private Board tetrisBoard = new Board();
+
 
     /**
      * East piece constructor. Initialize the east piece panel.
@@ -46,11 +44,12 @@ public class EastPiece extends JPanel implements PropertyChangeListener {
 
 
 
-        @Override
-        public void propertyChange(PropertyChangeEvent theEvent) {
-            if (Board.PROPERTY_NEXT_PIECE.equals(theEvent.getPropertyName())) {
-                repaint();
-            }
+    @Override
+    public void propertyChange(final PropertyChangeEvent theEvent) {
+        if (Board.PROPERTY_NEXT_PIECE.equals(theEvent.getPropertyName())) {
+            repaint();
         }
+
     }
+}
 
