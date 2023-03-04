@@ -66,6 +66,7 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
         setFocusable(true);
         requestFocus();
 
+        myTime.startTimer();
 //        WINDOW.getContentPane().add(time);
 //        WINDOW.pack();
 //        WINDOW.setVisible(true);

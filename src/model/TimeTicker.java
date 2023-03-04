@@ -10,6 +10,8 @@ public class TimeTicker extends JLabel implements ActionListener {
 
     public TimeTicker() {
         timer = new Timer(1000, this); // 1000 ms = 1 second
+    }
+    public void startTimer() {
         timer.start();
     }
 
