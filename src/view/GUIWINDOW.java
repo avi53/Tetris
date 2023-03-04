@@ -96,6 +96,10 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
     class ControlKeyListener extends KeyAdapter {
         @Override
         public void keyPressed(final KeyEvent theEvent) {
+            if (theEvent.getKeyCode() == KeyEvent.VK_W) {
+                System.out.println("up");
+                myTetrisBoard.rotateCW();
+            }
             if (theEvent.getKeyCode() == KeyEvent.VK_S) {
                 System.out.println("down");
                 myTetrisBoard.down();
