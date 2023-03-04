@@ -9,7 +9,6 @@ import java.beans.PropertyChangeListener;
 import javax.swing.JPanel;
 import model.Board;
 
-
 public class EastPiece extends JPanel implements PropertyChangeListener {
 
 
