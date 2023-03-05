@@ -35,6 +35,7 @@ Paint/draw/fill ANYTHING on this panel
 
 ### Sprint 2 Meetings 
 -https://docs.google.com/document/d/1Hq2A3zF28I5R794mcIX3-NElclsdM7Mi9it_RWHOGXo/edit?usp=sharing\
+
 -We had smaller meetings in class and it was regarding the discussion of our output on the centerpanel and in regards to our PropertyChangeListener implmentation.
 -Primary form of communication for everyone was on our own discord server for the project.
 
