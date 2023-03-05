@@ -19,3 +19,7 @@
 
 ### Sprint 1 comments:
 Will make changes in implementation where some components are in different classes, and a seperate class running the gui and functionality,
+
+### Sprint 2 comments:
+Google Drive Link: 
+https://docs.google.com/document/d/1Hq2A3zF28I5R794mcIX3-NElclsdM7Mi9it_RWHOGXo/edit?usp=sharing
