@@ -49,6 +49,11 @@ public interface PropertyChangeEnabledBoardControls extends BoardControls {
      * A property name for when the list of current rows has been changed.
      */
     String PROPERTY_COMPLETE_ROWS_LIST= "CURRENT_PIECE";
+    /**
+     * A property name for when next piece has  changed.
+     */
+    String PROPERTY_NEXT_PIECE= "NEXT_PIECE";
+
 
 
 

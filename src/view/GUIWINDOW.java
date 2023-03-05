@@ -1,13 +1,9 @@
 package view;
 
-import model.Board;
-import model.PropertyChangeEnabledBoardControls;
-import model.KeyHandler;
-import model.TimeTicker;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import javax.swing.JFrame;
@@ -16,6 +12,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import model.Board;
+import model.TimeTicker;
 
 
 /**
@@ -37,12 +35,14 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
     private static final int CENTER_HEIGHT = 500;
     /** frame of the gui window.*/
     private static final JFrame WINDOW = new JFrame(" Our Frame");
-    KeyHandler keyH = new KeyHandler(this);
-    TimeTicker time = new TimeTicker();
+    /**
+     * Time object.
+     */
+     private TimeTicker  myTime = new TimeTicker();
     /**
      * Board object to be referenced.
      */
-    private Board tetrisBoard = new Board();
+    private Board myTetrisBoard = new Board();
 
     /**
      * Creates LayOutManager on JPanel.
@@ -55,17 +55,21 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
         final SouthPiece southpiece = new SouthPiece();
         final EastPiece eastpiece = new EastPiece();
         final CenterPanel centerpiece = new CenterPanel();
-        tetrisBoard.addPropertyChangeListener(PropertyChangeEnabledBoardControls.PROPERTY_STEP,centerpiece);
+        myTetrisBoard.addPropertyChangeListener(centerpiece);
+        myTetrisBoard.addPropertyChangeListener(eastpiece);
         add(centerpiece, BorderLayout.CENTER);
         add(westpiece, BorderLayout.WEST);
         add(southpiece, BorderLayout.SOUTH);
         add(eastpiece, BorderLayout.EAST);
-        this.addKeyListener(keyH);
-        this.setFocusable(true);
 
-        WINDOW.getContentPane().add(time);
-        WINDOW.pack();
-        WINDOW.setVisible(true);
+        addKeyListener(new ControlKeyListener());
+        setFocusable(true);
+        requestFocus();
+
+        myTime.startTimer();
+//        WINDOW.getContentPane().add(time);
+//        WINDOW.pack();
+//        WINDOW.setVisible(true);
     }
 
     /**
@@ -82,6 +86,37 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
 
         WINDOW.pack();
         WINDOW.setResizable(true);
+    }
+
+    @Override
+    public void propertyChange(final PropertyChangeEvent theEvt) {
+
+    }
+
+    /**
+     * ControlKeyListener is responsible to read key input from the
+     * user and move the tetris piece according to the key pressed.
+     */
+    class ControlKeyListener extends KeyAdapter {
+        @Override
+        public void keyPressed(final KeyEvent theEvent) {
+            if (theEvent.getKeyCode() == KeyEvent.VK_W) {
+                System.out.println("up");
+                myTetrisBoard.rotateCW();
+            }
+            if (theEvent.getKeyCode() == KeyEvent.VK_S) {
+                System.out.println("down");
+                myTetrisBoard.down();
+            }
+            if (theEvent.getKeyCode() == KeyEvent.VK_A) {
+                System.out.println("left");
+                myTetrisBoard.left();
+            }
+            if (theEvent.getKeyCode() == KeyEvent.VK_D) {
+                System.out.println("right");
+                myTetrisBoard.right();
+            }
+        }
     }
 
     /**
@@ -136,19 +171,5 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
         return item;
     }
 
-    /**
- * Creates a JFrame to demonstrate BorderLayout.
- * It is OK, even typical to include a main method
- * in the same class file as a GUI for testing purposes.
-
- *
- * @param theArgs Command line arguments, ignored.
- */
-    public static void main(final String[] theArgs) {
-        final GUIWINDOW panel = new GUIWINDOW();
-        panel.frame();
-
-
-    }
 
 }
