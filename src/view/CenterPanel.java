@@ -1,8 +1,11 @@
 package view;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.geom.Rectangle2D;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import javax.swing.JPanel;
@@ -16,10 +19,18 @@ public class CenterPanel extends JPanel implements PropertyChangeListener {
      * center height.
      */
     private static final int CENTER_HEIGHT = 500;
+
     /**
-     * center-piece jpanel.
+     * The width for the rectangle.
      */
-    private final JPanel myCenterPanel = new JPanel();
+    private static final int PIECE_SIZE = 50;
+
+    /** temp height setting. */
+    private static final int HEIGHT = 500;
+
+    /** temp width setting. */
+    private static final int WIDTH = 300;
+
 
     public CenterPanel() {
         super();
@@ -27,9 +38,7 @@ public class CenterPanel extends JPanel implements PropertyChangeListener {
     }
 
     private void createCenterPiece() {
-        myCenterPanel.setBackground(Color.RED);
-        myCenterPanel.setPreferredSize(new Dimension(CENTER_WIDTH, CENTER_HEIGHT));
-        add(myCenterPanel, BorderLayout.CENTER);
+        setPreferredSize(new Dimension(CENTER_WIDTH, CENTER_HEIGHT));
     }
 
     public void propertyChange(final PropertyChangeEvent theEvt) {
@@ -45,6 +54,27 @@ public class CenterPanel extends JPanel implements PropertyChangeListener {
                 propertyName.equals(Board.PROPERTY_SEQUENCE_INDEX)) {
             //when board state changes everytime the board (center component) gets repainted
             repaint();
+        }
+    }
+
+    @Override
+    public void paintComponent(final Graphics theGraphics) {
+        super.paintComponent(theGraphics);
+        final Graphics2D g2d = (Graphics2D) theGraphics;
+
+        // for better graphics display
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+
+        g2d.setPaint(Color.RED);
+
+        for (int row = 0; row < HEIGHT; row++) {
+            for (int col = 0; col < WIDTH; col++) {
+                g2d.draw(new Rectangle2D.Double(col * PIECE_SIZE,
+                        row * PIECE_SIZE,
+                        PIECE_SIZE,
+                        PIECE_SIZE));
+            }
         }
     }
 }
