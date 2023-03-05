@@ -34,9 +34,8 @@ Paint/draw/fill ANYTHING on this panel
 - Avi: Made a new class to have the centerpiece implemented in, made a grid that can be displayed in the center panel with one box on the grid in the top left corner completely covered in red. Also implemented a propertychangelistener and instantiated the object of this class to the list of the propertychangelisteners in the Board object. If there’s any information that’s changed it will be reflected in the center panel class.
 
 ### Sprint 2 Meetings 
--https://docs.google.com/document/d/1Hq2A3zF28I5R794mcIX3-NElclsdM7Mi9it_RWHOGXo/edit?usp=sharing\
-
--We had smaller meetings in class and it was regarding the discussion of our output on the centerpanel and in regards to our PropertyChangeListener implmentation.
--Primary form of communication for everyone was on our own discord server for the project.
+- https://docs.google.com/document/d/1Hq2A3zF28I5R794mcIX3-NElclsdM7Mi9it_RWHOGXo/edit?usp=sharing\=
+- We had smaller meetings in class and it was regarding the discussion of our output on the centerpanel and in regards to our PropertyChangeListener implmentation.
+- Primary form of communication for everyone was on our own discord server for the project.
 
 ### Sprint 2 comments:
