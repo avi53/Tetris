@@ -35,7 +35,7 @@ Paint/draw/fill ANYTHING on this panel
 
 ### Sprint 2 Meetings 
 - https://docs.google.com/document/d/1Hq2A3zF28I5R794mcIX3-NElclsdM7Mi9it_RWHOGXo/edit?usp=sharing
-- Time meeting times: 3/2/2023 (12:40pm),3/5/2023 (12:00pm), met on discord both times.
+- Meeting times: 3/2/2023 (12:40pm),3/5/2023 (12:00pm), met on discord both times.
 - We had smaller meetings in class and it was regarding the discussion of our output on the centerpanel and in regards to our PropertyChangeListener implmentation.
 - Primary form of communication for everyone was on our own discord server for the project.
 
