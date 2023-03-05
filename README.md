@@ -23,9 +23,7 @@ Will make changes in implementation where some components are in different class
 ### Sprint 2 Contribution:
 
 - David: Model Update, improving on  checkstyle errors, checking code on other members to fit requirements.
-- Yonas: Determine the top-most GUI class (JFrame or JPanel)
-Instantiate and add a reference to the primary model object (Board)
-Make the instance variables type the Interface defined in Model Update
+- Yonas: Determine the top-most GUI class (JFrame or JPanel) Instantiate and add a reference to the primary model object (Board). Instantiate and add a reference to a javax.swing.Timer object. Determine how often the Timer should "tick". Add an ActionListener that calls an appropriate method from in the Interface defined in Model Update. Add a KeyListener to the JPanel that represent the top-most GUI class.
 - Jose :  In the GUI class that contains the visual representation of the Next Tetris Piece (JPanel)
 Implement PropertyChangeListener
 Add the instantiated object of this class to the list of PropertyChangeListeners in the Board object
