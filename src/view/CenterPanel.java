@@ -31,10 +31,13 @@ public class CenterPanel extends JPanel implements PropertyChangeListener {
     /** temp width setting. */
     private static final int WIDTH = 300;
 
+    private final Rectangle2D myShape;
+
 
     public CenterPanel() {
         super();
         createCenterPiece();
+        myShape = new Rectangle2D.Double(0,0,50,50);
     }
 
     private void createCenterPiece() {
@@ -76,5 +79,7 @@ public class CenterPanel extends JPanel implements PropertyChangeListener {
                         PIECE_SIZE));
             }
         }
+        g2d.setPaint(Color.RED);
+        g2d.fill(myShape);
     }
 }

@@ -24,7 +24,7 @@ import model.TimeTicker;
  * @author Jose Rodriguez
  * @version Winter 2023
  */
-public class GUIWINDOW extends JPanel implements PropertyChangeListener {
+public class GUIWINDOW extends JPanel {
     /** frame width.*/
     private static final int FRAME_WIDTH = 500;
     /** frame height.*/
@@ -86,11 +86,6 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
 
         WINDOW.pack();
         WINDOW.setResizable(true);
-    }
-
-    @Override
-    public void propertyChange(final PropertyChangeEvent theEvt) {
-
     }
 
     /**
