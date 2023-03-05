@@ -38,7 +38,7 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
     /**
      * Time object.
      */
-     TimeTicker  myTime = new TimeTicker();
+     private TimeTicker  myTime = new TimeTicker();
     /**
      * Board object to be referenced.
      */
@@ -89,10 +89,14 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
     }
 
     @Override
-    public void propertyChange(final PropertyChangeEvent evt) {
+    public void propertyChange(final PropertyChangeEvent theEvt) {
 
     }
 
+    /**
+     * ControlKeyListener is responsible to read key input from the
+     * user and move the tetris piece according to the key pressed.
+     */
     class ControlKeyListener extends KeyAdapter {
         @Override
         public void keyPressed(final KeyEvent theEvent) {
