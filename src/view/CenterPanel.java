@@ -8,11 +8,17 @@ import java.beans.PropertyChangeListener;
 import javax.swing.JPanel;
 import model.Board;
 public class CenterPanel extends JPanel implements PropertyChangeListener {
-    /** center width.*/
+    /**
+     * center width.
+     */
     private static final int CENTER_WIDTH = 300;
-    /** center height.*/
+    /**
+     * center height.
+     */
     private static final int CENTER_HEIGHT = 500;
-    /** center-piece jpanel.*/
+    /**
+     * center-piece jpanel.
+     */
     private final JPanel myCenterPanel = new JPanel();
 
     public CenterPanel() {
