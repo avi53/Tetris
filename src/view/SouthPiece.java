@@ -3,6 +3,7 @@ package view;
 import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JPanel;
+import javax.swing.JLabel;
 
 
 /**
@@ -20,8 +21,10 @@ public class SouthPiece extends JPanel {
     /** South piece height.*/
     private static final int SOUTH_HEIGHT = 100;
 
-    /** South piece JPanel.*/
-    private final JPanel mySouth = this;
+
+
+    /** A label to display the message. */
+    private JLabel myMessageLabel;
 
     /**
      * South piece constructor. Initialize the south piece panel.
@@ -35,8 +38,8 @@ public class SouthPiece extends JPanel {
      * Create the south piece width, height, and set the color.
      */
     private void createSouthPiece() {
-        mySouth.setBackground(Color.BLACK);
-        mySouth.setPreferredSize(new Dimension(SOUTH_WIDTH, SOUTH_HEIGHT));
+        setBackground(Color.BLACK);
+        setPreferredSize(new Dimension(SOUTH_WIDTH, SOUTH_HEIGHT));
     }
 
 }
