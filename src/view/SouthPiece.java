@@ -31,6 +31,7 @@ public class SouthPiece extends JPanel {
      */
     public SouthPiece() {
         super();
+        myMessageLabel = new JLabel(" Instructions");
         createSouthPiece();
     }
 
@@ -40,6 +41,7 @@ public class SouthPiece extends JPanel {
     private void createSouthPiece() {
         setBackground(Color.BLACK);
         setPreferredSize(new Dimension(SOUTH_WIDTH, SOUTH_HEIGHT));
+        add(myMessageLabel);
     }
 
 }
