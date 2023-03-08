@@ -214,7 +214,8 @@ public class Board implements PropertyChangeEnabledBoardControls {
      * Clear full lines.
      */
     public void down() {
-        final List<Block[]> oldFrozenBlocksList =myFrozenBlocks;
+
+        final LinkedList<Block> oldFrozenBlocksList =  myFrozenBlocks;
         final   MovableTetrisPiece oldMyCurrentPiece= myCurrentPiece;
         if (!move(myCurrentPiece.down())) {
             // the piece froze, so clear lines and update current piece
