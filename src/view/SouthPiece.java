@@ -27,8 +27,11 @@ public class SouthPiece extends JPanel {
 
     /** A label to display the message. */
     private JLabel myMessageLabel1;
-    /** A label to display the message. */
+    /** A label to display the message.2 */
     private JLabel myMessageLabel2;
+
+    /** A label to display the message. */
+    private JLabel myMessageLabel3;
 
     /**
      * South piece constructor. Initialize the south piece panel.
@@ -48,12 +51,14 @@ public class SouthPiece extends JPanel {
         setPreferredSize(new Dimension(SOUTH_WIDTH, SOUTH_HEIGHT));
         myMessageLabel1 = new JLabel("Move Left: A ");
         myMessageLabel2 = new JLabel("Move Right: D ");
+        myMessageLabel3 = new JLabel("Move Down: S");
 
         myMessageLabel1.setVerticalAlignment(JLabel.TOP);
         myMessageLabel1.setHorizontalAlignment(JLabel.LEFT);
         myMessageLabel1.setForeground(Color.WHITE);
         add(myMessageLabel1);
         add(myMessageLabel2);
+        add(myMessageLabel3);
 
 
     }
