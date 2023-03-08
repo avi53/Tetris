@@ -111,6 +111,10 @@ public class GUIWINDOW extends JPanel {
                 System.out.println("right");
                 myTetrisBoard.right();
             }
+            if (theEvent.getKeyCode() == KeyEvent.VK_SPACE) {
+                System.out.println("space");
+                myTetrisBoard.drop();
+            }
         }
     }
 
