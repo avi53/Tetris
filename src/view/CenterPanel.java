@@ -58,6 +58,7 @@ public class CenterPanel extends JPanel implements PropertyChangeListener {
             //when board state changes everytime the board (center component) gets repainted
             repaint();
         }
+        if (propertyName.equals(Board.))
     }
 
     @Override

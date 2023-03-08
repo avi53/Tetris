@@ -224,6 +224,7 @@ public class Board implements PropertyChangeEnabledBoardControls {
                 myCurrentPiece = nextMovablePiece(false);
             }
             myPcs.firePropertyChange(PROPERTY_FROZEN_BLOCKS_SIZE,oldFrozenBlocksList,myFrozenBlocks);
+
             myPcs.firePropertyChange(PROPERTY_CURRENT_PIECE,oldMyCurrentPiece,myCurrentPiece);
             // TODO Publish Update!
         }
