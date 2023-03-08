@@ -1,7 +1,6 @@
 package view;
 
-import java.awt.Color;
-import java.awt.Dimension;
+import java.awt.*;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 
@@ -31,7 +30,7 @@ public class SouthPiece extends JPanel {
      */
     public SouthPiece() {
         super();
-        myMessageLabel = new JLabel(" Instructions");
+
         createSouthPiece();
     }
 
@@ -39,9 +38,15 @@ public class SouthPiece extends JPanel {
      * Create the south piece width, height, and set the color.
      */
     private void createSouthPiece() {
+
+
+        setLayout(new FlowLayout());
         setBackground(Color.BLACK);
         setPreferredSize(new Dimension(SOUTH_WIDTH, SOUTH_HEIGHT));
+        myMessageLabel = new JLabel(" Instructions");
+        myMessageLabel.setBackground(Color.WHITE);
         add(myMessageLabel);
+
     }
 
 }

@@ -214,7 +214,7 @@ public class Board implements PropertyChangeEnabledBoardControls {
      * Clear full lines.
      */
     public void down() {
-        final int oldFrozenBlocksListSize =myFrozenBlocks.size();
+        final List<Block[]> oldFrozenBlocksList =myFrozenBlocks;
         final   MovableTetrisPiece oldMyCurrentPiece= myCurrentPiece;
         if (!move(myCurrentPiece.down())) {
             // the piece froze, so clear lines and update current piece
@@ -223,7 +223,7 @@ public class Board implements PropertyChangeEnabledBoardControls {
             if (!myGameOver) {
                 myCurrentPiece = nextMovablePiece(false);
             }
-            myPcs.firePropertyChange(PROPERTY_FROZEN_BLOCKS_SIZE,oldFrozenBlocksListSize,myFrozenBlocks.size());
+            myPcs.firePropertyChange(PROPERTY_FROZEN_BLOCKS_SIZE,oldFrozenBlocksList,myFrozenBlocks);
             myPcs.firePropertyChange(PROPERTY_CURRENT_PIECE,oldMyCurrentPiece,myCurrentPiece);
             // TODO Publish Update!
         }
@@ -419,7 +419,7 @@ public class Board implements PropertyChangeEnabledBoardControls {
      */
     private void checkRows() {
         final List<Integer> completeRows = new ArrayList<>();
-        final int oldCompleteRows = completeRows.size();
+        final List<Integer> oldCompleteRows = completeRows;
         for (final Block[] row : myFrozenBlocks) {
             boolean complete = true;
             for (final Block b : row) {
@@ -430,7 +430,7 @@ public class Board implements PropertyChangeEnabledBoardControls {
             }
             if (complete) {
                 completeRows.add(myFrozenBlocks.indexOf(row));
-                myPcs.firePropertyChange(PROPERTY_COMPLETE_ROWS_LIST,oldCompleteRows,completeRows.size());
+                myPcs.firePropertyChange(PROPERTY_COMPLETE_ROWS_LIST,oldCompleteRows,completeRows);
              // TODO Publish Update!
             }
         }
