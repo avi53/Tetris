@@ -44,7 +44,7 @@ public class SouthPiece extends JPanel {
         setBackground(Color.BLACK);
         setPreferredSize(new Dimension(SOUTH_WIDTH, SOUTH_HEIGHT));
         myMessageLabel = new JLabel(" Instructions");
-        myMessageLabel.setBackground(Color.WHITE);
+        myMessageLabel.setForeground(Color.WHITE);
         add(myMessageLabel);
 
     }
