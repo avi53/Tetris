@@ -8,7 +8,10 @@ import java.awt.RenderingHints;
 import java.awt.geom.Rectangle2D;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.LinkedList;
 import javax.swing.JPanel;
+
+import model.Block;
 import model.Board;
 public class CenterPanel extends JPanel implements PropertyChangeListener {
     /**
@@ -32,6 +35,10 @@ public class CenterPanel extends JPanel implements PropertyChangeListener {
     private static final int WIDTH = 300;
 
     private final Rectangle2D myShape;
+
+
+    /** The background color. */
+    private  LinkedList<Block[]> myFrozenBlocks;
 
 
     public CenterPanel() {
@@ -58,14 +65,20 @@ public class CenterPanel extends JPanel implements PropertyChangeListener {
             //when board state changes everytime the board (center component) gets repainted
             repaint();
         }
-        if (propertyName.equals(Board.))
+        if (propertyName.equals(Board.PROPERTY_FROZEN_BLOCKS_SIZE)) {
+            myFrozenBlocks = (LinkedList<Block[]>) theEvt.getNewValue();
+        }
     }
 
     @Override
     public void paintComponent(final Graphics theGraphics) {
         super.paintComponent(theGraphics);
         final Graphics2D g2d = (Graphics2D) theGraphics;
+        for(int i=0; i< myFrozenBlocks.size();i++) {
+            for (int j=0; j< myFrozenBlocks.get(i)[]; j++) {
 
+            }
+        }
         // for better graphics display
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
