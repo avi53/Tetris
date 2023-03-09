@@ -42,13 +42,14 @@ public class GUIWINDOW extends JPanel {
     /**
      * Board object to be referenced.
      */
-    private Board myTetrisBoard = new Board();
+    private Board myTetrisBoard;
 
     /**
      * Creates LayOutManager on JPanel.
      */
     public GUIWINDOW() {
         super();
+        myTetrisBoard = new Board();
         setLayout(new BorderLayout());
 
         final WestPiece westpiece = new WestPiece();
