@@ -250,9 +250,12 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(scoreAlgorithim, "                1 line    2 lines   3 lines   4 lines cleared " +
-                        "\nLevel 1:  40        100      300    1200 \nLevel 2:  80        200     600    2400 \nLevel 3:  120      300    900    3600 " +
-                        "\nLevel n:  40 * (n)  100 * (n)  300 * (n)  1200 * (n)  ");
+                JOptionPane.showMessageDialog(scoreAlgorithim,
+                        "                1 line    2 lines   3 lines   4 lines cleared " +
+                        "\nLevel 1:  40         100         300        1200 " +
+                        "\nLevel 2:  80         200         600        2400 " +
+                        "\nLevel 3:  120       300         900        3600 " +
+                        "\nLevel n:  40*(n)  100*(n)  300*(n)  1200*(n)  ");
 
             }
         });
