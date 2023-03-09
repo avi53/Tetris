@@ -250,8 +250,9 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(scoreAlgorithim,
-                        "                1 line    2 lines   3 lines   4 lines cleared " +
+                JOptionPane.showMessageDialog(scoreAlgorithim,"Add 4 points to score when a piece freezes in place."+
+                        "\nAlso add points to the score when lines are cleared as show below: "+
+                        "\n                1 line    2 lines   3 lines   4 lines cleared " +
                         "\nLevel 1:  40         100         300        1200 " +
                         "\nLevel 2:  80         200         600        2400 " +
                         "\nLevel 3:  120       300         900        3600 " +
