@@ -98,21 +98,23 @@ public class GUIWINDOW extends JPanel {
     class ControlKeyListener extends KeyAdapter {
         @Override
         public void keyPressed(final KeyEvent theEvent) {
-            if (theEvent.getKeyCode() == KeyEvent.VK_W) {
-                System.out.println("up");
-                myTetrisBoard.rotateCW();
-            }else if (theEvent.getKeyCode() == KeyEvent.VK_S) {
-                System.out.println("down");
-                myTetrisBoard.down();
-            }else if (theEvent.getKeyCode() == KeyEvent.VK_A) {
-                System.out.println("left");
-                myTetrisBoard.left();
-            } else if (theEvent.getKeyCode() == KeyEvent.VK_D) {
-                System.out.println("right");
-                myTetrisBoard.right();
-            } else if (theEvent.getKeyCode() == KeyEvent.VK_SPACE) {
-                System.out.println("space");
-                myTetrisBoard.drop();
+            if(myTime.checkTimer()) {
+                if (theEvent.getKeyCode() == KeyEvent.VK_W) {
+                    System.out.println("up");
+                    myTetrisBoard.rotateCW();
+                } else if (theEvent.getKeyCode() == KeyEvent.VK_S) {
+                    System.out.println("down");
+                    myTetrisBoard.down();
+                } else if (theEvent.getKeyCode() == KeyEvent.VK_A) {
+                    System.out.println("left");
+                    myTetrisBoard.left();
+                } else if (theEvent.getKeyCode() == KeyEvent.VK_D) {
+                    System.out.println("right");
+                    myTetrisBoard.right();
+                } else if (theEvent.getKeyCode() == KeyEvent.VK_SPACE) {
+                    System.out.println("space");
+                    myTetrisBoard.drop();
+                }
             }
             if (theEvent.getKeyCode() == KeyEvent.VK_P) {
                 if (myTime.checkTimer()) {
