@@ -58,14 +58,13 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
     /**
      * game over status to display.
      */
-    private boolean myGameOverDisplay;
+    private boolean myGameOverDisplay = true;
 
     /**
      * Creates LayOutManager on JPanel.
      */
     public GUIWINDOW()  {
         super();
-        myTetrisBoard.newGame();
         setLayout(new BorderLayout());
         final WestPiece westpiece = new WestPiece();
         final SouthPiece southpiece = new SouthPiece();
@@ -83,7 +82,6 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
         setFocusable(true);
         requestFocus();
 
-        myTime.startTimer();
         playMusic(0);
     }
 
@@ -203,7 +201,11 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
                     JOptionPane.showMessageDialog(newGame, "New Game");
                     myTetrisBoard.newGame();
                     myGameOverDisplay = false;
-                    myTime.restartTimer();
+                    if(myTime.checkTimer()) {
+                        myTime.restartTimer();
+                    } else {
+                        myTime.startTimer();
+                    }
                 } else if (!myGameOverDisplay) {
                     JOptionPane.showMessageDialog(newGame, "Current game has not ended yet!");
                 }
