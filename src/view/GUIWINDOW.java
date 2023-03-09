@@ -150,7 +150,6 @@ public class GUIWINDOW extends JPanel {
         final JMenu menu = new JMenu("File");
         menu.add(buildUserOptions());
         menu.addSeparator();
-
         return menu;
     }
 
