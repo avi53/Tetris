@@ -54,6 +54,11 @@ public interface PropertyChangeEnabledBoardControls extends BoardControls {
      */
     String PROPERTY_NEXT_PIECE= "NEXT_PIECE";
 
+    /**
+     * A property name for when next piece has  changed.
+     */
+    String PROPERTY_NON_RANDOM_PIECE= "NON_RANDOM";
+
 
 
 

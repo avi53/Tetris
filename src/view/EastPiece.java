@@ -19,17 +19,17 @@ public class EastPiece extends JPanel implements PropertyChangeListener {
 
     /** East piece height.*/
     private static final int EAST_HEIGHT = 500;
-    private Point[] myPiece;
-
-
+    private TetrisPiece myPiece;
 
     /**
      * East piece constructor. Initialize the east piece panel.
      */
     public EastPiece() {
         super();
+        myPiece = TetrisPiece.getRandomPiece();//FIXME instantiate myPiece correctly in constructor.
         createEastPiece();
     }
+
 
     /**
      * Create the east piece width, height, and set the color.
@@ -37,13 +37,12 @@ public class EastPiece extends JPanel implements PropertyChangeListener {
     private void createEastPiece() {
         setBackground(Color.BLUE);
         setPreferredSize(new Dimension(EAST_WIDTH, EAST_HEIGHT));
-
     }
 
     @Override
     public void propertyChange(final PropertyChangeEvent theEvent) {
         if (Board.PROPERTY_NEXT_PIECE.equals(theEvent.getPropertyName())) {
-            myPiece = (Point[]) theEvent.getNewValue();
+            myPiece = (TetrisPiece) theEvent.getNewValue();
             repaint();
         }
     }
@@ -55,9 +54,8 @@ public class EastPiece extends JPanel implements PropertyChangeListener {
         g2d.setColor(Color.MAGENTA);
         g2d.setStroke(new BasicStroke(10));
 
-        //TODO myPiece should be the next piece not "S".
-        myPiece = TetrisPiece.getRandomPiece().getPoints();
-        for (Point block : myPiece) {
+        final Point[] blocks = myPiece.getPoints();
+        for (Point block : blocks) {
             //TODO edit to fit panel properly
             int x = block.x() * 30;
             int y = block.y() * 30;
