@@ -66,12 +66,18 @@ public class GUIWINDOW extends JPanel {
         setFocusable(true);
         requestFocus();
 
-        myTime.startTimer();
+        startTimer();
 //        WINDOW.getContentPane().add(time);
 //        WINDOW.pack();
 //        WINDOW.setVisible(true);
     }
 
+    /**
+     * Helper method to start the time.
+     */
+    private void startTimer(){
+        myTime.startTimer();
+    }
     /**
      * Create the GUI and show it.  For thread safety,
      * this method should be invoked from the
