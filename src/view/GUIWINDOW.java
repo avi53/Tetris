@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import model.Board;
 import model.TimeTicker;
+import model.Sound;
 
 
 /**
@@ -45,6 +46,8 @@ public class GUIWINDOW extends JPanel {
      */
     private Board myTetrisBoard  = new Board();
 
+    Sound sound = new Sound();
+
     /**
      * Creates LayOutManager on JPanel.
      */
@@ -68,9 +71,7 @@ public class GUIWINDOW extends JPanel {
         requestFocus();
 
         startTimer();
-//        WINDOW.getContentPane().add(time);
-//        WINDOW.pack();
-//        WINDOW.setVisible(true);
+        playMusic(0);
     }
 
     /**
@@ -199,6 +200,18 @@ public class GUIWINDOW extends JPanel {
         subMenu.add(exit);
         subMenu.add(about);
         return subMenu;
+    }
+    public void playMusic(final int theIndex) {
+        sound.setFile(theIndex);
+        sound.play();
+        sound.loop();
+    }
+    public void stopMusic() {
+        sound.stop();
+    }
+    public void playSE(final int theIndex) {
+        sound.setFile(theIndex);
+        sound.play();
     }
 
 }
