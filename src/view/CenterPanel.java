@@ -82,6 +82,7 @@ public class CenterPanel extends JPanel implements PropertyChangeListener {
              //   row[j]= Block.J;
            // }
         //}
+
         // for better graphics display
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
