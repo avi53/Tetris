@@ -7,6 +7,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -14,6 +16,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import model.Board;
+import model.TetrisPiece;
 import model.TimeTicker;
 import model.Sound;
 
@@ -26,7 +29,7 @@ import model.Sound;
  * @author Jose Rodriguez
  * @version Winter 2023
  */
-public class GUIWINDOW extends JPanel {
+public class GUIWINDOW extends JPanel implements PropertyChangeListener {
     /** frame width.*/
     private static final int FRAME_WIDTH = 500;
     /** frame height.*/
@@ -49,9 +52,14 @@ public class GUIWINDOW extends JPanel {
     Sound sound = new Sound();
 
     /**
+     * game over status to display
+     */
+    private boolean myGameOver;
+
+    /**
      * Creates LayOutManager on JPanel.
      */
-    public GUIWINDOW() {
+    public GUIWINDOW()  {
         super();
         myTetrisBoard.newGame();
         setLayout(new BorderLayout());
@@ -59,6 +67,7 @@ public class GUIWINDOW extends JPanel {
         final SouthPiece southpiece = new SouthPiece();
         final EastPiece eastpiece = new EastPiece();
         final CenterPanel centerpiece = new CenterPanel();
+        myTetrisBoard.addPropertyChangeListener(this);
         myTetrisBoard.addPropertyChangeListener(centerpiece);
         myTetrisBoard.addPropertyChangeListener(eastpiece);
         add(centerpiece, BorderLayout.CENTER);
@@ -91,6 +100,18 @@ public class GUIWINDOW extends JPanel {
         WINDOW.setResizable(true);
     }
 
+    @Override
+    public void propertyChange(PropertyChangeEvent theEvt) {
+        if (Board.PROPERTY_GAME_OVER.equals(theEvt.getPropertyName())) {
+            myGameOver= (boolean) theEvt.getNewValue();
+            if( myGameOver){
+                myTime.stopTimer();
+                System.out.println("Game is over");
+
+            }
+        }
+    }
+
     /**
      * ControlKeyListener is responsible to read key input from the
      * user and move the tetris piece according to the key pressed.
@@ -98,7 +119,7 @@ public class GUIWINDOW extends JPanel {
     class ControlKeyListener extends KeyAdapter {
         @Override
         public void keyPressed(final KeyEvent theEvent) {
-            if(myTime.checkTimer()) {
+            if(myTime.checkTimer()&& !myGameOver) {
                 if (theEvent.getKeyCode() == KeyEvent.VK_W) {
                     System.out.println("up");
                     myTetrisBoard.rotateCW();
@@ -116,7 +137,7 @@ public class GUIWINDOW extends JPanel {
                     myTetrisBoard.drop();
                 }
             }
-            if (theEvent.getKeyCode() == KeyEvent.VK_P) {
+            if (theEvent.getKeyCode() == KeyEvent.VK_P && !myGameOver) {
                 if (myTime.checkTimer()) {
                     myTime.stopTimer();
                     System.out.println("pause");
