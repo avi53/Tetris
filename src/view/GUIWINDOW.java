@@ -2,10 +2,11 @@ package view;
 
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
+import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -152,37 +153,58 @@ public class GUIWINDOW extends JPanel {
      */
     private JMenu buildFileMenu() {
         final JMenu menu = new JMenu("File");
-        menu.add(buildSubMenu());
+        menu.add(buildUserOptions());
         menu.addSeparator();
 
         return menu;
     }
 
     /**
-     * Builds a menu to demonstrate sub menus.
-     * @return a menu with several simple menu items.
+     * Builds the menu Items and adds actionlisteners.
+     * Also adds to the sub menu of user options and returns it.
      */
-    private JMenu buildSubMenu() {
+    private JMenu buildUserOptions () {
+        final JMenuItem newGame = new JMenuItem("New Game");
+        final JMenuItem exit = new JMenuItem("Exit");
+        final JMenuItem about = new JMenuItem("About");
+        /**
+         * When the New Game option is pressed, start a new game.
+         */
+        newGame.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(newGame, "New Game");
+                myTetrisBoard.newGame();
+            }
+        });
+        /**
+         * Closes the window when the exit item is clicked.
+         */
+        exit.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(exit, "Exit");
+                WINDOW.dispatchEvent(new WindowEvent(WINDOW, WindowEvent.WINDOW_CLOSING));
+            }
+        });
+        /**
+         * Adds an about screen.
+         */
+        about.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(about, "This is group 6's Tetris project");
+
+            }
+        });
         final JMenu subMenu = new JMenu("User Options");
-
-        subMenu.add(buildSimpleMenuItem("New Game"));
-        subMenu.add(buildSimpleMenuItem("Exit"));
-        subMenu.add(buildSimpleMenuItem("About"));
-
+        subMenu.add(newGame);
+        subMenu.add(exit);
+        subMenu.add(about);
         return subMenu;
     }
-    /**
-     * Builds a simple menu item.
-     *
-     * @param theText the text to appear on the menu item
-     * @return a simple menu item
-     */
-    private JMenuItem buildSimpleMenuItem(final String theText) {
-        final JMenuItem item = new JMenuItem(theText);
-        item.addActionListener(theEvent ->
-                JOptionPane.showMessageDialog(this, theText));
-        return item;
-    }
-
 
 }
