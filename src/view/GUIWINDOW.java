@@ -52,7 +52,6 @@ public class GUIWINDOW extends JPanel {
         super();
         myTetrisBoard.newGame();
         setLayout(new BorderLayout());
-
         final WestPiece westpiece = new WestPiece();
         final SouthPiece southpiece = new SouthPiece();
         final EastPiece eastpiece = new EastPiece();
