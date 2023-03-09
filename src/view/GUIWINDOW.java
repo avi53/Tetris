@@ -54,7 +54,7 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
     /**
      * game over status to display
      */
-    private boolean myGameOver;
+    private boolean myGameOverDisplay;
 
     /**
      * Creates LayOutManager on JPanel.
@@ -103,12 +103,12 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
     @Override
     public void propertyChange(PropertyChangeEvent theEvt) {
         if (Board.PROPERTY_GAME_OVER.equals(theEvt.getPropertyName())) {
-            myGameOver= (boolean) theEvt.getNewValue();
-            if( myGameOver){
+            myGameOverDisplay= (boolean) theEvt.getNewValue();
+            if( myGameOverDisplay){
                 myTime.stopTimer();
                 System.out.println("Game is over");
 
-            } else if (!myGameOver) {
+            } else if (!myGameOverDisplay) {
                 myTime.restartTimer();
             }
         }
@@ -121,7 +121,7 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
     class ControlKeyListener extends KeyAdapter {
         @Override
         public void keyPressed(final KeyEvent theEvent) {
-            if(myTime.checkTimer()&& !myGameOver) {
+            if(myTime.checkTimer()&& !myGameOverDisplay) {
                 if (theEvent.getKeyCode() == KeyEvent.VK_W) {
                     System.out.println("up");
                     myTetrisBoard.rotateCW();
@@ -139,7 +139,7 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
                     myTetrisBoard.drop();
                 }
             }
-            if (theEvent.getKeyCode() == KeyEvent.VK_P && !myGameOver) {
+            if (theEvent.getKeyCode() == KeyEvent.VK_P && !myGameOverDisplay) {
                 if (myTime.checkTimer()) {
                     myTime.stopTimer();
                     System.out.println("pause");
@@ -185,6 +185,7 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
         final JMenuItem endGame = new JMenuItem("End Game");
         final JMenuItem exit = new JMenuItem("Exit");
         final JMenuItem about = new JMenuItem("About");
+        final JMenuItem scoreAlgorithim = new JMenuItem("Score Algorithim");
 
         /**
          * When the New Game option is pressed, start a new game.'
@@ -194,12 +195,12 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(myGameOver) {
+                if(myGameOverDisplay) {
                     JOptionPane.showMessageDialog(newGame, "New Game");
                     myTetrisBoard.newGame();
-                    myGameOver= false;
+                    myGameOverDisplay= false;
                     myTime.restartTimer();
-                } else if(!myGameOver){
+                } else if(!myGameOverDisplay){
                     JOptionPane.showMessageDialog(newGame, "Current game has not ended yet!");
                 }
             }
@@ -211,11 +212,11 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(!myGameOver) {
+                if(!myGameOverDisplay) {
                     JOptionPane.showMessageDialog(endGame, "Game Ended");
-                    myGameOver= true;
+                    myGameOverDisplay= true;
                     myTime.stopTimer();
-                } else if( myGameOver){
+                } else if( myGameOverDisplay){
                     JOptionPane.showMessageDialog(endGame, "Game Already Ended!");
                 }
             }
