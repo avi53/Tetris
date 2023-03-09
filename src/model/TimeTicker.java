@@ -50,7 +50,12 @@ public class TimeTicker extends JLabel implements ActionListener {
     public void stopTimer() {
         myTimer.stop();
     }
-
+    /**
+     * Restarts the timer.
+     */
+    public void restartTimer() {
+        myTimer.restart();
+    }
     /**
      * Is responsible for handeling the event that is triggered by
      * the Timer.
