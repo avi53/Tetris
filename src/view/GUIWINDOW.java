@@ -83,8 +83,8 @@ public class GUIWINDOW extends JPanel {
     /**
      * Helper method to pause the time.
      */
-    private void pauseTimer(){
-
+    private void stopTimer(){
+    myTime.stopTimer();
     }
     /**
      * Create the GUI and show it.  For thread safety,

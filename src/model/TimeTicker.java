@@ -33,6 +33,14 @@ public class TimeTicker extends JLabel implements ActionListener {
         myTimer.start();
     }
 
+
+    /**
+     * Pause the timer when called.
+     */
+    public void stopTimer() {
+        myTimer.stop();
+    }
+
     /**
      * Is responsible for handeling the event that is triggered by
      * the Timer.
