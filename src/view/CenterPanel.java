@@ -64,8 +64,7 @@ public class CenterPanel extends JPanel implements PropertyChangeListener {
                 propertyName.equals(Board.PROPERTY_SEQUENCE_INDEX)) {
             //when board state changes everytime the board (center component) gets repainted
             repaint();
-        }
-        if (propertyName.equals(Board.PROPERTY_FROZEN_BLOCKS_SIZE)) {
+        }else if (propertyName.equals(Board.PROPERTY_FROZEN_BLOCKS_SIZE)) {
             myFrozenBlocks = (LinkedList<Block[]>) theEvt.getNewValue();
         }
     }
