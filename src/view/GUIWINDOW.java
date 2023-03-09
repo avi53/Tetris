@@ -243,11 +243,25 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
 
             }
         });
+        /**
+         * Communicates where the scoring algorithim is.
+         */
+        scoreAlgorithim.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(scoreAlgorithim, "                1 line    2 lines   3 lines   4 lines cleared " +
+                        "\nLevel 1:  40        100      300    1200 \nLevel 2:  80        200     600    2400 \nLevel 3:  120      300    900    3600 " +
+                        "\nLevel n:  40 * (n)  100 * (n)  300 * (n)  1200 * (n)  ");
+
+            }
+        });
         final JMenu subMenu = new JMenu("User Options");
         subMenu.add(newGame);
         subMenu.add(endGame);
         subMenu.add(exit);
         subMenu.add(about);
+        subMenu.add(scoreAlgorithim);
         return subMenu;
     }
     public void playMusic(final int theIndex) {
