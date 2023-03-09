@@ -70,23 +70,11 @@ public class GUIWINDOW extends JPanel {
         setFocusable(true);
         requestFocus();
 
-        startTimer();
+        myTime.startTimer();
         playMusic(0);
     }
 
-    /**
-     * Helper method to start the time.
-     */
-    private void startTimer(){
-        myTime.startTimer();
-    }
 
-    /**
-     * Helper method to pause the time.
-     */
-    private void stopTimer(){
-    myTime.stopTimer();
-    }
     /**
      * Create the GUI and show it.  For thread safety,
      * this method should be invoked from the
@@ -125,6 +113,12 @@ public class GUIWINDOW extends JPanel {
             } else if (theEvent.getKeyCode() == KeyEvent.VK_SPACE) {
                 System.out.println("space");
                 myTetrisBoard.drop();
+            }
+            if (theEvent.getKeyCode() == KeyEvent.VK_P) {
+                if (myTime.checkTimer()) {
+                    myTime.stopTimer();
+                    System.out.println("pause");
+                }
             }
         }
     }
