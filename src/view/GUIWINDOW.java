@@ -109,7 +109,7 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
                 System.out.println("Game is over");
 
             } else if (!myGameOver) {
-                myTime.startTimer();
+                myTime.restartTimer();
             }
         }
     }
@@ -198,7 +198,7 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
                     JOptionPane.showMessageDialog(newGame, "New Game");
                     myTetrisBoard.newGame();
                     myGameOver= false;
-                    myTime.startTimer();
+                    myTime.restartTimer();
                 } else if(!myGameOver){
                     JOptionPane.showMessageDialog(newGame, "Current game has not ended yet!");
                 }
