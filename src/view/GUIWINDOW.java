@@ -43,14 +43,14 @@ public class GUIWINDOW extends JPanel {
     /**
      * Board object to be referenced.
      */
-    private Board myTetrisBoard;
+    private Board myTetrisBoard  = new Board();
 
     /**
      * Creates LayOutManager on JPanel.
      */
     public GUIWINDOW() {
         super();
-        myTetrisBoard = new Board();
+        myTetrisBoard.newGame();
         setLayout(new BorderLayout());
 
         final WestPiece westpiece = new WestPiece();
@@ -113,7 +113,8 @@ public class GUIWINDOW extends JPanel {
             if (theEvent.getKeyCode() == KeyEvent.VK_W) {
                 System.out.println("up");
                 myTetrisBoard.rotateCW();
-            } else if (theEvent.getKeyCode() == KeyEvent.VK_S) {
+            }
+            if (theEvent.getKeyCode() == KeyEvent.VK_S) {
                 System.out.println("down");
                 myTetrisBoard.down();
             }else if (theEvent.getKeyCode() == KeyEvent.VK_A) {
@@ -122,7 +123,8 @@ public class GUIWINDOW extends JPanel {
             } else if (theEvent.getKeyCode() == KeyEvent.VK_D) {
                 System.out.println("right");
                 myTetrisBoard.right();
-            }else if (theEvent.getKeyCode() == KeyEvent.VK_SPACE) {
+            }
+            if (theEvent.getKeyCode() == KeyEvent.VK_SPACE) {
                 System.out.println("space");
                 myTetrisBoard.drop();
             }
