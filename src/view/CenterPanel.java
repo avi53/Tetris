@@ -76,12 +76,12 @@ public class CenterPanel extends JPanel implements PropertyChangeListener {
         final Graphics2D g2d = (Graphics2D) theGraphics;
 
         // going through the frozen blocks list.
-        for(int i=0; i< myFrozenBlocks.size();i++) {
-           final Block[] row= myFrozenBlocks.get(i);
-            for (int j=0; j< row.length; j++) {
-                row[j]= Block.J;
-            }
-        }
+       // for(int i=0; i< myFrozenBlocks.size();i++) {
+          // final Block[] row= myFrozenBlocks.get(i);
+           // for (int j=0; j< row.length; j++) {
+             //   row[j]= Block.J;
+           // }
+        //}
         // for better graphics display
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
