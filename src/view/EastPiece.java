@@ -54,17 +54,18 @@ public class EastPiece extends JPanel implements PropertyChangeListener {
         Graphics2D g2d = (Graphics2D) g;
 
         final Point[] blocks = myPiece.getPoints();
+
         for (Point block : blocks) {
             //TODO edit to fit panel properly
             int x = block.x() * 30;
             int y = block.y() * 30;
-            GradientPaint gradient = new GradientPaint(x, y, Color.RED, x, y + 15, new Color(200,200,200));
-            g2d.setPaint(gradient);
 
             final Shape rectangle = new Rectangle2D.Double(x+50,y-10,30,30);
+            g2d.setPaint(Color.RED);
+            g2d.setStroke(new BasicStroke(10));
             g2d.fill(rectangle);
-            g2d.setStroke(new BasicStroke(1));
-            g2d.setPaint(Color.WHITE);
+            g2d.setPaint(Color.BLACK);
+            g2d.setStroke(new BasicStroke(3));
             g2d.draw(rectangle);
         }
     }

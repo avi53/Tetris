@@ -73,6 +73,7 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
         myTetrisBoard.addPropertyChangeListener(this);
         myTetrisBoard.addPropertyChangeListener(centerpiece);
         myTetrisBoard.addPropertyChangeListener(eastpiece);
+        myTetrisBoard.addPropertyChangeListener(westpiece);
         add(centerpiece, BorderLayout.CENTER);
         add(westpiece, BorderLayout.WEST);
         add(southpiece, BorderLayout.SOUTH);
