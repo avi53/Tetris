@@ -55,23 +55,43 @@ public class SouthPiece extends JPanel {
         setLayout(new GridLayout(5,3));
         setBackground(Color.BLACK);
         setPreferredSize(new Dimension(SOUTH_WIDTH, SOUTH_HEIGHT));
+
+        createMsgLabels();
+        setColorMsgLabel();
+        addMsgLabels();
+
+    }
+
+    /**
+     * Helper method to Initialize message labels.
+     */
+    private void createMsgLabels(){
         myMessageLabel1 = new JLabel("Move Left: A ");
         myMessageLabel2 = new JLabel("Move Right: D ");
         myMessageLabel3 = new JLabel("Rotate: W");
         myMessageLabel4= new JLabel("Move Down: S");
         myMessageLabel5 = new JLabel("Drop: space");
-
-
-        myMessageLabel1.setVerticalAlignment(JLabel.TOP);
-        myMessageLabel1.setHorizontalAlignment(JLabel.LEFT);
+    }
+    /**
+     * Helper method to set Message colors.
+     */
+    private void setColorMsgLabel(){
         myMessageLabel1.setForeground(Color.WHITE);
+        myMessageLabel2.setForeground(Color.WHITE);
+        myMessageLabel3.setForeground(Color.WHITE);
+        myMessageLabel4.setForeground(Color.WHITE);
+        myMessageLabel5.setForeground(Color.WHITE);
+    }
+
+    /**
+     * Helper method to add message labels to panel.
+     */
+    private void addMsgLabels (){
         add(myMessageLabel1);
         add(myMessageLabel2);
         add(myMessageLabel3);
         add(myMessageLabel4);
         add(myMessageLabel5);
 
-
     }
-
 }
