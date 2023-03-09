@@ -118,6 +118,9 @@ public class GUIWINDOW extends JPanel {
                 if (myTime.checkTimer()) {
                     myTime.stopTimer();
                     System.out.println("pause");
+                } else if (!myTime.checkTimer()) {
+                    myTime.startTimer();
+                    System.out.println("start");
                 }
             }
         }
