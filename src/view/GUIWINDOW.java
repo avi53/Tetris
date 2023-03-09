@@ -108,6 +108,8 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
                 myTime.stopTimer();
                 System.out.println("Game is over");
 
+            } else if (!myGameOver) {
+                myTime.startTimer();
             }
         }
     }
@@ -180,17 +182,42 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
      */
     private JMenu buildUserOptions () {
         final JMenuItem newGame = new JMenuItem("New Game");
+        final JMenuItem endGame = new JMenuItem("End Game");
         final JMenuItem exit = new JMenuItem("Exit");
         final JMenuItem about = new JMenuItem("About");
+
         /**
-         * When the New Game option is pressed, start a new game.
+         * When the New Game option is pressed, start a new game.'
+         * User's current game must end to start new game.
          */
         newGame.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(newGame, "New Game");
-                myTetrisBoard.newGame();
+                if(myGameOver) {
+                    JOptionPane.showMessageDialog(newGame, "New Game");
+                    myTetrisBoard.newGame();
+                    myGameOver= false;
+                    myTime.startTimer();
+                } else if(!myGameOver){
+                    JOptionPane.showMessageDialog(newGame, "Current game has not ended yet!");
+                }
+            }
+        });
+        /**
+         * The current game is ended and paused.
+         */
+        endGame.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(!myGameOver) {
+                    JOptionPane.showMessageDialog(endGame, "Game Ended");
+                    myGameOver= true;
+                    myTime.stopTimer();
+                } else if( myGameOver){
+                    JOptionPane.showMessageDialog(endGame, "Game Already Ended!");
+                }
             }
         });
         /**
@@ -217,6 +244,7 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
         });
         final JMenu subMenu = new JMenu("User Options");
         subMenu.add(newGame);
+        subMenu.add(endGame);
         subMenu.add(exit);
         subMenu.add(about);
         return subMenu;
