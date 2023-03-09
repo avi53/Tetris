@@ -34,6 +34,13 @@ public class CenterPanel extends JPanel implements PropertyChangeListener {
     /** temp width setting. */
     private static final int WIDTH = 10;
 
+    /** temp height setting. */
+    private static final int HEIGHT1 = 50;
+
+    /** temp width setting. */
+    private static final int WIDTH2 = 50;
+
+
     /** shape. */
     private final Rectangle2D myShape;
 
@@ -44,7 +51,7 @@ public class CenterPanel extends JPanel implements PropertyChangeListener {
     public CenterPanel() {
         super();
         createCenterPiece();
-        myShape = new Rectangle2D.Double(0 , 0, 50, 50);
+        myShape = new Rectangle2D.Double(0 , 0, WIDTH2, HEIGHT1);
 
         myFrozenBlocks = new LinkedList<>();
 
