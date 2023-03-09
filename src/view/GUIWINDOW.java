@@ -112,8 +112,7 @@ public class GUIWINDOW extends JPanel {
             if (theEvent.getKeyCode() == KeyEvent.VK_W) {
                 System.out.println("up");
                 myTetrisBoard.rotateCW();
-            }
-            if (theEvent.getKeyCode() == KeyEvent.VK_S) {
+            }else if (theEvent.getKeyCode() == KeyEvent.VK_S) {
                 System.out.println("down");
                 myTetrisBoard.down();
             }else if (theEvent.getKeyCode() == KeyEvent.VK_A) {
@@ -122,8 +121,7 @@ public class GUIWINDOW extends JPanel {
             } else if (theEvent.getKeyCode() == KeyEvent.VK_D) {
                 System.out.println("right");
                 myTetrisBoard.right();
-            }
-            if (theEvent.getKeyCode() == KeyEvent.VK_SPACE) {
+            } else if (theEvent.getKeyCode() == KeyEvent.VK_SPACE) {
                 System.out.println("space");
                 myTetrisBoard.drop();
             }
