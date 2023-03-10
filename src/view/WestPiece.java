@@ -47,7 +47,16 @@ public class WestPiece extends JPanel implements PropertyChangeListener {
     /**
      * Score multiplier.
      */
-    private int  scoreMultiplier;
+    private int  myScoreMultiplier;
+    /**
+     * Lines that were cleared for the current level.
+     */
+    private int myLinescleared;
+
+    /**
+     * Lines that were cleared for the whole game.
+     */
+    private int myTotalLinesCleared;
     /** The background color. */
     private LinkedList<Block[]> myFrozenBlocks;
 
@@ -60,6 +69,8 @@ public class WestPiece extends JPanel implements PropertyChangeListener {
     public WestPiece() {
         super();
         gameStatus = new JLabel("");
+        myTotalLinesCleared=0;
+        myLinescleared =0;
         level = 0;
         score = 0;
         myFrozenBlocks = new LinkedList<>();
@@ -127,12 +138,20 @@ public class WestPiece extends JPanel implements PropertyChangeListener {
 
         botPanel.add(gameLines);
     }
+    /**
+     * Calculates score when a line is cleared.
+     */
+    public int calculateScoreLineClear(){
+        return 40* myTotalLinesCleared;
+
+    }
 
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if (!Board.PROPERTY_GAME_OVER.equals(evt.getPropertyName())) {
             gameStatus.setText("Game on");
+            level =1;
         }
         if (Board.PROPERTY_GAME_OVER.equals(evt.getPropertyName())) {
             gameStatus.setText("GAME OVER");
@@ -146,11 +165,15 @@ public class WestPiece extends JPanel implements PropertyChangeListener {
             gamePoints.setText(Integer.toString(score));
             levelLabel.setText(Integer.toString(level));
         }
-        if (Board.PROPERTY_FROZEN_BLOCKS_SIZE.equals(evt.getPropertyName())) { //TODO add counter.
-            myFrozenBlocks = (LinkedList<Block[]>) evt.getNewValue();
-            if (myFrozenBlocks.isEmpty()) {
-                System.out.println("Empty");
+        if (Board.PROPERTY_COMPLETE_ROWS_LIST.equals(evt.getPropertyName())) { //TODO add counter.
+            myTotalLinesCleared++;
+            if(myLinescleared <= 4) {
+                myLinescleared++;
+            }else if( myLinescleared >4) {
+                level = level + 1;
+                myLinescleared=1;
             }
+
         }
     }
 }
