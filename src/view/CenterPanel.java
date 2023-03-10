@@ -29,28 +29,42 @@ public class CenterPanel extends JPanel implements PropertyChangeListener {
      */
     private static final int PIECE_SIZE = 50;
 
-    /** temp height setting. */
+    /**
+     * temp height setting.
+     */
     private static final int HEIGHT = 20;
 
-    /** temp width setting. */
+    /**
+     * temp width setting.
+     */
     private static final int WIDTH = 10;
 
-    /** temp height setting. */
+    /**
+     * temp height setting.
+     */
     private static final int HEIGHT1 = 50;
 
-    /** temp width setting. */
+    /**
+     * temp width setting.
+     */
     private static final int WIDTH2 = 50;
 
 
-    /** shape. */
+    /**
+     * shape.
+     */
     private final Rectangle2D myShape;
 
-    /** Tetris piece. */
+    /**
+     * Tetris piece.
+     */
     private TetrisPiece myPiece;
 
 
-    /** List of Frozen blocks */
-    private  LinkedList<Block []> myFrozenBlocks;
+    /**
+     * List of Frozen blocks.
+     */
+    private LinkedList<Block[]> myFrozenBlocks;
 
     public CenterPanel() {
         super();
@@ -72,6 +86,7 @@ public class CenterPanel extends JPanel implements PropertyChangeListener {
 
         myPiece = TetrisPiece.getRandomPiece();
     }
+
     private void createCenterPiece() {
         setPreferredSize(new Dimension(CENTER_WIDTH, CENTER_HEIGHT));
     }
@@ -103,7 +118,19 @@ public class CenterPanel extends JPanel implements PropertyChangeListener {
         repaint();
     }
 
-    
+    private Color getBlockColor(final Block theBlock) {
+        return switch (theBlock) {
+            case I -> Color.CYAN;
+            case J -> Color.BLUE;
+            case L -> Color.ORANGE;
+            case O -> Color.YELLOW;
+            case S -> Color.GREEN;
+            case T -> Color.MAGENTA;
+            case Z -> Color.RED;
+            default -> Color.WHITE;
+        };
+    }
+
 
     @Override
     public void paintComponent(final Graphics theGraphics) {
@@ -122,55 +149,19 @@ public class CenterPanel extends JPanel implements PropertyChangeListener {
             for (int j = 0; j < row.length; j++) {
 
                 if (row[j] != Block.EMPTY) {
-
-                    final Color block;
-
-                    switch (myPiece.getBlock()) {
-
-                        case I:
-                            block = Color.CYAN;
-                            break;
-
-                        case J:
-                            block = Color.BLUE;
-                            break;
-
-                        case L:
-                            block = Color.ORANGE;
-                            break;
-
-                        case O:
-                            block = Color.YELLOW;
-                            break;
-
-                        case S:
-                            block = Color.GREEN;
-                            break;
-
-                        case T:
-                            block = Color.MAGENTA;
-                            break;
-
-                        case Z:
-                            block = Color.RED;
-                            break;
-
-                        default:
-                            block = Color.WHITE;
-                            break;
-                    }
-
-                    g2d.setPaint(block);
+                    final Block block = myPiece.getBlock();
+                    final Color colorBlock = getBlockColor(block);
+                    g2d.setPaint(colorBlock);
                     g2d.fill(new Rectangle2D.Double(j * PIECE_SIZE,
-                           i * PIECE_SIZE,
-                           PIECE_SIZE,
-                           PIECE_SIZE));
+                            i * PIECE_SIZE,
+                            PIECE_SIZE,
+                            PIECE_SIZE));
                 }
             }
         }
 
         //draws grid lines on the board
-        g2d.setPaint(Color.RED);
+        g2d.setPaint(Color.BLACK);
         for (int row = 0; row < HEIGHT; row++) {
             for (int col = 0; col < WIDTH; col++) {
                 g2d.draw(new Rectangle2D.Double(col * PIECE_SIZE,
