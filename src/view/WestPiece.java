@@ -40,6 +40,11 @@ public class WestPiece extends JPanel implements PropertyChangeListener {
      */
     private int score;
 
+    /**
+     * Score multiplier.
+     */
+    private int  scoreMultiplier;
+
 
 
     /**
