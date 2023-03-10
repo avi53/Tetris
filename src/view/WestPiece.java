@@ -30,11 +30,13 @@ public class WestPiece extends JPanel implements PropertyChangeListener {
 
     private JLabel gameStatus;
     private JLabel gamePoints;
+
+    private int myLines;
     private JLabel gameLines;
     private JPanel topPanel;
     private JPanel centerPanel;
     private JPanel botPanel;
-    private int level = 1;
+    private int level;
     private JLabel levelLabel;
 
     /**
@@ -57,8 +59,10 @@ public class WestPiece extends JPanel implements PropertyChangeListener {
      */
     public WestPiece() {
         super();
-
-
+        gameStatus = new JLabel("");
+        level = 0;
+        score = 0;
+        myFrozenBlocks = new LinkedList<>();
         createTop();
         createCenter();
         createBot();
@@ -86,7 +90,7 @@ public class WestPiece extends JPanel implements PropertyChangeListener {
 
     private void createTop() {
         topPanel = new JPanel();
-        gamePoints = new JLabel("temp");
+        gamePoints = new JLabel(Integer.toString(score));
 
         topPanel.setPreferredSize(new Dimension(WEST_WIDTH + 60, WEST_HEIGHT + 60));
         Border border = BorderFactory.createCompoundBorder(BorderFactory.createTitledBorder
@@ -97,7 +101,7 @@ public class WestPiece extends JPanel implements PropertyChangeListener {
     }
     private void createCenter() {
         centerPanel = new JPanel();
-        gameStatus = new JLabel("");
+
         levelLabel = new JLabel(Integer.toString(level));
 
 
@@ -113,7 +117,7 @@ public class WestPiece extends JPanel implements PropertyChangeListener {
 
     private void createBot() {
         botPanel = new JPanel();
-        gameLines = new JLabel("temp");
+        gameLines = new JLabel(Integer.toString(myLines));
 
         botPanel.setPreferredSize(new Dimension(WEST_WIDTH + 60, WEST_HEIGHT + 60));
         Border border = BorderFactory.createCompoundBorder(BorderFactory.createTitledBorder
@@ -124,17 +128,30 @@ public class WestPiece extends JPanel implements PropertyChangeListener {
         botPanel.add(gameLines);
     }
 
+
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+        if (!Board.PROPERTY_GAME_OVER.equals(evt.getPropertyName())) {
+            gameStatus.setText("Game on");
+        }
         if (Board.PROPERTY_GAME_OVER.equals(evt.getPropertyName())) {
             gameStatus.setText("GAME OVER");
-        }
-        if (Board.PROPERTY_COMPLETE_ROWS_LIST.equals(evt.getPropertyName())) {
-            gameLines.setText("LINES");
+            level = 0;
+            score = 0;
         }
         if (Board.PROPERTY_NEXT_PIECE.equals(evt.getPropertyName())) {
-            level++;
+            level = level + 1;
+            if (level > 1) {
+                score = score + 4;
+            }
+            gamePoints.setText(Integer.toString(score));
             levelLabel.setText(Integer.toString(level));
+        }
+        if (Board.PROPERTY_FROZEN_BLOCKS_SIZE.equals(evt.getPropertyName())) { //TODO add counter.
+            myFrozenBlocks = (LinkedList<Block[]>) evt.getNewValue();
+            if (myFrozenBlocks.isEmpty()) {
+                System.out.println("Empty");
+            }
         }
     }
 }
