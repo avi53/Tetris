@@ -1,10 +1,12 @@
 package view;
 
+import model.Block;
 import model.Board;
 
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.LinkedList;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
@@ -44,6 +46,9 @@ public class WestPiece extends JPanel implements PropertyChangeListener {
      * Score multiplier.
      */
     private int  scoreMultiplier;
+    /** The background color. */
+    private LinkedList<Block[]> myFrozenBlocks;
+
 
 
 

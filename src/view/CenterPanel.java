@@ -45,7 +45,7 @@ public class CenterPanel extends JPanel implements PropertyChangeListener {
     private final Rectangle2D myShape;
 
 
-    /** The background color. */
+    /** List of Frozen blocks */
     private  LinkedList<Block []> myFrozenBlocks;
 
     public CenterPanel() {
