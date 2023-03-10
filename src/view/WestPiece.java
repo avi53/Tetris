@@ -35,6 +35,11 @@ public class WestPiece extends JPanel implements PropertyChangeListener {
     private int level = 1;
     private JLabel levelLabel;
 
+    /**
+     * Counter for the points.
+     */
+    private int score;
+
 
 
     /**
