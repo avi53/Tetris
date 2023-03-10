@@ -140,10 +140,9 @@ public class WestPiece extends JPanel implements PropertyChangeListener {
             score = 0;
         }
         if (Board.PROPERTY_NEXT_PIECE.equals(evt.getPropertyName())) {
-            level = level + 1;
-            if (level > 1) {
+
                 score = score + 4;
-            }
+
             gamePoints.setText(Integer.toString(score));
             levelLabel.setText(Integer.toString(level));
         }
