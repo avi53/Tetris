@@ -21,12 +21,13 @@ public class EastPiece extends JPanel implements PropertyChangeListener {
     private static final int EAST_HEIGHT = 500;
     private TetrisPiece myPiece;
 
+
     /**
      * East piece constructor. Initialize the east piece panel.
      */
     public EastPiece() {
         super();
-        myPiece = TetrisPiece.getRandomPiece();//FIXME instantiate myPiece correctly in constructor.
+
         createEastPiece();
     }
 
@@ -41,6 +42,8 @@ public class EastPiece extends JPanel implements PropertyChangeListener {
 
     @Override
     public void propertyChange(final PropertyChangeEvent theEvent) {
+
+
         if (Board.PROPERTY_NEXT_PIECE.equals(theEvent.getPropertyName())) {
             myPiece = (TetrisPiece) theEvent.getNewValue();
             repaint();
@@ -49,18 +52,27 @@ public class EastPiece extends JPanel implements PropertyChangeListener {
 
     @Override
     public void paintComponent(Graphics g) {
+
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
-        g2d.setColor(Color.MAGENTA);
-        g2d.setStroke(new BasicStroke(10));
 
-        final Point[] blocks = myPiece.getPoints();
-        for (Point block : blocks) {
-            //TODO edit to fit panel properly
-            int x = block.x() * 30;
-            int y = block.y() * 30;
-            final Shape rectangle = new Rectangle2D.Double(x+50,y-10,30,30);
-            g2d.draw(rectangle);
+
+
+        if (myPiece != null) {
+            final Point[] blocks = myPiece.getPoints();
+            for (Point block : blocks) {
+                //TODO edit to fit panel properly
+                int x = block.x() * 30;
+                int y = block.y() * 30;
+
+                final Shape rectangle = new Rectangle2D.Double(x + 50, y - 10, 30, 30);
+                g2d.setPaint(Color.RED);
+                g2d.setStroke(new BasicStroke(10));
+                g2d.fill(rectangle);
+                g2d.setPaint(Color.BLACK);
+                g2d.setStroke(new BasicStroke(3));
+                g2d.draw(rectangle);
+            }
         }
     }
 }

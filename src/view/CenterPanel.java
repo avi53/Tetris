@@ -49,7 +49,7 @@ public class CenterPanel extends JPanel implements PropertyChangeListener {
     private TetrisPiece myPiece;
 
 
-    /** The background color. */
+    /** List of Frozen blocks */
     private  LinkedList<Block []> myFrozenBlocks;
 
     public CenterPanel() {
