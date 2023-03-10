@@ -277,6 +277,14 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
         subMenu.add(scoreAlgorithim);
         return subMenu;
     }
+
+    /**
+     * Getter method to return game over status.
+     * @return the gameOver status to display.
+     */
+    public boolean getGameOverToDisplay(){
+        return myGameOverDisplay;
+    }
     public void playMusic(final int theIndex) {
         mySound.setFile(theIndex);
         mySound.play();
