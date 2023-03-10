@@ -12,6 +12,7 @@ import java.util.LinkedList;
 import javax.swing.JPanel;
 import model.Block;
 import model.Board;
+import model.TetrisPiece;
 
 public class CenterPanel extends JPanel implements PropertyChangeListener {
     /**
@@ -44,6 +45,9 @@ public class CenterPanel extends JPanel implements PropertyChangeListener {
     /** shape. */
     private final Rectangle2D myShape;
 
+    /** Tetris piece. */
+    private TetrisPiece myPiece;
+
 
     /** The background color. */
     private  LinkedList<Block []> myFrozenBlocks;
@@ -51,7 +55,8 @@ public class CenterPanel extends JPanel implements PropertyChangeListener {
     public CenterPanel() {
         super();
         createCenterPiece();
-        myShape = new Rectangle2D.Double(0 , 0, WIDTH2, HEIGHT1);
+
+        myShape = new Rectangle2D.Double(0, 0, WIDTH2, HEIGHT1);
 
         myFrozenBlocks = new LinkedList<>();
 
@@ -64,8 +69,9 @@ public class CenterPanel extends JPanel implements PropertyChangeListener {
 
             myFrozenBlocks.add(row);
         }
-    }
 
+        myPiece = TetrisPiece.getRandomPiece();
+    }
     private void createCenterPiece() {
         setPreferredSize(new Dimension(CENTER_WIDTH, CENTER_HEIGHT));
     }
@@ -90,7 +96,11 @@ public class CenterPanel extends JPanel implements PropertyChangeListener {
 
         } else if ("rotation".equals(theEvt.getPropertyName())) {
             repaint();
+        } else if (Board.PROPERTY_NEXT_PIECE.equals(theEvt.getPropertyName())) {
+            myPiece = (TetrisPiece) theEvt.getNewValue();
+            repaint();
         }
+        repaint();
     }
 
     
@@ -112,7 +122,45 @@ public class CenterPanel extends JPanel implements PropertyChangeListener {
             for (int j = 0; j < row.length; j++) {
 
                 if (row[j] != Block.EMPTY) {
-                    g2d.setPaint(Color.RED);
+
+                    final Color block;
+
+                    switch (myPiece.getBlock()) {
+
+                        case I:
+                            block = Color.CYAN;
+                            break;
+
+                        case J:
+                            block = Color.BLUE;
+                            break;
+
+                        case L:
+                            block = Color.ORANGE;
+                            break;
+
+                        case O:
+                            block = Color.YELLOW;
+                            break;
+
+                        case S:
+                            block = Color.GREEN;
+                            break;
+
+                        case T:
+                            block = Color.MAGENTA;
+                            break;
+
+                        case Z:
+                            block = Color.RED;
+                            break;
+
+                        default:
+                            block = Color.WHITE;
+                            break;
+                    }
+
+                    g2d.setPaint(block);
                     g2d.fill(new Rectangle2D.Double(j * PIECE_SIZE,
                            i * PIECE_SIZE,
                            PIECE_SIZE,
@@ -120,8 +168,9 @@ public class CenterPanel extends JPanel implements PropertyChangeListener {
                 }
             }
         }
-        g2d.setPaint(Color.RED);
 
+        //draws grid lines on the board
+        g2d.setPaint(Color.RED);
         for (int row = 0; row < HEIGHT; row++) {
             for (int col = 0; col < WIDTH; col++) {
                 g2d.draw(new Rectangle2D.Double(col * PIECE_SIZE,
