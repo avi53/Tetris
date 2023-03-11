@@ -215,7 +215,7 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
 
             @Override
             public void actionPerformed(final ActionEvent theE) {
-                JOptionPane.showMessageDialog(exit, "Exit");
+                JOptionPane.showMessageDialog(exit, "Exit!");
                 WINDOW.dispatchEvent(new WindowEvent(WINDOW, WindowEvent.WINDOW_CLOSING));
             }
         });
