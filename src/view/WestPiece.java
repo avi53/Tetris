@@ -3,10 +3,13 @@ package view;
 import model.Block;
 import model.Board;
 import model.MovableTetrisPiece;
+import model.TimeTicker;
+import view.GUIWINDOW;
 
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.sql.Time;
 import java.util.LinkedList;
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -62,6 +65,10 @@ public class WestPiece extends JPanel implements PropertyChangeListener {
     private int myTotalLinesCleared;
     /** The background color. */
     private LinkedList<Block[]> myFrozenBlocks;
+    /**
+     * My timer.
+     */
+    private TimeTicker myTime;
     private boolean isGameOver;
     GUIWINDOW guiwindow;
 
@@ -73,7 +80,7 @@ public class WestPiece extends JPanel implements PropertyChangeListener {
      */
     public WestPiece() {
         super();
-
+        myTime = GUIWINDOW.getTimer();
         pieceCounter = 0;
         gameStatus = new JLabel("");
         myTotalLinesCleared=0;
@@ -191,11 +198,12 @@ public class WestPiece extends JPanel implements PropertyChangeListener {
             }
             if (myLinescleared > 4) {
                 level++;
+                myTime.speedUpTimer();
                 myLinescleared = 0;
             }
         }
     }
-    public static int getLevel() {
-        return level;
-    }
+//    public static int getLevel() {
+//        return level;
+//    }
 }
