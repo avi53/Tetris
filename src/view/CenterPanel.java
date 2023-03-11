@@ -1,10 +1,6 @@
 package view;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
+import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -12,8 +8,8 @@ import java.util.LinkedList;
 import javax.swing.JPanel;
 import model.Block;
 import model.Board;
+import model.Point;
 import model.TetrisPiece;
-
 public class CenterPanel extends JPanel implements PropertyChangeListener {
     /**
      * center width.
@@ -141,6 +137,16 @@ public class CenterPanel extends JPanel implements PropertyChangeListener {
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
 
+        // Draw the current piece on the board
+        final Color pieceColor = getBlockColor(myPiece.getBlock());
+        g2d.setPaint(pieceColor);
+        for (final Point p : myPiece.getPoints()) {
+            final double x = p.x() * PIECE_SIZE;
+            final double y = p.y() * PIECE_SIZE;
+            final Rectangle2D block = new Rectangle2D.Double(x, y, PIECE_SIZE, PIECE_SIZE);
+            g2d.fill(block);
+        }
+
         // going through the frozen blocks list.
         for (int i = 0; i < myFrozenBlocks.size(); i++) {
 
@@ -170,7 +176,5 @@ public class CenterPanel extends JPanel implements PropertyChangeListener {
                         PIECE_SIZE));
             }
         }
-        g2d.setPaint(Color.RED);
-        g2d.fill(myShape);
     }
 }
