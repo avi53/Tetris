@@ -65,6 +65,19 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
     public GUIWINDOW()  {
         super();
         setLayout(new BorderLayout());
+        setUpComponents();
+
+        addKeyListener(new ControlKeyListener());
+        setFocusable(true);
+        requestFocus();
+
+        playMusic(0);
+    }
+
+    /**
+     * Helper method to set up components.
+     */
+    private void setUpComponents() {
         final WestPiece westpiece = new WestPiece();
         final SouthPiece southpiece = new SouthPiece();
         final EastPiece eastpiece = new EastPiece();
@@ -77,12 +90,6 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
         add(westpiece, BorderLayout.WEST);
         add(southpiece, BorderLayout.SOUTH);
         add(eastpiece, BorderLayout.EAST);
-
-        addKeyListener(new ControlKeyListener());
-        setFocusable(true);
-        requestFocus();
-
-        playMusic(0);
     }
 
 
