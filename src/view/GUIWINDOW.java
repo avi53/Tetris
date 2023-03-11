@@ -313,13 +313,16 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
                 }
             }
             if (theEvent.getKeyCode() == KeyEvent.VK_P && !myGameOverDisplay) {
-                if (myTime.checkTimer()) {
-                    myTime.stopTimer();
-                    System.out.println("pause");
-                } else if (!myTime.checkTimer()) {
-                    myTime.startTimer();
-                    System.out.println("start");
-                }
+                toggleTimer();
+            }
+        }
+        private void toggleTimer() {
+            if (myTime.checkTimer()) {
+                myTime.stopTimer();
+                System.out.println("pause");
+            } else if (!myTime.checkTimer()) {
+                myTime.startTimer();
+                System.out.println("start");
             }
         }
     }

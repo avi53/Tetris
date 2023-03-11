@@ -37,7 +37,7 @@ public class WestPiece extends JPanel implements PropertyChangeListener {
     private JPanel topPanel;
     private JPanel centerPanel;
     private JPanel botPanel;
-    private int level;
+    private static int level;
     private JLabel levelLabel;
     /** Buffer next piece. */
     private int pieceCounter;
@@ -194,5 +194,8 @@ public class WestPiece extends JPanel implements PropertyChangeListener {
                 myLinescleared = 0;
             }
         }
+    }
+    public static int getLevel() {
+        return level;
     }
 }

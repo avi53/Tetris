@@ -1,7 +1,12 @@
 package model;
 
+import view.GUIWINDOW;
+import view.WestPiece;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.Timer;
 
@@ -16,17 +21,24 @@ import javax.swing.Timer;
  */
 public class TimeTicker extends JLabel implements ActionListener {
     /** Timer field. */
-    private Timer myTimer;
+    private final Timer myTimer;
     /**
      * Counter field. */
     private int myCounter;
+    /**
+     * Delay Time.
+     */
+    private final int myDelay = 1000;
 
     /**
      * TimeTicker constructor that sets how often the timer "tick".
      */
     public TimeTicker() {
         super();
-        myTimer = new Timer(1000, this); // 1000 ms = 1 second
+        /**
+         * Timer delay.
+         */
+        myTimer = new Timer(myDelay, this); // 1000 ms = 1 second
     }
 
     /**
@@ -58,18 +70,27 @@ public class TimeTicker extends JLabel implements ActionListener {
     }
 
     /**
-     * Doubles the timer speed.
-     */
-    public void doubleTimer() {
-        myTimer.setDelay(500);
-    }
-    /**
      * Is responsible for handeling the event that is triggered by
      * the Timer.
      *
      * @param theE the event to be processed
      */
     public void actionPerformed(final ActionEvent theE) {
+        final ArrayList<Integer> delayTimes = new ArrayList<Integer>();
+        for (int i = 1000; i >= 50; i = i - 50) {
+            delayTimes.add(i);
+            System.out.println(i);
+        }
+
+        final int level = WestPiece.getLevel();
+        int delayTime = myDelay;
+        if (level > delayTimes.size()) {
+            delayTime = delayTimes.get(delayTimes.size() - 1);
+        } else {
+            delayTime = delayTimes.get(level - 1);
+        }
+        myTimer.setDelay(delayTime); // reset the Timer with the new delay time
+
         myCounter++;
         System.out.println("tick");
     }
