@@ -2,6 +2,7 @@ package view;
 
 
 import java.awt.BorderLayout;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -9,6 +10,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -59,12 +61,23 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
      */
     private boolean myGameOverDisplay = true;
 
+    /** ADDED by group 6
+     * Manager for Property Change Listeners in guiWindow.
+     */
+    private final PropertyChangeSupport myPcsGUIWINDOW;
+
+    /**
+     * A property name for the current GAME_OVER_STATUS property in the GUIWINDOW.
+     */
+    String PROPERTY_GAME_OVER_STATUS = "GAMEOVER";
+
     /**
      * Creates LayOutManager on JPanel.
      */
     public GUIWINDOW()  {
         super();
         setLayout(new BorderLayout());
+        myPcsGUIWINDOW= new PropertyChangeSupport(this);
         setUpComponents();
 
         addKeyListener(new ControlKeyListener());
@@ -86,6 +99,7 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
         myTetrisBoard.addPropertyChangeListener(centerpiece);
         myTetrisBoard.addPropertyChangeListener(eastpiece);
         myTetrisBoard.addPropertyChangeListener(westpiece);
+        this.addPropertyChangeListener(westpiece);
         add(centerpiece, BorderLayout.CENTER);
         add(westpiece, BorderLayout.WEST);
         add(southpiece, BorderLayout.SOUTH);
@@ -111,8 +125,10 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
 
     @Override
     public void propertyChange(final PropertyChangeEvent theEvt) {
+        final boolean oldGameOverDisplay=  myGameOverDisplay;
         if (Board.PROPERTY_GAME_OVER.equals(theEvt.getPropertyName())) {
             myGameOverDisplay = (boolean) theEvt.getNewValue();
+            myPcsGUIWINDOW.firePropertyChange(PROPERTY_GAME_OVER_STATUS,oldGameOverDisplay,myGameOverDisplay);
             if (myGameOverDisplay)  {
                 myTime.stopTimer();
                 System.out.println("Game is over");
@@ -187,8 +203,10 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
             public void actionPerformed(final ActionEvent theE) {
                 if (myGameOverDisplay) {
                     JOptionPane.showMessageDialog(newGame, "New Game");
+                    final boolean oldGameOverDisplay=  myGameOverDisplay;
                     myTetrisBoard.newGame();
                     myGameOverDisplay = false;
+                    myPcsGUIWINDOW.firePropertyChange(PROPERTY_GAME_OVER_STATUS,oldGameOverDisplay,myGameOverDisplay);
                     if (myTime.checkTimer()) {
                         myTime.restartTimer();
                     } else {
@@ -206,9 +224,11 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
 
             @Override
             public void actionPerformed(final ActionEvent theE) {
+                final boolean oldGameOverDisplay=  myGameOverDisplay;
                 if (!myGameOverDisplay) {
                     JOptionPane.showMessageDialog(endGame, "Game Ended");
                     myGameOverDisplay = true;
+                    myPcsGUIWINDOW.firePropertyChange(PROPERTY_GAME_OVER_STATUS,oldGameOverDisplay,myGameOverDisplay);
                     myTime.stopTimer();
                 } else if (myGameOverDisplay) {
                     JOptionPane.showMessageDialog(endGame, "Game Already Ended!");
