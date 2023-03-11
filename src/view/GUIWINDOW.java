@@ -69,7 +69,7 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
     /**
      * A property name for the current GAME_OVER_STATUS property in the GUIWINDOW.
      */
-    String PROPERTY_GAME_OVER_STATUS = "GAMEOVER";
+    static String PROPERTY_GAME_OVER_STATUS = "GAMEOVER";
 
     /**
      * Creates LayOutManager on JPanel.
@@ -77,7 +77,7 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
     public GUIWINDOW()  {
         super();
         setLayout(new BorderLayout());
-        myPcsGUIWINDOW= new PropertyChangeSupport(this);
+        myPcsGUIWINDOW = new PropertyChangeSupport(this);
         setUpComponents();
 
         addKeyListener(new ControlKeyListener());
@@ -323,10 +323,5 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
             }
         }
     }
-
-
-
-
-
 }
 

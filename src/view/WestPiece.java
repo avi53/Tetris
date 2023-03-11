@@ -2,6 +2,7 @@ package view;
 
 import model.Block;
 import model.Board;
+import model.MovableTetrisPiece;
 
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
@@ -38,6 +39,8 @@ public class WestPiece extends JPanel implements PropertyChangeListener {
     private JPanel botPanel;
     private int level;
     private JLabel levelLabel;
+    /** Buffer next piece. */
+    private int pieceCounter;
 
     /**
      * Counter for the points.
@@ -59,6 +62,8 @@ public class WestPiece extends JPanel implements PropertyChangeListener {
     private int myTotalLinesCleared;
     /** The background color. */
     private LinkedList<Block[]> myFrozenBlocks;
+    private boolean isGameOver;
+    GUIWINDOW guiwindow;
 
 
 
@@ -68,6 +73,8 @@ public class WestPiece extends JPanel implements PropertyChangeListener {
      */
     public WestPiece() {
         super();
+
+        pieceCounter = 0;
         gameStatus = new JLabel("");
         myTotalLinesCleared=0;
         myLinescleared =0;
@@ -141,49 +148,51 @@ public class WestPiece extends JPanel implements PropertyChangeListener {
     /**
      * Calculates score when a line is cleared.
      */
-    public int calculateScoreLineClear(){
-        int scoreToReturn=0;
-        if(myLinescleared == 1){
-            scoreToReturn= 40 * level;
-        } else if( myLinescleared == 2){
-            scoreToReturn= 100 * level;
-        }else if( myLinescleared == 3){
-            scoreToReturn=  300 * level;
-        } else if(myLinescleared == 4){
-            scoreToReturn=  400 * level;
+    public int calculateScoreLineClear() {
+        int scoreToReturn = 0;
+        if (myLinescleared == 1) {
+            scoreToReturn = 40 * level;
+        } else if (myLinescleared == 2) {
+            scoreToReturn = 100 * level;
+        } else if (myLinescleared == 3) {
+            scoreToReturn = 300 * level;
+        } else if (myLinescleared == 4) {
+            scoreToReturn = 400 * level;
         }
         return scoreToReturn;
-
     }
-
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if (!Board.PROPERTY_GAME_OVER.equals(evt.getPropertyName())) {
-            gameStatus.setText("Game on");
-            level =1;
-        }
-        if (Board.PROPERTY_GAME_OVER.equals(evt.getPropertyName())) {
-            gameStatus.setText("GAME OVER");
+        if (GUIWINDOW.PROPERTY_GAME_OVER_STATUS.equals(evt.getPropertyName())) {
+            System.out.println("GAME IS OVER");
             level = 0;
             score = 0;
+            pieceCounter = 0;
+        }
+        if (!GUIWINDOW.PROPERTY_GAME_OVER_STATUS.equals(evt.getPropertyName())) {
+            System.out.println("GAME ON");
+            level = 1;
         }
         if (Board.PROPERTY_NEXT_PIECE.equals(evt.getPropertyName())) {
-
+            pieceCounter++;
+            if (pieceCounter > 2) {
                 score = score + 4;
+            }
 
             gamePoints.setText(Integer.toString(score));
             levelLabel.setText(Integer.toString(level));
         }
-        if (Board.PROPERTY_COMPLETE_ROWS_LIST.equals(evt.getPropertyName())) { //TODO add counter.
-            myTotalLinesCleared++;
-            if(myLinescleared <= 4) {
-                myLinescleared++;
-            }else if( myLinescleared >4) {
-                level = level + 1;
-                myLinescleared=1;
+        if (Board.PROPERTY_COMPLETE_ROWS_LIST.equals(evt.getPropertyName())) {
+            myLinescleared++;
+            myTotalLinesCleared += myLinescleared;
+            if (myLinescleared < 4) {
+                score += calculateScoreLineClear();
             }
-
+            if (myLinescleared > 4) {
+                level++;
+                myLinescleared = 0;
+            }
         }
     }
 }
