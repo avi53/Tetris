@@ -10,9 +10,7 @@ import java.util.Collections;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
-
 import model.Board;
-import model.MovableTetrisPiece;
 import model.Point;
 import model.TetrisPiece;
 
@@ -24,8 +22,21 @@ public class EastPiece extends JPanel implements PropertyChangeListener {
 
     /** East piece height.*/
     private static final int EAST_HEIGHT = 500;
+
     /** The next tetris piece.*/
     private TetrisPiece myPiece;
+
+    /** The west panel which hold next level counter. */
+    private JPanel mySecondPanel;
+
+    /** Label that displays next level counter. */
+    private JLabel myNextLevelCountLabel;
+
+    /** The next level in # of lines. */
+    private int myNextLevelCount = 4;
+
+    /** The number of lines cleared. */
+    private int myLinescleared = 0;
 
 
     /**
@@ -33,21 +44,55 @@ public class EastPiece extends JPanel implements PropertyChangeListener {
      */
     public EastPiece() {
         super();
-        InsidePanel insidePanel = new InsidePanel();
-        add(insidePanel);
         createEastPiece();
     }
-
 
     /**
     * Create the east piece width, height, and set the color.
     */
     private void createEastPiece() {
         setBackground(Color.BLUE);
+        setLayout(new BorderLayout());
         setPreferredSize(new Dimension(EAST_WIDTH, EAST_HEIGHT));
-
+        final InsidePanel insidePanel = new InsidePanel();
+        secondPanel();
+        add(insidePanel, BorderLayout.NORTH);
+        add(mySecondPanel, BorderLayout.CENTER);
     }
 
+    private void secondPanel() {
+        /** The panel which holds the next level counter panel*/
+        mySecondPanel = new JPanel();
+        myNextLevelCountLabel = new JLabel(Integer.toString(myNextLevelCount) + " Lines");
+        myNextLevelCountLabel.setForeground(Color.WHITE);
+        mySecondPanel.setBackground(Color.BLUE);
+        mySecondPanel.setPreferredSize(new Dimension(50, 50));
+        /** The panel which holds the next level counter*/
+        JPanel innerPanel = new JPanel();
+        innerPanel.setBackground(Color.BLUE);
+        innerPanel.setPreferredSize(new Dimension(180,80));
+        Font font = new Font("Arial", Font.BOLD, 16);
+        font = font.deriveFont(Font.BOLD, 12f).deriveFont(Collections.singletonMap
+                (TextAttribute.FOREGROUND, Color.WHITE));
+
+        Border border = BorderFactory.createCompoundBorder(
+                BorderFactory.createTitledBorder(
+                        BorderFactory.createLineBorder(Color.WHITE, 2),
+                        "Next level in:",
+                        TitledBorder.CENTER,
+                        TitledBorder.TOP,
+                        font),
+                BorderFactory.createEmptyBorder(5, 5, 5, 5)
+        );
+        innerPanel.setBorder(border);
+
+        innerPanel.add(myNextLevelCountLabel);
+        mySecondPanel.add(innerPanel);
+    }
+
+    /**
+     * The next piece panel that holds the next piece paint.
+     */
     public class InsidePanel extends JPanel {
         /** Inside panel width.*/
         private static final int WIDTH = 150;
@@ -73,6 +118,7 @@ public class EastPiece extends JPanel implements PropertyChangeListener {
 
             setBorder(border);
         }
+
         @Override
         public void paintComponent(Graphics g) {
             super.paintComponent(g);
@@ -110,11 +156,19 @@ public class EastPiece extends JPanel implements PropertyChangeListener {
     }
 
     @Override
-    public void propertyChange(final PropertyChangeEvent theEvent) {
-
-        if (Board.PROPERTY_NEXT_PIECE.equals(theEvent.getPropertyName())) {
-            myPiece = (TetrisPiece) theEvent.getNewValue();
+    public void propertyChange(final PropertyChangeEvent evt) {
+        if (Board.PROPERTY_NEXT_PIECE.equals(evt.getPropertyName())) {
+            myPiece = (TetrisPiece) evt.getNewValue();
             repaint();
+        }
+        if (Board.PROPERTY_COMPLETE_ROWS_LIST.equals(evt.getPropertyName())) {
+            myLinescleared++;
+
+            if (myLinescleared <= 4) {
+                myNextLevelCount = 4 - myLinescleared;
+                myNextLevelCountLabel.setText(Integer.toString(myNextLevelCount));
+                myLinescleared = 0;
+            }
         }
     }
 }
