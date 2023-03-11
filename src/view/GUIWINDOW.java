@@ -17,7 +17,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import model.Board;
 import model.Sound;
-import model.TetrisPiece;
 import model.TimeTicker;
 
 
@@ -116,6 +115,25 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
             }
         }
     }
+    /**
+     * Getter method to return game over status.
+     * @return the gameOver status to display.
+     */
+    public boolean getGameOverToDisplay(){
+        return myGameOverDisplay;
+    }
+    public void playMusic(final int theIndex) {
+        mySound.setFile(theIndex);
+        mySound.play();
+        mySound.loop();
+    }
+    public void stopMusic() {
+        mySound.stop();
+    }
+    public void playSE(final int theIndex) {
+        mySound.setFile(theIndex);
+        mySound.play();
+    }
 
     /**
      * ControlKeyListener is responsible to read key input from the
@@ -153,6 +171,9 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
             }
         }
     }
+
+
+
 
     /**
      * Build the menu bar for this GUI. This method will need
@@ -259,13 +280,13 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
             public void actionPerformed(final ActionEvent theE) {
                 JOptionPane.showMessageDialog(scoreAlgorithim,
                         "Add 4 points to score when a piece freezes in place."
-                        + "\nAlso add points to the score when lines are cleared as shown"
-                        + " below:"
-                        + "\n                1 line    2 lines   3 lines   4 lines cleared "
-                        + "\nLevel 1:  40         100         300        1200 "
-                        + "\nLevel 2:  80         200         600        2400 "
-                        + "\nLevel 3:  120       300         900        3600 "
-                        + "\nLevel n:  40*(n)  100*(n)  300*(n)  1200*(n)  ");
+                                + "\nAlso add points to the score when lines are cleared as shown"
+                                + " below:"
+                                + "\n                1 line    2 lines   3 lines   4 lines cleared "
+                                + "\nLevel 1:  40         100         300        1200 "
+                                + "\nLevel 2:  80         200         600        2400 "
+                                + "\nLevel 3:  120       300         900        3600 "
+                                + "\nLevel n:  40*(n)  100*(n)  300*(n)  1200*(n)  ");
 
             }
         });
@@ -277,25 +298,5 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
         subMenu.add(scoreAlgorithim);
         return subMenu;
     }
-
-    /**
-     * Getter method to return game over status.
-     * @return the gameOver status to display.
-     */
-    public boolean getGameOverToDisplay(){
-        return myGameOverDisplay;
-    }
-    public void playMusic(final int theIndex) {
-        mySound.setFile(theIndex);
-        mySound.play();
-        mySound.loop();
-    }
-    public void stopMusic() {
-        mySound.stop();
-    }
-    public void playSE(final int theIndex) {
-        mySound.setFile(theIndex);
-        mySound.play();
-    }
-
 }
+
