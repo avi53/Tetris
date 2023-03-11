@@ -142,7 +142,17 @@ public class WestPiece extends JPanel implements PropertyChangeListener {
      * Calculates score when a line is cleared.
      */
     public int calculateScoreLineClear(){
-        return 40* myTotalLinesCleared;
+        int scoreToReturn=0;
+        if(myLinescleared == 1){
+            scoreToReturn= 40 * level;
+        } else if( myLinescleared == 2){
+            scoreToReturn= 100 * level;
+        }else if( myLinescleared == 3){
+            scoreToReturn=  300 * level;
+        } else if(myLinescleared == 4){
+            scoreToReturn=  400 * level;
+        }
+        return scoreToReturn;
 
     }
 
