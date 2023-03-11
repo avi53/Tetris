@@ -1,14 +1,11 @@
 package model;
 
-import view.GUIWINDOW;
-import view.WestPiece;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.Timer;
+import view.WestPiece;
 
 /**
  * TimerTicker class that represents the timer for the tetris game.
@@ -76,10 +73,9 @@ public class TimeTicker extends JLabel implements ActionListener {
      * @param theE the event to be processed
      */
     public void actionPerformed(final ActionEvent theE) {
-        final ArrayList<Integer> delayTimes = new ArrayList<Integer>();
+        final ArrayList<Integer> delayTimes = new ArrayList<>();
         for (int i = 1000; i >= 50; i = i - 50) {
             delayTimes.add(i);
-            System.out.println(i);
         }
 
         final int level = WestPiece.getLevel();
