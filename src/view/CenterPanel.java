@@ -6,7 +6,6 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.LinkedList;
 import javax.swing.JPanel;
-
 import model.*;
 import model.Point;
 
@@ -45,13 +44,8 @@ public class CenterPanel extends JPanel implements PropertyChangeListener {
      */
     private LinkedList<Block[]> myFrozenBlocks;
 
-    /** Board instance variable. */
-    private Board myBoard;
-
     public CenterPanel() {
         super();
-        myBoard = new Board();
-        myBoard.addPropertyChangeListener(this);
         createCenterPiece();
 
         myFrozenBlocks = new LinkedList<>();
