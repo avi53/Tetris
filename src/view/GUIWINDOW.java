@@ -126,16 +126,23 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
     }
 
     @Override
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        super.addPropertyChangeListener(listener);
+    }
+
+    @Override
     public void propertyChange(final PropertyChangeEvent theEvt) {
         final boolean oldGameOverDisplay=  myGameOverDisplay;
         if (Board.PROPERTY_GAME_OVER.equals(theEvt.getPropertyName())) {
             myGameOverDisplay = (boolean) theEvt.getNewValue();
-            myPcsGUIWINDOW.firePropertyChange(PROPERTY_GAME_OVER_STATUS,oldGameOverDisplay,myGameOverDisplay);
+            myPcsGUIWINDOW.firePropertyChange(PROPERTY_GAME_OVER_STATUS,oldGameOverDisplay, myGameOverDisplay);
             if (myGameOverDisplay)  {
+                myPcsGUIWINDOW.firePropertyChange(PROPERTY_GAME_OVER_STATUS, oldGameOverDisplay ,myGameOverDisplay);
                 myTime.stopTimer();
                 System.out.println("Game is over");
 
             } else if (!myGameOverDisplay) {
+                myPcsGUIWINDOW.firePropertyChange(PROPERTY_GAME_OVER_STATUS,oldGameOverDisplay,myGameOverDisplay);
                 myTime.restartTimer();
             }
         }
@@ -203,9 +210,10 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
 
             @Override
             public void actionPerformed(final ActionEvent theE) {
+                final boolean oldGameOverDisplay=  myGameOverDisplay;
                 if (myGameOverDisplay) {
                     JOptionPane.showMessageDialog(newGame, "New Game");
-                    final boolean oldGameOverDisplay=  myGameOverDisplay;
+
                     myTetrisBoard.newGame();
                     myGameOverDisplay = false;
                     myPcsGUIWINDOW.firePropertyChange(PROPERTY_GAME_OVER_STATUS,oldGameOverDisplay,myGameOverDisplay);
@@ -215,6 +223,7 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
                         myTime.startTimer();
                     }
                 } else if (!myGameOverDisplay) {
+                    myPcsGUIWINDOW.firePropertyChange(PROPERTY_GAME_OVER_STATUS,oldGameOverDisplay, myGameOverDisplay);
                     JOptionPane.showMessageDialog(newGame, "Current game has not ended yet!");
                 }
             }
@@ -230,9 +239,10 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
                 if (!myGameOverDisplay) {
                     JOptionPane.showMessageDialog(endGame, "Game Ended");
                     myGameOverDisplay = true;
-                    myPcsGUIWINDOW.firePropertyChange(PROPERTY_GAME_OVER_STATUS,oldGameOverDisplay,myGameOverDisplay);
+                    myPcsGUIWINDOW.firePropertyChange(PROPERTY_GAME_OVER_STATUS, oldGameOverDisplay, myGameOverDisplay);
                     myTime.stopTimer();
                 } else if (myGameOverDisplay) {
+                    myPcsGUIWINDOW.firePropertyChange(PROPERTY_GAME_OVER_STATUS ,oldGameOverDisplay ,myGameOverDisplay);
                     JOptionPane.showMessageDialog(endGame, "Game Already Ended!");
                 }
             }
