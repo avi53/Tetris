@@ -123,7 +123,7 @@ public class CenterPanel extends JPanel implements PropertyChangeListener {
             for (Point block : blocks) {
                 final Color pieceColor = getBlockColor(myPiece.getTetrisPiece().getBlock());
                 int x = (block.x() + myPiece.getPosition().x()) * PIECE_SIZE;
-                int y = (block.y() + myPiece.getPosition().y()) * PIECE_SIZE;
+                int y = (-(block.y() + myPiece.getPosition().y())+19) * PIECE_SIZE;
                 final Shape rectangle = new Rectangle2D.Double(x, y, PIECE_SIZE, PIECE_SIZE);
                 g2d.setPaint(pieceColor);
                 g2d.fill(rectangle);
