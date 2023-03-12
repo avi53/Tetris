@@ -174,20 +174,20 @@ public class Board implements PropertyChangeEnabledBoardControls {
         // game over status and my drop fields when they changed
         // and fired the new values when they were updated in newGame method.
 
-        final int oldSequenceIndex= mySequenceIndex;
+        final int oldSequenceIndex = mySequenceIndex;
         mySequenceIndex = 0;
         myFrozenBlocks.clear();
         for (int h = 0; h < myHeight; h++) {
             myFrozenBlocks.add(new Block[myWidth]);
         }
-        final boolean oldGameOver=  myGameOver;
+        final boolean oldGameOver =  myGameOver;
         myGameOver = false;
         myCurrentPiece = nextMovablePiece(true);
-        final boolean oldDrop= myDrop;
+        final boolean oldDrop = myDrop;
         myDrop = false;
-        myPcs.firePropertyChange(PROPERTY_GAME_OVER,oldGameOver,myGameOver);
-        myPcs.firePropertyChange(PROPERTY_DROP,oldDrop,myDrop);
-        myPcs.firePropertyChange(PROPERTY_SEQUENCE_INDEX,oldSequenceIndex,mySequenceIndex);
+        myPcs.firePropertyChange(PROPERTY_GAME_OVER, oldGameOver, myGameOver);
+        myPcs.firePropertyChange(PROPERTY_DROP, oldDrop, myDrop);
+        myPcs.firePropertyChange(PROPERTY_SEQUENCE_INDEX, oldSequenceIndex, mySequenceIndex);
 
     }
 
@@ -229,7 +229,7 @@ public class Board implements PropertyChangeEnabledBoardControls {
         //made local variables to see the old frozenBlocks list, and
         // myCurrentPiece fields when they changed and fired them in the down method.
         final List<Block[]> oldFrozenBlocksList =  myFrozenBlocks;
-        final   MovableTetrisPiece oldMyCurrentPiece= myCurrentPiece;
+        final   MovableTetrisPiece oldMyCurrentPiece = myCurrentPiece;
         if (!move(myCurrentPiece.down())) {
             // the piece froze, so clear lines and update current piece
             addPieceToBoardData(myFrozenBlocks, myCurrentPiece);
@@ -237,9 +237,11 @@ public class Board implements PropertyChangeEnabledBoardControls {
             if (!myGameOver) {
                 myCurrentPiece = nextMovablePiece(false);
             }
-            myPcs.firePropertyChange(PROPERTY_FROZEN_BLOCKS_SIZE,oldFrozenBlocksList,myFrozenBlocks);
+            myPcs.firePropertyChange(PROPERTY_FROZEN_BLOCKS_SIZE, oldFrozenBlocksList,
+                    myFrozenBlocks);
 
-            myPcs.firePropertyChange(PROPERTY_CURRENT_PIECE,oldMyCurrentPiece,myCurrentPiece);
+            myPcs.firePropertyChange(PROPERTY_CURRENT_PIECE, oldMyCurrentPiece,
+                    myCurrentPiece);
             // TODO Publish Update!
         }
     }
@@ -378,16 +380,17 @@ public class Board implements PropertyChangeEnabledBoardControls {
         //made local variables to see the old myCurrentPiece fields,
         // and  old myDrop fields when they changed
         // fired them in the move method.
-        final   MovableTetrisPiece oldMyCurrentPiece= myCurrentPiece;
-        final boolean oldDrop= myDrop;
+        final   MovableTetrisPiece oldMyCurrentPiece = myCurrentPiece;
+        final boolean oldDrop = myDrop;
         boolean result = false;
         if (isPieceLegal(theMovedPiece)) {
 
             myCurrentPiece = theMovedPiece;
-            myPcs.firePropertyChange(PROPERTY_CURRENT_PIECE,oldMyCurrentPiece,myCurrentPiece);
+            myPcs.firePropertyChange(PROPERTY_CURRENT_PIECE, oldMyCurrentPiece,
+                    myCurrentPiece);
             result = true;
             if (!myDrop) {
-                myPcs.firePropertyChange(PROPERTY_DROP,oldDrop,myDrop);
+                myPcs.firePropertyChange(PROPERTY_DROP, oldDrop, myDrop);
                 // TODO Publish Update!
             }
         }
@@ -436,6 +439,7 @@ public class Board implements PropertyChangeEnabledBoardControls {
 
     /**
      * Checks the board for complete rows.
+     * fires the new values to the propertyChangeSupport Object.
      */
     private void checkRows() {
         final List<Integer> completeRows = new ArrayList<>();
@@ -450,7 +454,8 @@ public class Board implements PropertyChangeEnabledBoardControls {
             }
             if (complete) {
                 completeRows.add(myFrozenBlocks.indexOf(row));
-                myPcs.firePropertyChange(PROPERTY_COMPLETE_ROWS_LIST,oldCompleteRows,completeRows);
+                myPcs.firePropertyChange(PROPERTY_COMPLETE_ROWS_LIST, oldCompleteRows,
+                        completeRows);
              // TODO Publish Update!
             }
         }
@@ -499,13 +504,13 @@ public class Board implements PropertyChangeEnabledBoardControls {
     private void setPoint(final List<Block[]> theBoard,
                           final Point thePoint,
                           final Block theBlock) {
-        final boolean oldGameOver=  myGameOver;
+        final boolean oldGameOver =  myGameOver;
         if (isPointOnBoard(theBoard, thePoint)) { 
             final Block[] row = theBoard.get(thePoint.y());
             row[thePoint.x()] = theBlock;
         } else if (!myGameOver) {
             myGameOver = true;
-            myPcs.firePropertyChange(PROPERTY_GAME_OVER,oldGameOver,myGameOver);
+            myPcs.firePropertyChange(PROPERTY_GAME_OVER, oldGameOver, myGameOver);
             // TODO Publish Update!
         }
     }
@@ -575,45 +580,48 @@ public class Board implements PropertyChangeEnabledBoardControls {
        // made local variables to see the old myGameOver, old myNextPiece
         // and old myNonRandomPieces fields when they changed
        // fired the new values when they were updated.
-        final boolean oldGameOver=  myGameOver;
+        final boolean oldGameOver =  myGameOver;
         final boolean share = myNextPiece != null;
         final List<TetrisPiece> oldNonRandomPiece = myNonRandomPieces;
-        final TetrisPiece myOldNextPiece = myNextPiece;
+        final TetrisPiece oldNextPiece = myNextPiece;
         if (myNonRandomPieces == null || myNonRandomPieces.isEmpty()) {
             myNextPiece = TetrisPiece.getRandomPiece();
 
-            myPcs.firePropertyChange(PROPERTY_NEXT_PIECE,myOldNextPiece,myNextPiece);
+            myPcs.firePropertyChange(PROPERTY_NEXT_PIECE, oldNextPiece, myNextPiece);
 
         } else {
             mySequenceIndex %= myNonRandomPieces.size();
             myNextPiece = myNonRandomPieces.get(mySequenceIndex++);
-            myPcs.firePropertyChange(PROPERTY_NON_RANDOM_PIECE,oldNonRandomPiece,myNonRandomPieces);
-            myPcs.firePropertyChange(PROPERTY_NEXT_PIECE,myOldNextPiece,myNextPiece);
+            myPcs.firePropertyChange(PROPERTY_NON_RANDOM_PIECE, oldNonRandomPiece,
+                    myNonRandomPieces);
+            myPcs.firePropertyChange(PROPERTY_NEXT_PIECE, oldNextPiece, myNextPiece);
         }
         if (share && !myGameOver) {
-            myPcs.firePropertyChange(PROPERTY_GAME_OVER,oldGameOver,myGameOver);
+            myPcs.firePropertyChange(PROPERTY_GAME_OVER, oldGameOver, myGameOver);
             // TODO Publish Update!
         }
     }
     @Override
-    public  void addPropertyChangeListener(PropertyChangeListener theListener) {
+    public  void addPropertyChangeListener(final PropertyChangeListener theListener) {
         myPcs.addPropertyChangeListener(theListener);
 
     }
 
     @Override
-    public void addPropertyChangeListener(String thePropertyName, PropertyChangeListener theListener) {
+    public void addPropertyChangeListener(final String thePropertyName,
+                                         final PropertyChangeListener theListener) {
         myPcs.addPropertyChangeListener(thePropertyName, theListener);
     }
 
     @Override
-    public void removePropertyChangeListener(PropertyChangeListener theListener) {
+    public void removePropertyChangeListener(final PropertyChangeListener theListener) {
         myPcs.removePropertyChangeListener(theListener);
 
     }
 
     @Override
-    public void removePropertyChangeListener(String thePropertyName, PropertyChangeListener theListener) {
+    public void removePropertyChangeListener(final String thePropertyName,
+                                             final PropertyChangeListener theListener) {
         myPcs.removePropertyChangeListener(thePropertyName, theListener);
     }
 
