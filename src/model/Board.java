@@ -443,7 +443,8 @@ public class Board implements PropertyChangeEnabledBoardControls {
      */
     private void checkRows() {
         final List<Integer> completeRows = new ArrayList<>();
-        final List<Integer> oldCompleteRows = completeRows;
+        //fired new value of completeRows, when it updated in checkRows method.
+
         for (final Block[] row : myFrozenBlocks) {
             boolean complete = true;
             for (final Block b : row) {
@@ -454,7 +455,7 @@ public class Board implements PropertyChangeEnabledBoardControls {
             }
             if (complete) {
                 completeRows.add(myFrozenBlocks.indexOf(row));
-                myPcs.firePropertyChange(PROPERTY_COMPLETE_ROWS_LIST, oldCompleteRows,
+                myPcs.firePropertyChange(PROPERTY_COMPLETE_ROWS_LIST, null,
                         completeRows);
              // TODO Publish Update!
             }
@@ -496,7 +497,7 @@ public class Board implements PropertyChangeEnabledBoardControls {
 
     /**
      * Sets a block at a board point.
-     * 
+     * fires the new values to the propertyChangeSupport Object.
      * @param theBoard Board to set the point on.
      * @param thePoint Board point.
      * @param theBlock Block to set at board point.
@@ -510,6 +511,7 @@ public class Board implements PropertyChangeEnabledBoardControls {
             row[thePoint.x()] = theBlock;
         } else if (!myGameOver) {
             myGameOver = true;
+            //fired new value of myGameOver, when it updated in setPoint method.
             myPcs.firePropertyChange(PROPERTY_GAME_OVER, oldGameOver, myGameOver);
             // TODO Publish Update!
         }
@@ -601,24 +603,43 @@ public class Board implements PropertyChangeEnabledBoardControls {
             // TODO Publish Update!
         }
     }
+
+    /**
+     * adds an object as a listener to the propertyChangeSupport object.
+     * @param theListener The PropertyChangeListener to be added
+     */
     @Override
     public  void addPropertyChangeListener(final PropertyChangeListener theListener) {
         myPcs.addPropertyChangeListener(theListener);
 
     }
 
+    /**
+     * adds an object as a listener to the propertyChangeSupport object.
+     * @param thePropertyName The name of the property to listen on.
+     * @param theListener The PropertyChangeListener to be added
+     */
     @Override
     public void addPropertyChangeListener(final String thePropertyName,
                                          final PropertyChangeListener theListener) {
         myPcs.addPropertyChangeListener(thePropertyName, theListener);
     }
 
+    /**
+     * removes an object as a listener to the propertyChangeSupport object.
+     * @param theListener The PropertyChangeListener to be removed
+     */
     @Override
     public void removePropertyChangeListener(final PropertyChangeListener theListener) {
         myPcs.removePropertyChangeListener(theListener);
 
     }
 
+    /**
+     * removes an object as a listener to the propertyChangeSupport object.
+     * @param thePropertyName The name of the property that was listened on.
+     * @param theListener The PropertyChangeListener to be removed
+     */
     @Override
     public void removePropertyChangeListener(final String thePropertyName,
                                              final PropertyChangeListener theListener) {
