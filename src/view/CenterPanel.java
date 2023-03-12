@@ -7,6 +7,7 @@ import java.beans.PropertyChangeListener;
 import java.util.LinkedList;
 import javax.swing.JPanel;
 import model.*;
+import model.Point;
 
 public class CenterPanel extends JPanel implements PropertyChangeListener {
     /**
@@ -107,6 +108,7 @@ public class CenterPanel extends JPanel implements PropertyChangeListener {
     public void paintComponent(final Graphics theGraphics) {
         super.paintComponent(theGraphics);
         final Graphics2D g2d = (Graphics2D) theGraphics;
+        final Graphics2D g2d2 = (Graphics2D) theGraphics;
 
         // for better graphics display
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
@@ -116,18 +118,16 @@ public class CenterPanel extends JPanel implements PropertyChangeListener {
 
             // Draw the blocks of the piece
         if (myPiece != null) {
-            final Color piece = getBlockColor(myPiece.getTetrisPiece().getBlock());
-            g2d.setPaint(piece);
-
             // Draw the blocks of the piece
-            final Block[] blocks = new Block[]{myPiece.getTetrisPiece().getBlock()};
-            for (int i = 0; i < blocks.length; i++) {
-                final int row = myPiece.getPosition().y();
-                final int col = myPiece.getPosition().x();
-                g2d.fill(new Rectangle2D.Double(col * PIECE_SIZE,
-                        row * PIECE_SIZE,
-                        PIECE_SIZE,
-                        PIECE_SIZE));
+            final Point[] blocks = myPiece.getTetrisPiece().getPoints();
+            for (Point block : blocks) {
+                final Color pieceColor = getBlockColor(myPiece.getTetrisPiece().getBlock());
+                int x = (block.x() + myPiece.getPosition().x()) * PIECE_SIZE;
+                int y = (block.y() + myPiece.getPosition().y()) * PIECE_SIZE;
+                final Shape rectangle = new Rectangle2D.Double(x, y, PIECE_SIZE, PIECE_SIZE);
+                g2d.setPaint(pieceColor);
+                g2d.fill(rectangle);
+                g2d.draw(rectangle);
             }
         }
         // going through the frozen blocks list.
