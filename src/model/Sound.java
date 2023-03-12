@@ -37,8 +37,12 @@ public class Sound {
      * Sound constructor that adds all the audio files into the array.
      */
     public Sound() {
-
         mySoundURL[0] = getClass().getResource("/Sound/main_music.wav");
+        mySoundURL[1] = getClass().getResource
+                ("/Sound/mixkit-bonus-earned-in-video-game-2058.wav");
+        mySoundURL[2] = getClass().getResource
+                ("/Sound/mixkit-electronic-retro-block-hit-2185.wav");
+        mySoundURL[3] = getClass().getResource("/Sound/mixkit-game-bonus-reached-2065.wav");
 
     }
 

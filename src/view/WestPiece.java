@@ -1,9 +1,6 @@
 package view;
 
-import model.Block;
-import model.Board;
-import model.MovableTetrisPiece;
-import model.TimeTicker;
+import model.*;
 import view.GUIWINDOW;
 
 import java.awt.*;
@@ -72,6 +69,10 @@ public class WestPiece extends JPanel implements PropertyChangeListener {
     private final TimeTicker myTime;
     /** The Status of the game. */
     private boolean gameOverStatus;
+    /**
+     * Variable to add sound to the panel.
+     */
+    private final Sound mySound = new Sound();
 
 
 
@@ -213,10 +214,15 @@ public class WestPiece extends JPanel implements PropertyChangeListener {
                 level++;
                 myTime.speedUpTimer();
                 myLinescleared = 0;
+                playSE(3);
             }
             levelLabel.setText(Integer.toString(level));
             gameLines.setText(Integer.toString(myTotalLinesCleared));
         }
+    }
+    public void playSE(final int theIndex) {
+        mySound.setFile(theIndex);
+        mySound.play();
     }
 //    public static int getLevel() {
 //        return level;
