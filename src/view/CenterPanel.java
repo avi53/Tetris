@@ -7,7 +7,6 @@ import java.beans.PropertyChangeListener;
 import java.util.LinkedList;
 import javax.swing.JPanel;
 import model.*;
-import model.Point;
 
 public class CenterPanel extends JPanel implements PropertyChangeListener {
     /**
@@ -37,7 +36,7 @@ public class CenterPanel extends JPanel implements PropertyChangeListener {
     /**
      * Tetris piece.
      */
-    private TetrisPiece myPiece;
+    private MovableTetrisPiece myPiece;
 
     /**
      * List of Frozen blocks.
@@ -59,8 +58,6 @@ public class CenterPanel extends JPanel implements PropertyChangeListener {
 
             myFrozenBlocks.add(row);
         }
-
-        myPiece = TetrisPiece.getRandomPiece();
     }
 
     private void createCenterPiece() {
@@ -76,9 +73,7 @@ public class CenterPanel extends JPanel implements PropertyChangeListener {
         if (propertyName.equals(Board.PROPERTY_DROP)
                 || (propertyName.equals(Board.PROPERTY_GAME_OVER))
                 ||
-                propertyName.equals(Board.PROPERTY_SEQUENCE_INDEX)){
-
-            //when board state changes everytime the board (center component) gets repainted
+                propertyName.equals(Board.PROPERTY_SEQUENCE_INDEX)){ //when board state changes everytime the board (center component) gets repainted
             repaint();
 
         } else if (propertyName.equals(Board.PROPERTY_FROZEN_BLOCKS_SIZE)) {
@@ -87,7 +82,7 @@ public class CenterPanel extends JPanel implements PropertyChangeListener {
         } else if ("rotation".equals(theEvt.getPropertyName())) {
             repaint();
         } else if (propertyName.equals(Board.PROPERTY_CURRENT_PIECE)) {
-            myPiece = (TetrisPiece) theEvt.getNewValue();
+            myPiece = (MovableTetrisPiece) theEvt.getNewValue();
             repaint();
         }
         repaint();
@@ -116,17 +111,23 @@ public class CenterPanel extends JPanel implements PropertyChangeListener {
                 RenderingHints.VALUE_ANTIALIAS_ON);
 
         // Draw the current piece on the board
-        final Color piece = getBlockColor(myPiece.getBlock());
 
-        g2d.setPaint(piece);
+            // Draw the blocks of the piece
+        if (myPiece != null) {
+            final Color piece = getBlockColor(myPiece.getTetrisPiece().getBlock());
+            g2d.setPaint(piece);
 
-        for (final Point p : myPiece.getPoints()) {
-            final double x = (p.x() + WIDTH / 2) * PIECE_SIZE;
-            final double y = (p.y() + HEIGHT - 2) * PIECE_SIZE;
-            final Rectangle2D block = new Rectangle2D.Double(x, y, PIECE_SIZE, PIECE_SIZE);
-            g2d.fill(block);
+            // Draw the blocks of the piece
+            final Block[] blocks = new Block[]{myPiece.getTetrisPiece().getBlock()};
+            for (int i = 0; i < blocks.length; i++) {
+                final int row = myPiece.getPosition().y();
+                final int col = myPiece.getPosition().x();
+                g2d.fill(new Rectangle2D.Double(col * PIECE_SIZE,
+                        row * PIECE_SIZE,
+                        PIECE_SIZE,
+                        PIECE_SIZE));
+            }
         }
-
         // going through the frozen blocks list.
         for (int i = 0; i < myFrozenBlocks.size(); i++) {
 
@@ -135,7 +136,7 @@ public class CenterPanel extends JPanel implements PropertyChangeListener {
             for (int j = 0; j < row.length; j++) {
 
                 if (row[j] != Block.EMPTY) {
-                    final Block block = myPiece.getBlock();
+                    final Block block = myPiece.getTetrisPiece().getBlock();
                     final Color colorBlock = getBlockColor(block);
                     g2d.setPaint(colorBlock);
                     g2d.fill(new Rectangle2D.Double(j * PIECE_SIZE,
