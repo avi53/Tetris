@@ -135,20 +135,20 @@ public class CenterPanel extends JPanel implements PropertyChangeListener {
             }
         }
         // going through the frozen blocks list.
-        for (int i = 0; i < myFrozenBlocks.size(); i++) {
+        for (int i = myFrozenBlocks.size() - 1; i >= 0; i--) {
 
             final Block[] row = myFrozenBlocks.get(i);
 
             for (int j = 0; j < row.length; j++) {
 
-                if (row[j] != Block.EMPTY) {
-                    assert myPiece != null;
+                if (row[j] != null && myPiece != null && row[j] !=Block.EMPTY) {
+
                     final Block block = myPiece.getTetrisPiece().getBlock();
                     final Color colorBlock = getBlockColor(block);
                     g2d.setPaint(colorBlock);
                     g2d.fill(new Rectangle2D.Double(j * PIECE_SIZE,
-                            (i+ 19) * PIECE_SIZE,
-                            PIECE_SIZE,
+                            (-i + 19) * PIECE_SIZE,
+                            PIECE_SIZE ,
                             PIECE_SIZE));
                 }
             }
