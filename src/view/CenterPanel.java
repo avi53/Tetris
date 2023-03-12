@@ -11,10 +11,9 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.LinkedList;
 import javax.swing.JPanel;
-import model.Block;
-import model.Board;
-import model.MovableTetrisPiece;
-import model.Point;
+
+import model.*;
+
 public class CenterPanel extends JPanel implements PropertyChangeListener {
     /**
      * center width.
@@ -123,11 +122,12 @@ public class CenterPanel extends JPanel implements PropertyChangeListener {
             // Draw the blocks of the piece
         if (myPiece != null) {
             // Draw the blocks of the piece
-            final Point[] blocks = myPiece.getTetrisPiece().getPoints();
-            for (Point block : blocks) {
+            final TetrisPiece nonMovableTetrisPiece = myPiece.getTetrisPiece();
+            final int[][] myPoints = nonMovableTetrisPiece.getPointsByRotation(myPiece.getRotation());
+            for (int i=0; i < 4; i++) {
                 final Color pieceColor = getBlockColor(myPiece.getTetrisPiece().getBlock());
-                final int x = (block.x() + myPiece.getPosition().x()) * PIECE_SIZE;
-                final int y = (-(block.y() + myPiece.getPosition().y()) + 19) * PIECE_SIZE;
+                final int x = (myPoints[i][0] + myPiece.getPosition().x()) * PIECE_SIZE;
+                final int y = (-(myPoints[i][1]+ myPiece.getPosition().y()) + 19) * PIECE_SIZE;
                 final Shape rectangle = new Rectangle2D.Double(x, y, PIECE_SIZE, PIECE_SIZE);
                 g2d.setPaint(pieceColor);
                 g2d.fill(rectangle);
