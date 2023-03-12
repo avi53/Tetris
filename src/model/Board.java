@@ -603,6 +603,17 @@ public class Board implements PropertyChangeEnabledBoardControls {
             // TODO Publish Update!
         }
     }
+    /**
+     * Added by group 6 to end the current game in session,
+     * can't end if the current game has already ended.
+     * Fires that the game has ended.
+     */
+    public void endGame(){
+        if (!myGameOver) {
+            myGameOver= true;
+        }
+        myPcs.firePropertyChange(PROPERTY_GAME_OVER, null, myGameOver);
+    }
 
     /**
      * adds an object as a listener to the propertyChangeSupport object.

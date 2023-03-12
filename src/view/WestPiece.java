@@ -45,6 +45,7 @@ public class WestPiece extends JPanel implements PropertyChangeListener {
     /** Buffer next piece. */
     private int pieceCounter;
 
+
     /**
      * Counter for the points.
      */
@@ -89,7 +90,7 @@ public class WestPiece extends JPanel implements PropertyChangeListener {
         score = 0;
         myFrozenBlocks = new LinkedList<>();
 
-        gameOverStatus = true;
+        gameOverStatus = false;
         createTop();
         createCenter();
         createBot();
@@ -173,7 +174,7 @@ public class WestPiece extends JPanel implements PropertyChangeListener {
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if (GUIWINDOW.PROPERTY_GAME_OVER_STATUS.equals(evt.getPropertyName())) {
+        if (Board.PROPERTY_GAME_OVER.equals(evt.getPropertyName())) {
             gameOverStatus = (boolean) evt.getNewValue();
             if (gameOverStatus) {
                 gameStatus.setText("Game over ");
@@ -185,6 +186,7 @@ public class WestPiece extends JPanel implements PropertyChangeListener {
                 level = 1;
             }
         }
+
         if (Board.PROPERTY_NEXT_PIECE.equals(evt.getPropertyName())) {
             pieceCounter++;
             if (pieceCounter > 2) {
