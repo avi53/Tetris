@@ -11,10 +11,16 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.LinkedList;
 import javax.swing.JPanel;
+import model.Block;
+import model.Board;
+import model.MovableTetrisPiece;
 
-import model.*;
 
 public class CenterPanel extends JPanel implements PropertyChangeListener {
+    /**
+     * Value to translate location for y axis.
+     */
+    private static final int ADJUSTMENT = 19;
     /**
      * center width.
      */
@@ -28,11 +34,6 @@ public class CenterPanel extends JPanel implements PropertyChangeListener {
      * The width for the rectangle.
      */
     private static final int PIECE_SIZE = 40;
-
-
-
-
-
     /**
      * Tetris piece.
      */
@@ -40,12 +41,14 @@ public class CenterPanel extends JPanel implements PropertyChangeListener {
     /**
      * Board object to be referenced.
      */
-    private Board myTetrisBoard  = new Board();
+    private final Board myTetrisBoard  = new Board();
 
     /**
      * List of Frozen blocks.
      */
     private LinkedList<Block[]> myFrozenBlocks;
+
+
 
 
     public CenterPanel() {
@@ -120,11 +123,13 @@ public class CenterPanel extends JPanel implements PropertyChangeListener {
             // Draw the blocks of the piece
         if (myPiece != null) {
             // Draw the blocks of the piece
-            final int[][] myPoints =  myPiece.getTetrisPiece().getPointsByRotation(myPiece.getRotation());
-            for (int i=0; i < 4; i++) {
+            final int[][] piecePoints =  myPiece.getTetrisPiece().
+                    getPointsByRotation(myPiece.getRotation());
+            for (int i = 0; i < piecePoints.length; i++) {
                 final Color pieceColor = getBlockColor(myPiece.getTetrisPiece().getBlock());
-                final int x = (myPoints[i][0] + myPiece.getPosition().x()) * PIECE_SIZE;
-                final int y = (-(myPoints[i][1]+ myPiece.getPosition().y()) + 19) * PIECE_SIZE;
+                final int x = (piecePoints[i][0] + myPiece.getPosition().x()) * PIECE_SIZE;
+                final int y = (-(piecePoints[i][1]
+                     +   myPiece.getPosition().y()) + ADJUSTMENT) * PIECE_SIZE;
                 final Shape rectangle = new Rectangle2D.Double(x, y, PIECE_SIZE, PIECE_SIZE);
                 g2d.setPaint(pieceColor);
                 g2d.fill(rectangle);
@@ -138,13 +143,13 @@ public class CenterPanel extends JPanel implements PropertyChangeListener {
 
             for (int j = 0; j < row.length; j++) {
 
-                if (row[j] != null && myPiece != null && row[j] !=Block.EMPTY) {
+                if (row[j] != null && myPiece != null && row[j] != Block.EMPTY) {
 
                     final Block block = row[j];
                     final Color colorBlock = getBlockColor(block);
                     g2d.setPaint(colorBlock);
                     g2d.fill(new Rectangle2D.Double(j * PIECE_SIZE,
-                            (-i + 19) * PIECE_SIZE,
+                            (-i + ADJUSTMENT) * PIECE_SIZE,
                             PIECE_SIZE ,
                             PIECE_SIZE));
                 }
