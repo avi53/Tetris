@@ -42,6 +42,9 @@ public class SouthPiece extends JPanel {
     /** A label to display the message. 6 */
     private JLabel myMessageLabel6;
 
+    /** A label to display the message. 6 */
+    private JLabel myMessageLabel7;
+
     /**
      * South piece constructor. Initialize the south piece panel.
      */
@@ -55,7 +58,7 @@ public class SouthPiece extends JPanel {
      * Create the south piece width, height, and set the color.
      */
     private void createSouthPiece() {
-        setLayout(new GridLayout(5,2));
+        setLayout(new GridLayout(6,2));
         setBackground(Color.BLACK);
         setPreferredSize(new Dimension(SOUTH_WIDTH, SOUTH_HEIGHT));
 
@@ -71,10 +74,11 @@ public class SouthPiece extends JPanel {
     private void createMsgLabels(){
         myMessageLabel1 = new JLabel("Move Left: A ");
         myMessageLabel2 = new JLabel("Move Right: D ");
-        myMessageLabel3 = new JLabel("Rotate: W");
+        myMessageLabel3 = new JLabel("Rotate Clockwise: W");
         myMessageLabel4= new JLabel("Move Down: S");
         myMessageLabel5 = new JLabel("Drop: space");
         myMessageLabel6 = new JLabel("Pause/Unpause: P");
+        myMessageLabel7 = new JLabel("Rotate Counter Clockwise: W");
     }
     /**
      * Helper method to set Message colors.
@@ -86,6 +90,7 @@ public class SouthPiece extends JPanel {
         myMessageLabel4.setForeground(Color.WHITE);
         myMessageLabel5.setForeground(Color.WHITE);
         myMessageLabel6.setForeground(Color.WHITE);
+        myMessageLabel7.setForeground(Color.WHITE);
     }
 
     /**
@@ -98,6 +103,7 @@ public class SouthPiece extends JPanel {
         add(myMessageLabel4);
         add(myMessageLabel5);
         add(myMessageLabel6);
+        add(myMessageLabel7);
 
     }
 }
