@@ -135,7 +135,7 @@ public class CenterPanel extends JPanel implements PropertyChangeListener {
             }
         }
         // going through the frozen blocks list.
-        for (int i = myFrozenBlocks.size() - 1; i >= 0; i--) {
+        for (int i  = 0; i < myFrozenBlocks.size(); i++) {
 
             final Block[] row = myFrozenBlocks.get(i);
 
