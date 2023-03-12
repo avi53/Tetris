@@ -304,6 +304,14 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
                     System.out.println("space");
                     myTetrisBoard.drop();
                     playSE(2);
+                } else if (theEvent.getKeyCode() == KeyEvent.VK_SPACE) {
+                    System.out.println("space");
+                    myTetrisBoard.drop();
+                    playSE(2);
+                } else if (theEvent.getKeyCode() == KeyEvent.VK_E) {
+                    System.out.println("rotate ccw");
+                    myTetrisBoard.rotateCCW();
+                    playSE(1);
                 }
             }
             if (theEvent.getKeyCode() == KeyEvent.VK_P && !myGameOverDisplay) {
