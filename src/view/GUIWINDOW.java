@@ -10,7 +10,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -92,11 +91,10 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
         final SouthPiece southpiece = new SouthPiece();
         final EastPiece eastpiece = new EastPiece();
         final CenterPanel centerpiece = new CenterPanel();
-        myTetrisBoard.addPropertyChangeListener(this::propertyChange);
+        myTetrisBoard.addPropertyChangeListener(this);
         myTetrisBoard.addPropertyChangeListener(centerpiece);
         myTetrisBoard.addPropertyChangeListener(eastpiece);
         myTetrisBoard.addPropertyChangeListener(westpiece);
-
         add(centerpiece, BorderLayout.CENTER);
         add(westpiece, BorderLayout.WEST);
         add(southpiece, BorderLayout.SOUTH);
@@ -115,7 +113,6 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
         WINDOW.setJMenuBar(this.createMenu());
         WINDOW.setSize(FRAME_WIDTH, FRAME_HEIGTH);
         WINDOW.setVisible(true);
-
         WINDOW.pack();
         WINDOW.setResizable(true);
     }
@@ -131,11 +128,11 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
         if (myTetrisBoard.PROPERTY_GAME_OVER.equals(theEvt.getPropertyName())) {
             myGameOverDisplay = (boolean) theEvt.getNewValue();
             if (myGameOverDisplay)  {
-
                 myTime.stopTimer();
                 System.out.println("Game is over");
 
-            } else if (!myGameOverDisplay) {
+            }
+            if (!myGameOverDisplay) {
                 System.out.println("Game starts");
                 myTime.restartTimer();
             }
@@ -201,7 +198,6 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
 
                 if (myGameOverDisplay) {
                     JOptionPane.showMessageDialog(newGame, "New Game");
-                    myGameOverDisplay = false;
                     myTetrisBoard.newGame();
                     if (myTime.checkTimer()) {
                         myTime.restartTimer();

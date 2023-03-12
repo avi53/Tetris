@@ -179,12 +179,12 @@ public class Board implements PropertyChangeEnabledBoardControls {
         for (int h = 0; h < myHeight; h++) {
             myFrozenBlocks.add(new Block[myWidth]);
         }
-        final boolean oldGameOver =  myGameOver;
+
         myGameOver = false;
         myCurrentPiece = nextMovablePiece(true);
         final boolean oldDrop = myDrop;
         myDrop = false;
-        myPcs.firePropertyChange(PROPERTY_GAME_OVER, oldGameOver, myGameOver);
+        myPcs.firePropertyChange(PROPERTY_GAME_OVER, null, myGameOver);
         myPcs.firePropertyChange(PROPERTY_DROP, oldDrop, myDrop);
         myPcs.firePropertyChange(PROPERTY_SEQUENCE_INDEX, oldSequenceIndex, mySequenceIndex);
 
