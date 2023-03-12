@@ -29,20 +29,22 @@ import model.wallkicks.WallKick;
  * <dt>{@code Boolean}</dt>
  * <dd>When true, the game is over. </dd>
  * </dl>
+ *
+ * Class implements PropertyChangeEnabledControls interface, which is designed to be used
+ * in the Observer Design pattern.
  * 
  * @author Charles Bryan
  * @author Alan Fowler
  * @version 1.3
  */
+
+
 public class Board implements PropertyChangeEnabledBoardControls {
 
     // Class constants
 
 
-    /** ADDED by group 6
-     * Manager for Property Change Listeners.
-     */
-    private final PropertyChangeSupport myPcs;
+
     /**
      * Default width of a Tetris game board.
      */
@@ -55,7 +57,11 @@ public class Board implements PropertyChangeEnabledBoardControls {
 
     
     // Instance fields
-    
+
+    /** ADDED by group 6
+     * Manager for Property Change Listeners.
+     */
+    private final PropertyChangeSupport myPcs;
     /**
      * Width of the game board.
      */
