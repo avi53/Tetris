@@ -2,16 +2,11 @@ package model;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.Timer;
 
-import view.GUIWINDOW;
-import view.WestPiece;
-
 /**
  * TimerTicker class that represents the timer for the tetris game.
- *
  * @author David Hoang
  * @author Avinash Bavisetty
  * @author Yonas Omega
@@ -19,19 +14,24 @@ import view.WestPiece;
  * @version Winter 2023
  */
 public class TimeTicker extends JLabel implements ActionListener {
+    /**
+     * Initial time delay.
+     */
+    private static final int INITIAL_DELAY = 1000;
+    /**
+     * Delay Time.
+     */
+    private static int myDelay = INITIAL_DELAY;
     /** Timer field. */
     private final Timer myTimer;
     /**
      * Counter field. */
     private int myCounter;
     /**
-     * Delay Time.
-     */
-    private static int myDelay = 1000;
-    /**
-     * Tetris board
+     * Tetris board.
      */
     private Board myBoard;
+
     /**
      * TimeTicker constructor that sets how often the timer "tick".
      */
@@ -94,10 +94,12 @@ public class TimeTicker extends JLabel implements ActionListener {
         myBoard.down();
         System.out.println("tick");
     }
+
+    /**
+     * Method that speeds up the timer by decrementing the delay by 50ms
+     * every time it's called.
+     */
     public void speedUpTimer() {
-        /**
-         * Change in timer.
-         */
         final int speedVal = 50;
         myDelay -= speedVal;
         myTimer.setDelay(myDelay);

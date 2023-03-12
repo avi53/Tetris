@@ -1,9 +1,12 @@
 package model;
 
+import java.io.IOException;
 import java.net.URL;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 /**
  * Sound class that is responsible for storing and playing
@@ -51,7 +54,10 @@ public class Sound {
             myClip = AudioSystem.getClip();
             myClip.open(audio);
 
-        } catch (final Exception e) { }
+        } catch (final IOException | UnsupportedAudioFileException
+                       | LineUnavailableException e) {
+            System.out.println("error has occured" + e);
+        }
 
     }
 
