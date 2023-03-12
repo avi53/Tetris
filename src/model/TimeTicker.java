@@ -101,7 +101,9 @@ public class TimeTicker extends JLabel implements ActionListener {
      */
     public void speedUpTimer() {
         final int speedVal = 50;
-        myDelay -= speedVal;
+        if(myDelay > speedVal) {
+            myDelay -= speedVal;
+        }
         myTimer.setDelay(myDelay);
     }
 
