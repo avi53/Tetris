@@ -225,9 +225,9 @@ public class Board implements PropertyChangeEnabledBoardControls {
      * Clear full lines.
      */
     public void down() {
-        //made local variables to see the old frozenBlocks list, and
-        // myCurrentPiece fields when they changed and fired them in the down method.
-        final List<Block[]> oldFrozenBlocksList =  myFrozenBlocks;
+        //made local variable to see
+        // myCurrentPiece field when they changed and fired them in the down method.
+
         final   MovableTetrisPiece oldMyCurrentPiece = myCurrentPiece;
         if (!move(myCurrentPiece.down())) {
             // the piece froze, so clear lines and update current piece
@@ -236,13 +236,14 @@ public class Board implements PropertyChangeEnabledBoardControls {
             if (!myGameOver) {
                 myCurrentPiece = nextMovablePiece(false);
             }
-            myPcs.firePropertyChange(PROPERTY_FROZEN_BLOCKS_SIZE, oldFrozenBlocksList,
-                    myFrozenBlocks);
+
 
             myPcs.firePropertyChange(PROPERTY_CURRENT_PIECE, oldMyCurrentPiece,
                     myCurrentPiece);
             // TODO Publish Update!
         }
+        myPcs.firePropertyChange(PROPERTY_FROZEN_BLOCKS_SIZE, null,
+                myFrozenBlocks);
     }
 
     /**

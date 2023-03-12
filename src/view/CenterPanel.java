@@ -87,6 +87,7 @@ public class CenterPanel extends JPanel implements PropertyChangeListener {
 
         } else if (propertyName.equals(Board.PROPERTY_FROZEN_BLOCKS_SIZE)) {
             myFrozenBlocks = (LinkedList<Block[]>) theEvt.getNewValue();
+            System.out.println("FROZEN BLOCKS UPDATED!");
         } else if ("rotation".equals(theEvt.getPropertyName())) {
             repaint();
         } else if (propertyName.equals(Board.PROPERTY_CURRENT_PIECE)) {
@@ -147,7 +148,7 @@ public class CenterPanel extends JPanel implements PropertyChangeListener {
                     final Color colorBlock = getBlockColor(block);
                     g2d.setPaint(colorBlock);
                     g2d.fill(new Rectangle2D.Double(j * PIECE_SIZE,
-                            i * PIECE_SIZE,
+                            ((i+19)) * PIECE_SIZE,
                             PIECE_SIZE,
                             PIECE_SIZE));
                 }
