@@ -16,12 +16,12 @@ public class CenterPanel extends JPanel implements PropertyChangeListener {
     /**
      * center height.
      */
-    private static final int CENTER_HEIGHT = 1000;
+    private static final int CENTER_HEIGHT = 800;
 
     /**
      * The width for the rectangle.
      */
-    private static final int PIECE_SIZE = 50;
+    private static final int PIECE_SIZE = 40;
 
     /**
      * temp height setting.
@@ -43,8 +43,10 @@ public class CenterPanel extends JPanel implements PropertyChangeListener {
      */
     private LinkedList<Block[]> myFrozenBlocks;
 
+
     public CenterPanel() {
         super();
+
         createCenterPiece();
 
         myFrozenBlocks = new LinkedList<>();
@@ -88,7 +90,7 @@ public class CenterPanel extends JPanel implements PropertyChangeListener {
         repaint();
     }
 
-    private Color getBlockColor(final Block theBlock) {
+    public static Color getBlockColor(final Block theBlock) {
         return switch (theBlock) {
             case I -> Color.CYAN;
             case J -> Color.BLUE;

@@ -33,7 +33,7 @@ public class EastPiece extends JPanel implements PropertyChangeListener {
     private JLabel myNextLevelCountLabel;
 
     /** The next level in # of lines. */
-    private int myNextLevelCount = 4;
+    private int myNextLevelCount = 5;
 
     /** The number of lines cleared. */
     private int myLinescleared = 0;
@@ -45,6 +45,7 @@ public class EastPiece extends JPanel implements PropertyChangeListener {
     public EastPiece() {
         super();
         createEastPiece();
+
     }
 
     /**
@@ -100,7 +101,7 @@ public class EastPiece extends JPanel implements PropertyChangeListener {
         private static final int HEIGHT = 150;
 
         public InsidePanel() {
-            setBackground(Color.BLUE);
+            setBackground(Color.LIGHT_GRAY);
             setPreferredSize(new Dimension(WIDTH, HEIGHT));
             Font font = new Font("Arial", Font.BOLD, 16);
             font = font.deriveFont(Font.BOLD, 12f).deriveFont(Collections.singletonMap
@@ -144,7 +145,7 @@ public class EastPiece extends JPanel implements PropertyChangeListener {
                     final int blockX = x + (block.x() - minX) * 30;
                     final int blockY = y + (block.y() - minY) * 30;
                     final Shape rectangle = new Rectangle2D.Double(blockX, blockY, 30, 30);
-                    g2d.setPaint(Color.RED);
+                    g2d.setPaint(CenterPanel.getBlockColor(myPiece.getBlock()));
                     g2d.setStroke(new BasicStroke(10));
                     g2d.fill(rectangle);
                     g2d.setPaint(Color.BLACK);
@@ -165,7 +166,7 @@ public class EastPiece extends JPanel implements PropertyChangeListener {
             myLinescleared++;
 
             if (myLinescleared <= 4) {
-                myNextLevelCount = 4 - myLinescleared;
+                myNextLevelCount = 5 - myLinescleared;
                 myNextLevelCountLabel.setText(Integer.toString(myNextLevelCount));
                 myLinescleared = 0;
             }
