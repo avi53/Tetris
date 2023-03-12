@@ -43,7 +43,7 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
     /**
      * Time object.
      */
-    private TimeTicker  myTime = new TimeTicker();
+    private static TimeTicker  myTime = new TimeTicker();
     /**
      * Board object to be referenced.
      */
@@ -83,6 +83,10 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
         requestFocus();
 
         playMusic(0);
+    }
+
+    public static TimeTicker getTimer() {
+        return myTime;
     }
 
     /**

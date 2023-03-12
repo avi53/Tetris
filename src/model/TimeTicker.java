@@ -25,8 +25,11 @@ public class TimeTicker extends JLabel implements ActionListener {
     /**
      * Delay Time.
      */
-    private final int myDelay = 1000;
-
+    private int myDelay = 1000;
+    /**
+     * Change in timer.
+     */
+    private final int mySpeedVal = 50;
     /**
      * TimeTicker constructor that sets how often the timer "tick".
      */
@@ -73,22 +76,26 @@ public class TimeTicker extends JLabel implements ActionListener {
      * @param theE the event to be processed
      */
     public void actionPerformed(final ActionEvent theE) {
-        final ArrayList<Integer> delayTimes = new ArrayList<>();
-        for (int i = 1000; i >= 50; i = i - 50) {
-            delayTimes.add(i);
-        }
-
-        final int level = WestPiece.getLevel();
-        int delayTime = myDelay;
-        if (level > delayTimes.size()) {
-            delayTime = delayTimes.get(delayTimes.size() - 1);
-        } else {
-            delayTime = delayTimes.get(level - 1);
-        }
-        myTimer.setDelay(delayTime); // reset the Timer with the new delay time
+//        final ArrayList<Integer> delayTimes = new ArrayList<>();
+//        for (int i = 1000; i >= 50; i = i - 50) {
+//            delayTimes.add(i);
+//        }
+//
+//        final int level = WestPiece.getLevel();
+//        int delayTime = myDelay;
+//        if (level > delayTimes.size()) {
+//            delayTime = delayTimes.get(delayTimes.size() - 1);
+//        } else {
+//            delayTime = delayTimes.get(level - 1);
+//        }
+//        myTimer.setDelay(delayTime); // reset the Timer with the new delay time
 
         myCounter++;
         System.out.println("tick");
+    }
+    public void speedUpTimer() {
+        myDelay -= mySpeedVal;
+        myTimer.setDelay(myDelay);
     }
 
     /**
