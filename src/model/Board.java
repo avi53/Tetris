@@ -608,9 +608,9 @@ public class Board implements PropertyChangeEnabledBoardControls {
      * can't end if the current game has already ended.
      * Fires that the game has ended.
      */
-    public void endGame(){
+    public void endGame() {
         if (!myGameOver) {
-            myGameOver= true;
+            myGameOver = true;
         }
         myPcs.firePropertyChange(PROPERTY_GAME_OVER, null, myGameOver);
     }
