@@ -69,8 +69,8 @@ public class WestPiece extends JPanel implements PropertyChangeListener {
      * My timer.
      */
     private TimeTicker myTime;
-    private boolean isGameOver;
-    GUIWINDOW guiwindow;
+    /** The Status of the game. */
+    private boolean gameOverStatus;
 
 
 
@@ -88,6 +88,8 @@ public class WestPiece extends JPanel implements PropertyChangeListener {
         level = 0;
         score = 0;
         myFrozenBlocks = new LinkedList<>();
+
+        gameOverStatus = true;
         createTop();
         createCenter();
         createBot();
@@ -172,14 +174,16 @@ public class WestPiece extends JPanel implements PropertyChangeListener {
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if (GUIWINDOW.PROPERTY_GAME_OVER_STATUS.equals(evt.getPropertyName())) {
-            System.out.println("GAME IS OVER");
-            level = 0;
-            score = 0;
-            pieceCounter = 0;
-        }
-        if (!GUIWINDOW.PROPERTY_GAME_OVER_STATUS.equals(evt.getPropertyName())) {
-            System.out.println("GAME ON");
-            level = 1;
+            gameOverStatus = (boolean) evt.getNewValue();
+            if (gameOverStatus) {
+                gameStatus.setText("Game over ");
+                level = 0;
+                score = 0;
+                pieceCounter = 0;
+            } else {
+                gameStatus.setText("Game on    ");
+                level = 1;
+            }
         }
         if (Board.PROPERTY_NEXT_PIECE.equals(evt.getPropertyName())) {
             pieceCounter++;
