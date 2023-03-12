@@ -122,8 +122,7 @@ public class CenterPanel extends JPanel implements PropertyChangeListener {
             // Draw the blocks of the piece
         if (myPiece != null) {
             // Draw the blocks of the piece
-            final TetrisPiece nonMovableTetrisPiece = myPiece.getTetrisPiece();
-            final int[][] myPoints = nonMovableTetrisPiece.getPointsByRotation(myPiece.getRotation());
+            final int[][] myPoints =  myPiece.getTetrisPiece().getPointsByRotation(myPiece.getRotation());
             for (int i=0; i < 4; i++) {
                 final Color pieceColor = getBlockColor(myPiece.getTetrisPiece().getBlock());
                 final int x = (myPoints[i][0] + myPiece.getPosition().x()) * PIECE_SIZE;
