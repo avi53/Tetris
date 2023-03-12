@@ -29,20 +29,18 @@ public class CenterPanel extends JPanel implements PropertyChangeListener {
      */
     private static final int PIECE_SIZE = 40;
 
-    /**
-     * temp height setting.
-     */
-    private static final int HEIGHT = 20;
 
-    /**
-     * temp width setting.
-     */
-    private static final int WIDTH = 10;
+
+
 
     /**
      * Tetris piece.
      */
     private MovableTetrisPiece myPiece;
+    /**
+     * Board object to be referenced.
+     */
+    private Board myTetrisBoard  = new Board();
 
     /**
      * List of Frozen blocks.
@@ -57,10 +55,10 @@ public class CenterPanel extends JPanel implements PropertyChangeListener {
 
         myFrozenBlocks = new LinkedList<>();
 
-        for (int i = 0; i < HEIGHT; i++) {
-            final Block[] row = new Block[WIDTH];
+        for (int i = 0; i < myTetrisBoard.getHeight(); i++) {
+            final Block[] row = new Block[myTetrisBoard.getWidth()];
 
-            for (int j = 0; j < WIDTH; j++) {
+            for (int j = 0; j < myTetrisBoard.getWidth(); j++) {
                 row[j] = Block.EMPTY;
             }
 
@@ -155,8 +153,8 @@ public class CenterPanel extends JPanel implements PropertyChangeListener {
 
         //draws grid lines on the board
         g2d.setPaint(Color.BLACK);
-        for (int row = 0; row < HEIGHT; row++) {
-            for (int col = 0; col < WIDTH; col++) {
+        for (int row = 0; row < myTetrisBoard.getHeight(); row++) {
+            for (int col = 0; col < myTetrisBoard.getWidth(); col++) {
                 g2d.draw(new Rectangle2D.Double(col * PIECE_SIZE,
                         row * PIECE_SIZE,
                         PIECE_SIZE,

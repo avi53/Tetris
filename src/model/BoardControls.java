@@ -1,6 +1,6 @@
 package model;
 
-import java.util.List;
+
 
 /**
  * Define the methods that a Tetris Object can have.
@@ -34,15 +34,6 @@ public interface BoardControls {
      * and before each new game.
      */
     void newGame();
-
-
-    /**
-     * Sets a non-random sequence of pieces to loop through.
-     *
-     * @param thePieces the List of non-random TetrisPieces.
-     */
-    void setPieceSequence(List<TetrisPiece> thePieces);
-
 
     /**
      * Advances the board by one 'step'.
