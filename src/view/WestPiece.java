@@ -184,6 +184,7 @@ public class WestPiece extends JPanel implements PropertyChangeListener {
             } else {
                 gameStatus.setText("Game on    ");
                 level = 1;
+                levelLabel.setText(Integer.toString(level));
             }
         }
 
