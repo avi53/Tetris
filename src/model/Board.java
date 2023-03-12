@@ -44,7 +44,6 @@ public class Board implements PropertyChangeEnabledBoardControls {
     // Class constants
 
 
-
     /**
      * Default width of a Tetris game board.
      */
@@ -164,11 +163,17 @@ public class Board implements PropertyChangeEnabledBoardControls {
 
 
     /**
-     * Resets the board for a new game.
+     * Resets the board for a new game, and fires the new values
+     * to the propertyChangeSupport Object.
      * This method must be called before the first game
      * and before each new game.
      */
+
     public void newGame() {
+        // made local variables to see the old sequence index, the old
+        // game over status and my drop fields when they changed
+        // and fired the new values when they were updated in newGame method.
+
         final int oldSequenceIndex= mySequenceIndex;
         mySequenceIndex = 0;
         myFrozenBlocks.clear();
@@ -215,12 +220,14 @@ public class Board implements PropertyChangeEnabledBoardControls {
     }
     
     /**
-     * Try to move the movable piece down.
+     * Try to move the movable piece down and
+     * fires the new values to the propertyChangeSupport Object.
      * Freeze the Piece in position if down tries to move into an illegal state.
      * Clear full lines.
      */
     public void down() {
-
+        //made local variables to see the old frozenBlocks list, and
+        // myCurrentPiece fields when they changed and fired them in the down method.
         final List<Block[]> oldFrozenBlocksList =  myFrozenBlocks;
         final   MovableTetrisPiece oldMyCurrentPiece= myCurrentPiece;
         if (!move(myCurrentPiece.down())) {
@@ -361,11 +368,16 @@ public class Board implements PropertyChangeEnabledBoardControls {
     /**
      * Helper function to check if the current piece can be shifted to the
      * specified position.
+     * fires the new values to the propertyChangeSupport Object.
      * 
      * @param theMovedPiece the position to attempt to shift the current piece
      * @return True if the move succeeded
      */
     private boolean move(final MovableTetrisPiece theMovedPiece) {
+
+        //made local variables to see the old myCurrentPiece fields,
+        // and  old myDrop fields when they changed
+        // fired them in the move method.
         final   MovableTetrisPiece oldMyCurrentPiece= myCurrentPiece;
         final boolean oldDrop= myDrop;
         boolean result = false;
@@ -556,9 +568,13 @@ public class Board implements PropertyChangeEnabledBoardControls {
     }
     
     /**
-     * Prepares the Next movable piece for preview.
+     * Prepares the Next movable piece for preview and
+     * fires the new values to the propertyChangeSupport Object.
      */
     private void prepareNextMovablePiece() {
+       // made local variables to see the old myGameOver, old myNextPiece
+        // and old myNonRandomPieces fields when they changed
+       // fired the new values when they were updated.
         final boolean oldGameOver=  myGameOver;
         final boolean share = myNextPiece != null;
         final List<TetrisPiece> oldNonRandomPiece = myNonRandomPieces;
