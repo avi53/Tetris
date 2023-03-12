@@ -69,7 +69,7 @@ public class WestPiece extends JPanel implements PropertyChangeListener {
     /**
      * My timer.
      */
-    private TimeTicker myTime;
+    private final TimeTicker myTime;
     /** The Status of the game. */
     private boolean gameOverStatus;
 
@@ -79,9 +79,9 @@ public class WestPiece extends JPanel implements PropertyChangeListener {
     /**
      * West piece constructor. Initialize the west piece panel.
      */
-    public WestPiece() {
+    public WestPiece(final TimeTicker theTime) {
         super();
-        myTime = GUIWINDOW.getTimer();
+        myTime = theTime;
         pieceCounter = 0;
         gameStatus = new JLabel("");
         myTotalLinesCleared=0;

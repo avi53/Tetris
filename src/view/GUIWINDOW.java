@@ -40,18 +40,17 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
     /** frame of the gui window.*/
     private static final JFrame WINDOW = new JFrame(" Our Frame");
     /**
-     * Time object.
-     */
-    private static TimeTicker  myTime = new TimeTicker();
-    /**
      * Board object to be referenced.
      */
     private Board myTetrisBoard  = new Board();
-
+    /**
+     * Time object.
+     */
+    private final TimeTicker myTime = new TimeTicker(myTetrisBoard);
     /**
      * The variable to add sound to the board.
      */
-    private Sound mySound = new Sound();
+    private final Sound mySound = new Sound();
 
     /**
      * game over status to display.
@@ -79,15 +78,11 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
         playMusic(0);
     }
 
-    public static TimeTicker getTimer() {
-        return myTime;
-    }
-
     /**
      * Helper method to set up components.
      */
     private void setUpComponents() {
-        final WestPiece westpiece = new WestPiece();
+        final WestPiece westpiece = new WestPiece(myTime);
         final SouthPiece southpiece = new SouthPiece();
         final EastPiece eastpiece = new EastPiece();
         final CenterPanel centerpiece = new CenterPanel();

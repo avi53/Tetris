@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.Timer;
+
+import view.GUIWINDOW;
 import view.WestPiece;
 
 /**
@@ -25,20 +27,18 @@ public class TimeTicker extends JLabel implements ActionListener {
     /**
      * Delay Time.
      */
-    private int myDelay = 1000;
+    private static int myDelay = 1000;
     /**
-     * Change in timer.
+     * Tetris board
      */
-    private final int mySpeedVal = 50;
+    private Board myBoard;
     /**
      * TimeTicker constructor that sets how often the timer "tick".
      */
-    public TimeTicker() {
+    public TimeTicker(final Board theBoard) {
         super();
-        /**
-         * Timer delay.
-         */
         myTimer = new Timer(myDelay, this); // 1000 ms = 1 second
+        myBoard = theBoard;
     }
 
     /**
@@ -91,10 +91,15 @@ public class TimeTicker extends JLabel implements ActionListener {
 //        myTimer.setDelay(delayTime); // reset the Timer with the new delay time
 
         myCounter++;
+        myBoard.down();
         System.out.println("tick");
     }
     public void speedUpTimer() {
-        myDelay -= mySpeedVal;
+        /**
+         * Change in timer.
+         */
+        final int speedVal = 50;
+        myDelay -= speedVal;
         myTimer.setDelay(myDelay);
     }
 
