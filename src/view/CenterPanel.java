@@ -143,7 +143,7 @@ public class CenterPanel extends JPanel implements PropertyChangeListener {
 
                 if (row[j] != null && myPiece != null && row[j] !=Block.EMPTY) {
 
-                    final Block block = myPiece.getTetrisPiece().getBlock();
+                    final Block block = row[j];
                     final Color colorBlock = getBlockColor(block);
                     g2d.setPaint(colorBlock);
                     g2d.fill(new Rectangle2D.Double(j * PIECE_SIZE,
