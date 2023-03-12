@@ -33,7 +33,7 @@ public class EastPiece extends JPanel implements PropertyChangeListener {
     private JLabel myNextLevelCountLabel;
 
     /** The next level in # of lines. */
-    private int myNextLevelCount = 5;
+    private int myNextLevelCount = 4;
 
     /** The number of lines cleared. */
     private int myLinescleared = 0;
@@ -156,6 +156,7 @@ public class EastPiece extends JPanel implements PropertyChangeListener {
         }
     }
 
+
     @Override
     public void propertyChange(final PropertyChangeEvent evt) {
         if (Board.PROPERTY_NEXT_PIECE.equals(evt.getPropertyName())) {
@@ -163,11 +164,13 @@ public class EastPiece extends JPanel implements PropertyChangeListener {
             repaint();
         }
         if (Board.PROPERTY_COMPLETE_ROWS_LIST.equals(evt.getPropertyName())) {
-            myLinescleared++;
+            myLinescleared = WestPiece.getLinesCleared() + 1;
 
             if (myLinescleared <= 4) {
-                myNextLevelCount = 5 - myLinescleared;
-                myNextLevelCountLabel.setText(Integer.toString(myNextLevelCount));
+
+
+                myNextLevelCount = 4 - myLinescleared;
+                myNextLevelCountLabel.setText(Integer.toString(myNextLevelCount) + " Lines");
                 myLinescleared = 0;
             }
         }

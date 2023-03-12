@@ -58,7 +58,7 @@ public class WestPiece extends JPanel implements PropertyChangeListener {
     /**
      * Lines that were cleared for the current level.
      */
-    private int myLinescleared;
+    private static int myLinescleared;
 
     /**
      * Lines that were cleared for the whole game.
@@ -171,6 +171,9 @@ public class WestPiece extends JPanel implements PropertyChangeListener {
         }
         return scoreToReturn;
     }
+    public static int getLinesCleared() {
+        return myLinescleared;
+    }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
@@ -198,16 +201,21 @@ public class WestPiece extends JPanel implements PropertyChangeListener {
             levelLabel.setText(Integer.toString(level));
         }
         if (Board.PROPERTY_COMPLETE_ROWS_LIST.equals(evt.getPropertyName())) {
+
             myLinescleared++;
             myTotalLinesCleared += myLinescleared;
+
             if (myLinescleared < 4) {
                 score += calculateScoreLineClear();
+
             }
             if (myLinescleared > 4) {
                 level++;
                 myTime.speedUpTimer();
                 myLinescleared = 0;
             }
+            levelLabel.setText(Integer.toString(level));
+            gameLines.setText(Integer.toString(myTotalLinesCleared));
         }
     }
 //    public static int getLevel() {
