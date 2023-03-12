@@ -36,10 +36,8 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
     private static final int FRAME_WIDTH = 500;
     /** frame height.*/
     private static final int FRAME_HEIGTH = 600;
-    /** center width.*/
-    private static final int CENTER_WIDTH = 300;
-    /** center height.*/
-    private static final int CENTER_HEIGHT = 500;
+
+
     /** frame of the gui window.*/
     private static final JFrame WINDOW = new JFrame(" Our Frame");
     /**
