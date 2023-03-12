@@ -43,7 +43,6 @@ public class Board implements PropertyChangeEnabledBoardControls {
 
     // Class constants
 
-
     /**
      * Default width of a Tetris game board.
      */
