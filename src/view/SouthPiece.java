@@ -1,13 +1,18 @@
 package view;
 
-import java.awt.*;
-import java.awt.geom.Rectangle2D;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.GridLayout;
+import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import javax.swing.JTextField;
-import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+
 
 
 /**
@@ -25,13 +30,17 @@ public class SouthPiece extends JPanel {
     /** South piece height.*/
     private static final int SOUTH_HEIGHT = 100;
 
-    private static JTextField textField;
+    /** how many rows grid should have. */
+    private static final int ROWS = 6;
+    /** how many columns grid should have. */
+    private static final int COL = 2;
 
+    /** Image Size. */
 
-
+    private static final int IMG_SZE = 1200;
     /** A label to display the message. */
     private JLabel myMessageLabel1;
-    /** A label to display the message.2 */
+    /** A label to display the message 2. */
     private JLabel myMessageLabel2;
 
     /** A label to display the message. 3 */
@@ -50,7 +59,9 @@ public class SouthPiece extends JPanel {
     private JLabel myMessageLabel7;
 
     /** Background image. */
-    private Image background;
+    private  Image myBackground;
+
+
 
     /**
      * South piece constructor. Initialize the south piece panel.
@@ -59,8 +70,8 @@ public class SouthPiece extends JPanel {
         super();
 
         try {
-            background = ImageIO.read(new File("src/image/image.jpg"));
-        } catch (IOException e) {
+            myBackground = ImageIO.read(new File("src/image/image.jpg"));
+        } catch (final IOException e) {
             e.printStackTrace();
         }
 
@@ -71,7 +82,7 @@ public class SouthPiece extends JPanel {
      * Create the south piece width, height, and set the color.
      */
     private void createSouthPiece() {
-        setLayout(new GridLayout(6,2));
+        setLayout(new GridLayout(ROWS, COL));
         setBackground(Color.BLACK);
         setPreferredSize(new Dimension(SOUTH_WIDTH, SOUTH_HEIGHT));
 
@@ -84,11 +95,11 @@ public class SouthPiece extends JPanel {
     /**
      * Helper method to Initialize message labels.
      */
-    private void createMsgLabels(){
+    private void createMsgLabels() {
         myMessageLabel1 = new JLabel("Move Left: A ");
         myMessageLabel2 = new JLabel("Move Right: D ");
         myMessageLabel3 = new JLabel("Rotate Clockwise: W");
-        myMessageLabel4= new JLabel("Move Down: S");
+        myMessageLabel4 = new JLabel("Move Down: S");
         myMessageLabel5 = new JLabel("Drop: space");
         myMessageLabel6 = new JLabel("Pause/Unpause: P");
         myMessageLabel7 = new JLabel("Rotate Counter Clockwise: W");
@@ -96,7 +107,7 @@ public class SouthPiece extends JPanel {
     /**
      * Helper method to set Message colors.
      */
-    private void setColorMsgLabel(){
+    private void setColorMsgLabel() {
         myMessageLabel1.setForeground(Color.WHITE);
         myMessageLabel2.setForeground(Color.WHITE);
         myMessageLabel3.setForeground(Color.WHITE);
@@ -109,7 +120,7 @@ public class SouthPiece extends JPanel {
     /**
      * Helper method to add message labels to panel.
      */
-    private void addMsgLabels (){
+    private void addMsgLabels() {
         add(myMessageLabel1);
         add(myMessageLabel2);
         add(myMessageLabel3);
@@ -124,6 +135,6 @@ public class SouthPiece extends JPanel {
         super.paintComponent(theGraphics);
         final Graphics2D g2d = (Graphics2D) theGraphics;
 
-        g2d.drawImage(background, 0, 0, 1200, 1200, null);
+        g2d.drawImage(myBackground, 0, 0, IMG_SZE, IMG_SZE, null);
     }
 }
