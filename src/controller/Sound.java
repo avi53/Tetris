@@ -9,9 +9,7 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 /**
- * Sound class that is responsible for storing and playing
- * audio clips.
- *
+ * Sound class that is responsible for storing and playing audio clips.
  * @author David Hoang
  * @author Avinash Bavisetty
  * @author Yonas Omega
