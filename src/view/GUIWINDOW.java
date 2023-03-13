@@ -282,10 +282,10 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
         public void keyPressed(final KeyEvent theEvent) {
             if (myTime.checkTimer() && !myGameOverDisplay) {
                 switch (theEvent.getKeyCode()) {
-                    case KeyEvent.VK_W -> handleUpKey();
-                    case KeyEvent.VK_S -> handleDownKey();
-                    case KeyEvent.VK_A -> handleLeftKey();
-                    case KeyEvent.VK_D -> handleRightKey();
+                    case KeyEvent.VK_W, KeyEvent.VK_UP -> handleUpKey();
+                    case KeyEvent.VK_S, KeyEvent.VK_DOWN -> handleDownKey();
+                    case KeyEvent.VK_A, KeyEvent.VK_LEFT -> handleLeftKey();
+                    case KeyEvent.VK_D, KeyEvent.VK_RIGHT -> handleRightKey();
                     case KeyEvent.VK_SPACE -> handleSpaceKey();
                     case KeyEvent.VK_E -> handleRotateCCWKey();
                     default -> {
