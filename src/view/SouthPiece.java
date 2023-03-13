@@ -96,13 +96,13 @@ public class SouthPiece extends JPanel {
      * Helper method to Initialize message labels.
      */
     private void createMsgLabels() {
-        myMessageLabel1 = new JLabel("Move Left: A ");
-        myMessageLabel2 = new JLabel("Move Right: D ");
-        myMessageLabel3 = new JLabel("Rotate Clockwise: W");
-        myMessageLabel4 = new JLabel("Move Down: S");
-        myMessageLabel5 = new JLabel("Drop: space");
-        myMessageLabel6 = new JLabel("Pause/Unpause: P");
-        myMessageLabel7 = new JLabel("Rotate Counter Clockwise: W");
+        myMessageLabel1 = new JLabel("Move Left: A Or  ← ");
+        myMessageLabel2 = new JLabel("Move Right: D Or →");
+        myMessageLabel3 = new JLabel("Rotate Clockwise: W Or ↑");
+        myMessageLabel4 = new JLabel("Move Down: S Or ↓");
+        myMessageLabel5 = new JLabel("Drop: space ");
+        myMessageLabel6 = new JLabel("Pause/Unpause: P ");
+        myMessageLabel7 = new JLabel("Rotate Counter Clockwise: E");
     }
     /**
      * Helper method to set Message colors.
