@@ -44,7 +44,7 @@ will make centerplanel class listen to key events in guiwindow and update for th
 ### Sprint 3 Contribution:
 
 - David:  Helped implement the color, location of frozen and current pieces on the board.
-- Yonas: added more helper methods in the timer such as speedUpTimer which decreases the delay and speeds up the timer which is called whenever the user levels up. Also made the tetris piece go down based on the timer delay. I also made a sound class and added background music to the game. Also added sound effects for moving pieces. Also changed the implementation of the controlKeyListener class.
+- Yonas: added more helper methods in the timer such as speedUpTimer which decreases the delay and speeds up the timer which is called whenever the user levels up. Also made the tetris piece go down based on the timer delay. I also made a sound class and added background music to the game. Also added sound effects for moving pieces. Also changed the implementation of the controlKeyListener class and added arrow key binds.
 - Jose: Worked on getting the south and west panels working; with the timers for keeping track of Points, Levels, Lines, Next Piece, and Next Level in as a  part of those panels.
 - Avi: Helped with finishing up the centerpanel.java and putting the finishing touches on the gui such as implementing the backgrounds for the panels.
 
