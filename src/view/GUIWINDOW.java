@@ -1,9 +1,13 @@
 package view;
 
-
+import controller.Sound;
+import controller.TimeTicker;
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import javax.swing.JFrame;
@@ -13,7 +17,6 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import model.Board;
-import model.TimeTicker;
 
 
 /**
@@ -24,53 +27,72 @@ import model.TimeTicker;
  * @author Jose Rodriguez
  * @version Winter 2023
  */
-public class GUIWINDOW extends JPanel {
+public class GUIWINDOW extends JPanel implements PropertyChangeListener {
     /** frame width.*/
     private static final int FRAME_WIDTH = 500;
     /** frame height.*/
     private static final int FRAME_HEIGTH = 600;
-    /** center width.*/
-    private static final int CENTER_WIDTH = 300;
-    /** center height.*/
-    private static final int CENTER_HEIGHT = 500;
+
+
     /** frame of the gui window.*/
     private static final JFrame WINDOW = new JFrame(" Our Frame");
     /**
-     * Time object.
-     */
-     private TimeTicker  myTime = new TimeTicker();
-    /**
      * Board object to be referenced.
      */
-    private Board myTetrisBoard = new Board();
+    private final Board myTetrisBoard  = new Board();
+    /**
+     * Time object.
+     */
+    private final TimeTicker myTime = new TimeTicker(myTetrisBoard);
+    /**
+     * The variable to add sound to the board.
+     */
+    private final Sound mySound = new Sound();
+
+    /**
+     * game over status to display.
+     */
+    private boolean myGameOverDisplay = true;
+
+    /** ADDED by group 6
+     * Manager for Property Change Listeners in guiWindow.
+     */
+
 
     /**
      * Creates LayOutManager on JPanel.
      */
-    public GUIWINDOW() {
+    public GUIWINDOW()  {
         super();
         setLayout(new BorderLayout());
 
-        final WestPiece westpiece = new WestPiece();
-        final SouthPiece southpiece = new SouthPiece();
-        final EastPiece eastpiece = new EastPiece();
-        final CenterPanel centerpiece = new CenterPanel();
-        myTetrisBoard.addPropertyChangeListener(centerpiece);
-        myTetrisBoard.addPropertyChangeListener(eastpiece);
-        add(centerpiece, BorderLayout.CENTER);
-        add(westpiece, BorderLayout.WEST);
-        add(southpiece, BorderLayout.SOUTH);
-        add(eastpiece, BorderLayout.EAST);
+        setUpComponents();
 
         addKeyListener(new ControlKeyListener());
         setFocusable(true);
         requestFocus();
 
-        myTime.startTimer();
-//        WINDOW.getContentPane().add(time);
-//        WINDOW.pack();
-//        WINDOW.setVisible(true);
+        playMusic(0);
     }
+
+    /**
+     * Helper method to set up components.
+     */
+    private void setUpComponents() {
+        final WestPiece westpiece = new WestPiece(myTime);
+        final SouthPiece southpiece = new SouthPiece();
+        final EastPiece eastpiece = new EastPiece();
+        final CenterPanel centerpiece = new CenterPanel();
+        myTetrisBoard.addPropertyChangeListener(this);
+        myTetrisBoard.addPropertyChangeListener(centerpiece);
+        myTetrisBoard.addPropertyChangeListener(eastpiece);
+        myTetrisBoard.addPropertyChangeListener(westpiece);
+        add(centerpiece, BorderLayout.CENTER);
+        add(westpiece, BorderLayout.WEST);
+        add(southpiece, BorderLayout.SOUTH);
+        add(eastpiece, BorderLayout.EAST);
+    }
+
 
     /**
      * Create the GUI and show it.  For thread safety,
@@ -83,37 +105,40 @@ public class GUIWINDOW extends JPanel {
         WINDOW.setJMenuBar(this.createMenu());
         WINDOW.setSize(FRAME_WIDTH, FRAME_HEIGTH);
         WINDOW.setVisible(true);
-
         WINDOW.pack();
         WINDOW.setResizable(true);
     }
 
-    /**
-     * ControlKeyListener is responsible to read key input from the
-     * user and move the tetris piece according to the key pressed.
-     */
-    class ControlKeyListener extends KeyAdapter {
-        @Override
-        public void keyPressed(final KeyEvent theEvent) {
-            if (theEvent.getKeyCode() == KeyEvent.VK_W) {
-                System.out.println("up");
-                myTetrisBoard.rotateCW();
+    @Override
+    public void addPropertyChangeListener(final PropertyChangeListener theListener) {
+        super.addPropertyChangeListener(theListener);
+    }
+
+    @Override
+    public void propertyChange(final PropertyChangeEvent theEvt) {
+
+        if (myTetrisBoard.PROPERTY_GAME_OVER.equals(theEvt.getPropertyName())) {
+            myGameOverDisplay = (boolean) theEvt.getNewValue();
+            if (myGameOverDisplay)  {
+                myTime.stopTimer();
+
             }
-            if (theEvent.getKeyCode() == KeyEvent.VK_S) {
-                System.out.println("down");
-                myTetrisBoard.down();
-            }
-            if (theEvent.getKeyCode() == KeyEvent.VK_A) {
-                System.out.println("left");
-                myTetrisBoard.left();
-            }
-            if (theEvent.getKeyCode() == KeyEvent.VK_D) {
-                System.out.println("right");
-                myTetrisBoard.right();
+            if (!myGameOverDisplay) {
+
+                myTime.restartTimer();
             }
         }
     }
 
+    public void playMusic(final int theIndex) {
+        mySound.setFile(theIndex);
+        mySound.play();
+        mySound.loop();
+    }
+    public void playSE(final int theIndex) {
+        mySound.setFile(theIndex);
+        mySound.play();
+    }
     /**
      * Build the menu bar for this GUI. This method will need
      * to be called where access to a JFrame occurs. You attach
@@ -134,37 +159,194 @@ public class GUIWINDOW extends JPanel {
      */
     private JMenu buildFileMenu() {
         final JMenu menu = new JMenu("File");
-        menu.add(buildSubMenu());
+        menu.add(buildUserOptions());
         menu.addSeparator();
-
         return menu;
     }
 
     /**
-     * Builds a menu to demonstrate sub menus.
-     * @return a menu with several simple menu items.
+     * Builds the menu Items and adds actionlisteners.
+     * Also adds to the sub menu of user options and returns it.
      */
-    private JMenu buildSubMenu() {
+    private JMenu buildUserOptions() {
+        final JMenuItem newGame = new JMenuItem("New game");
+        final JMenuItem endGame = new JMenuItem("End Game");
+        final JMenuItem exit = new JMenuItem("Exit");
+        final JMenuItem about = new JMenuItem("About");
+        final JMenuItem scoreAlgorithim = new JMenuItem("Score Algorithim");
+
+        /**
+         * When the New Game option is pressed, start a new game.'
+         * User's current game must end to start new game.
+         */
+        newGame.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(final ActionEvent theE) {
+
+                if (myGameOverDisplay) {
+                    JOptionPane.showMessageDialog(newGame, "New Game");
+                    myTetrisBoard.newGame();
+                    if (myTime.checkTimer()) {
+                        myTime.restartTimer();
+                    } else {
+                        myTime.startTimer();
+                    }
+                } else if (!myGameOverDisplay) {
+                    JOptionPane.showMessageDialog(newGame, "Current game has not ended yet!");
+                }
+
+            }
+        });
+        /**
+         * The current game is ended and paused.
+         */
+        endGame.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(final ActionEvent theE) {
+
+                if (!myGameOverDisplay) {
+                    JOptionPane.showMessageDialog(endGame, "Game Ended");
+                    myTetrisBoard.endGame();
+
+                    myTime.stopTimer();
+                } else if (myGameOverDisplay) {
+
+                    JOptionPane.showMessageDialog(endGame, "Game Already Ended!");
+                }
+            }
+        });
+        /**
+         * Closes the window when the exit item is clicked.
+         */
+        exit.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(final ActionEvent theE) {
+                JOptionPane.showMessageDialog(exit, "Exit!");
+                WINDOW.dispatchEvent(new WindowEvent(WINDOW, WindowEvent.WINDOW_CLOSING));
+            }
+        });
+        /**
+         * Adds an about screen.
+         */
+        about.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(final ActionEvent theE) {
+                JOptionPane.showMessageDialog(about, "Resources and Links:\n "
+                        + "Background Image: "
+                        + "https://farsidevisuals.tumblr.com/post/700498811129315328\n"
+                        + "Game Music: https://www.youtube.com/watch?v=a2GYYyNVEHg\n"
+                        + "Game Sound Effects: https://mixkit.co/free-sound-effects/game/ ");
+
+            }
+        });
+        /**
+         * Communicates where the scoring algorithim is.
+         */
+        scoreAlgorithim.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(final ActionEvent theE) {
+                JOptionPane.showMessageDialog(scoreAlgorithim,
+                        "Add 4 points to score when a piece freezes in place."
+                                + "\nAlso add points to the score when lines are "
+                                + "cleared as shown"
+                                + " below:"
+                                + "\n                1 line    2 lines   3 lines   4 lines "
+                                + "cleared "
+                                + "\nLevel 1:  40         100         300        1200 "
+                                + "\nLevel 2:  80         200         600        2400 "
+                                + "\nLevel 3:  120       300         900        3600 "
+                                + "\nLevel n:  40*(n)  100*(n)  300*(n)  1200*(n)  ");
+
+            }
+        });
         final JMenu subMenu = new JMenu("User Options");
-
-        subMenu.add(buildSimpleMenuItem("New Game"));
-        subMenu.add(buildSimpleMenuItem("Exit"));
-        subMenu.add(buildSimpleMenuItem("About"));
-
+        subMenu.add(newGame);
+        subMenu.add(endGame);
+        subMenu.add(exit);
+        subMenu.add(about);
+        subMenu.add(scoreAlgorithim);
         return subMenu;
     }
+
     /**
-     * Builds a simple menu item.
-     *
-     * @param theText the text to appear on the menu item
-     * @return a simple menu item
+     * ControlKeyListener is responsible to read key input from the
+     * user and move the tetris piece according to the key pressed.
      */
-    private JMenuItem buildSimpleMenuItem(final String theText) {
-        final JMenuItem item = new JMenuItem(theText);
-        item.addActionListener(theEvent ->
-                JOptionPane.showMessageDialog(this, theText));
-        return item;
+    class ControlKeyListener extends KeyAdapter {
+        @Override
+        public void keyPressed(final KeyEvent theEvent) {
+            if (myTime.checkTimer() && !myGameOverDisplay) {
+                switch (theEvent.getKeyCode()) {
+                    case KeyEvent.VK_W, KeyEvent.VK_UP -> handleUpKey();
+                    case KeyEvent.VK_S, KeyEvent.VK_DOWN -> handleDownKey();
+                    case KeyEvent.VK_A, KeyEvent.VK_LEFT -> handleLeftKey();
+                    case KeyEvent.VK_D, KeyEvent.VK_RIGHT -> handleRightKey();
+                    case KeyEvent.VK_SPACE -> handleSpaceKey();
+                    case KeyEvent.VK_E -> handleRotateCCWKey();
+                    default -> {
+                    }
+                }
+            }
+            if (theEvent.getKeyCode() == KeyEvent.VK_P) {
+                handlePauseKey();
+            }
+        }
+        private void handleUpKey() {
+
+            myTetrisBoard.rotateCW();
+            playSE(1);
+        }
+
+        private void handleDownKey() {
+
+            myTetrisBoard.down();
+            playSE(1);
+        }
+
+        private void handleLeftKey() {
+
+            myTetrisBoard.left();
+            playSE(1);
+        }
+
+        private void handleRightKey() {
+
+            myTetrisBoard.right();
+            playSE(1);
+        }
+
+        private void handleSpaceKey() {
+
+            myTetrisBoard.drop();
+            playSE(2);
+        }
+
+        private void handleRotateCCWKey() {
+
+            myTetrisBoard.rotateCCW();
+            playSE(1);
+        }
+
+        private void handlePauseKey() {
+            if (!myGameOverDisplay) {
+                toggleTimer();
+            }
+        }
+
+        private void toggleTimer() {
+            if (myTime.checkTimer()) {
+                myTime.stopTimer();
+
+            } else if (!myTime.checkTimer()) {
+                myTime.startTimer();
+
+            }
+        }
     }
-
-
 }
+
