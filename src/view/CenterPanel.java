@@ -68,7 +68,6 @@ public class CenterPanel extends JPanel implements PropertyChangeListener {
 
 
 
-
     public CenterPanel() {
         super();
 
@@ -93,6 +92,10 @@ public class CenterPanel extends JPanel implements PropertyChangeListener {
         }
     }
 
+    /**
+     * Set's preferred size of the center-piece when it's created
+     * according to the center width and height that's already been specified.
+     */
     private void createCenterPiece() {
         setPreferredSize(new Dimension(CENTER_WIDTH, CENTER_HEIGHT));
     }
@@ -120,6 +123,9 @@ public class CenterPanel extends JPanel implements PropertyChangeListener {
         repaint();
     }
 
+    /**.
+     * returns the block color according to the shape of the block
+     */
     public static Color getBlockColor(final Block theBlock) {
         return switch (theBlock) {
             case I -> Color.CYAN;
@@ -133,22 +139,26 @@ public class CenterPanel extends JPanel implements PropertyChangeListener {
         };
     }
 
+    /**
+     * Paint's the grid, frozen blocks, movable tetris piece, and the background
+     * of the board.
+     * @param theGraphics the <code>Graphics</code> object to protect
+     */
     @Override
     public void paintComponent(final Graphics theGraphics) {
         super.paintComponent(theGraphics);
         final Graphics2D g2d = (Graphics2D) theGraphics;
 
+        //background of the board
         g2d.drawImage(myBackground, 0, 0, BACKGROUND_WIDTH, BACKGROUND_HEIGHT, this);
 
         // for better graphics display
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
 
-        // Draw the current piece on the board
 
-            // Draw the blocks of the piece
+        // Draw the blocks of the piece
         if (myPiece != null) {
-            // Draw the blocks of the piece
             final int[][] piecePoints =  myPiece.getTetrisPiece().
                     getPointsByRotation(myPiece.getRotation());
             for (int i = 0; i < piecePoints.length; i++) {
