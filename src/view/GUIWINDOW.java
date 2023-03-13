@@ -19,8 +19,6 @@ import javax.swing.JPanel;
 import model.Board;
 
 
-
-
 /**
  * This program is meant to create and show the GUI Frame.
  * @author David Hoang
