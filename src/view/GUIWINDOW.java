@@ -281,40 +281,63 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
         @Override
         public void keyPressed(final KeyEvent theEvent) {
             if (myTime.checkTimer() && !myGameOverDisplay) {
-                if (theEvent.getKeyCode() == KeyEvent.VK_W) {
-                    System.out.println("up");
-                    myTetrisBoard.rotateCW();
-                    playSE(1);
-                } else if (theEvent.getKeyCode() == KeyEvent.VK_S) {
-                    System.out.println("down");
-                    myTetrisBoard.down();
-                    playSE(1);
-                } else if (theEvent.getKeyCode() == KeyEvent.VK_A) {
-                    System.out.println("left");
-                    myTetrisBoard.left();
-                    playSE(1);
-                } else if (theEvent.getKeyCode() == KeyEvent.VK_D) {
-                    System.out.println("right");
-                    myTetrisBoard.right();
-                    playSE(1);
-                } else if (theEvent.getKeyCode() == KeyEvent.VK_SPACE) {
-                    System.out.println("space");
-                    myTetrisBoard.drop();
-                    playSE(2);
-                } else if (theEvent.getKeyCode() == KeyEvent.VK_SPACE) {
-                    System.out.println("space");
-                    myTetrisBoard.drop();
-                    playSE(2);
-                } else if (theEvent.getKeyCode() == KeyEvent.VK_E) {
-                    System.out.println("rotate ccw");
-                    myTetrisBoard.rotateCCW();
-                    playSE(1);
+                switch (theEvent.getKeyCode()) {
+                    case KeyEvent.VK_W -> handleUpKey();
+                    case KeyEvent.VK_S -> handleDownKey();
+                    case KeyEvent.VK_A -> handleLeftKey();
+                    case KeyEvent.VK_D -> handleRightKey();
+                    case KeyEvent.VK_SPACE -> handleSpaceKey();
+                    case KeyEvent.VK_E -> handleRotateCCWKey();
+                    default -> {
+                    }
                 }
             }
-            if (theEvent.getKeyCode() == KeyEvent.VK_P && !myGameOverDisplay) {
+            if (theEvent.getKeyCode() == KeyEvent.VK_P) {
+                handlePauseKey();
+            }
+        }
+        private void handleUpKey() {
+            System.out.println("up");
+            myTetrisBoard.rotateCW();
+            playSE(1);
+        }
+
+        private void handleDownKey() {
+            System.out.println("down");
+            myTetrisBoard.down();
+            playSE(1);
+        }
+
+        private void handleLeftKey() {
+            System.out.println("left");
+            myTetrisBoard.left();
+            playSE(1);
+        }
+
+        private void handleRightKey() {
+            System.out.println("right");
+            myTetrisBoard.right();
+            playSE(1);
+        }
+
+        private void handleSpaceKey() {
+            System.out.println("space");
+            myTetrisBoard.drop();
+            playSE(2);
+        }
+
+        private void handleRotateCCWKey() {
+            System.out.println("rotate ccw");
+            myTetrisBoard.rotateCCW();
+            playSE(1);
+        }
+
+        private void handlePauseKey() {
+            if (!myGameOverDisplay) {
                 toggleTimer();
             }
         }
+
         private void toggleTimer() {
             if (myTime.checkTimer()) {
                 myTime.stopTimer();

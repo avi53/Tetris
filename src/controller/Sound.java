@@ -56,16 +56,14 @@ public class Sound {
      * @param theIndex specifies the index of the audio file in the "mySoundURL".
      */
     public void setFile(final int theIndex) {
-        try {
-            final AudioInputStream audio =
-                    AudioSystem.getAudioInputStream(mySoundURL[theIndex]);
+        try (AudioInputStream audio =
+                     AudioSystem.getAudioInputStream(mySoundURL[theIndex])) {
             myClip = AudioSystem.getClip();
             myClip.open(audio);
         } catch (final IOException | UnsupportedAudioFileException
                        | LineUnavailableException e) {
-            System.out.println("error has occured" + e);
+            
         }
-
     }
 
     /**
