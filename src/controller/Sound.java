@@ -61,8 +61,8 @@ public class Sound {
             myClip = AudioSystem.getClip();
             myClip.open(audio);
         } catch (final IOException | UnsupportedAudioFileException
-                       | LineUnavailableException e) {
-            
+                       | LineUnavailableException ignored) {
+
         }
     }
 
