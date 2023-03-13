@@ -16,15 +16,8 @@ import java.beans.PropertyChangeListener;
  */
 public interface PropertyChangeEnabledBoardControls extends BoardControls {
 
-    /**
-     * These are the constant property values.
-     *
-     */
 
-    /**
-     * A property name for the current step property in the game.
-     */
-    String PROPERTY_STEP = "STEP";
+
     /**
      * A property name for the current GAME_OVER property in the game.
      */
@@ -40,24 +33,24 @@ public interface PropertyChangeEnabledBoardControls extends BoardControls {
     /**
      * A property name for the size of the list of frozen blocks is changed.
      */
-    String PROPERTY_FROZEN_BLOCKS_SIZE= "SIZE";
+    String PROPERTY_FROZEN_BLOCKS_SIZE = "SIZE";
     /**
      * A property name for when current piece has  changed.
      */
-    String PROPERTY_CURRENT_PIECE= "CURRENT_PIECE";
+    String PROPERTY_CURRENT_PIECE = "CURRENT_PIECE";
     /**
      * A property name for when the list of current rows has been changed.
      */
-    String PROPERTY_COMPLETE_ROWS_LIST= "COMPLETE_ROW";
+    String PROPERTY_COMPLETE_ROWS_LIST = "COMPLETE_ROW";
     /**
      * A property name for when next piece has  changed.
      */
-    String PROPERTY_NEXT_PIECE= "NEXT_PIECE";
+    String PROPERTY_NEXT_PIECE = "NEXT_PIECE";
 
     /**
      * A property name for when next piece has  changed.
      */
-    String PROPERTY_NON_RANDOM_PIECE= "NON_RANDOM";
+    String PROPERTY_NON_RANDOM_PIECE = "NON_RANDOM";
 
 
 
