@@ -1,12 +1,10 @@
 package controller;
 
-import model.Board;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JLabel;
 import javax.swing.Timer;
-
+import model.Board;
 /**
  * TimerTicker class that represents the timer for the tetris game.
  * @author David Hoang
@@ -111,14 +109,5 @@ public class TimeTicker extends JLabel implements ActionListener {
             myDelay -= MY_SPEED_VAL;
         }
         myTimer.setDelay(myDelay);
-    }
-
-    /**
-     * Method that provides the counter of the timer running.
-     *
-     * @return returns an int value of the time counter.
-     */
-    public int timeCounter() {
-        return myCounter;
     }
 }
