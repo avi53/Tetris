@@ -1,12 +1,12 @@
 package view;
 
+import controller.Sound;
+import controller.TimeTicker;
 import model.*;
-import view.GUIWINDOW;
 
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.sql.Time;
 import java.util.LinkedList;
 import javax.swing.*;
 import javax.swing.border.Border;

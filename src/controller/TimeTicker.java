@@ -1,4 +1,6 @@
-package model;
+package controller;
+
+import model.Board;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

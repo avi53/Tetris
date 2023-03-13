@@ -1,4 +1,6 @@
-package model;
+package controller;
+
+import controller.BoardControls;
 
 import java.beans.PropertyChangeListener;
 

@@ -17,8 +17,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import model.Board;
-import model.Sound;
-import model.TimeTicker;
+import controller.Sound;
+import controller.TimeTicker;
 
 
 
