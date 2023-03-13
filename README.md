@@ -61,13 +61,13 @@ will make centerplanel class listen to key events in guiwindow and update for th
 #### Changes to Board Class: 
 -Made board lass implements PropertyChangeEnabledControls interface, which is designed to be used
   in the Observer Design pattern through the propertyChangeSupport class. 
-  made local variables to see the old sequence index, the old game over status and my drop fields when they changed
- fired the new values when they were updated in newGame method. 
-made local variable to see the   myCurrentPiece field when they changed and fired them in the down method. 
-made local variables to see the old myCurrentPiece fields, and  old myDrop fields when they changed and fired them in the move method.
-made local variables to see the old myGameOver, old myNextPiece and old myNonRandomPieces fields when they changed
- fired the new values when they were updated in prepareNextMovablePiece method
-Overriden the add and remove propertyChangeListener methods to implement the observer design pattern.
-fired new value of completeRows, when it updated in checkRows method.
-fired new value of myGameOver, when it updated in setPoint method.
-add a public method to the board class to end game
+- made local variables to see the old sequence index, the old game over status and my drop fields when they changed
+- fired the new values when they were updated in newGame method. 
+- made local variable to see the   myCurrentPiece field when they changed and fired them in the down method. 
+- made local variables to see the old myCurrentPiece fields, and  old myDrop fields when they changed and fired them in the move method.
+- made local variables to see the old myGameOver, old myNextPiece and old myNonRandomPieces fields when they changed
+- fired the new values when they were updated in prepareNextMovablePiece method
+- Overriden the add and remove propertyChangeListener methods to implement the observer design pattern.
+- fired new value of completeRows, when it updated in checkRows method.
+- fired new value of myGameOver, when it updated in setPoint method.
+- add a public method to the board class to end game
