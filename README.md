@@ -72,7 +72,7 @@ will make centerplanel class listen to key events in guiwindow and update for th
 - fired new value of myGameOver, when it updated in setPoint method.
 - add a public method to the board class to end game
 
-### Resources that were used (Along with Links for them):
+#### Resources that were used (Along with Links for them):
 - https://farsidevisuals.tumblr.com/post/700498811129315328 : background images sourced from this picture
 - Game music: https://www.youtube.com/watch?v=a2GYYyNVEHg
 - Audio effects: https://mixkit.co/free-sound-effects/game/
