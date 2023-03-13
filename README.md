@@ -44,20 +44,20 @@ will make centerplanel class listen to key events in guiwindow and update for th
 ### Sprint 3 Contribution:
 
 - David:  Helped implement the color, location of frozen and current pieces on the board.
-- Yonas: added more helper methods in the timer such as speedUpTimer which decreases the delay and speeds up the timer which is called whenever the user levels up. Also made the tetris piece go down based on the timer delay. Also made a sound class and added background music to the game. Also added sound effects for moving pieces. And changed the implementation of the controlKeyListener class and added arrow key binds.
+- Yonas: added more helper methods in the timer such as speedUpTimer which decreases the delay and speeds up the timer which is called whenever the user levels up. Also made the tetris piece go down based on the timer delay. I also made a sound class and added background music to the game. Also added sound effects for moving pieces. Also changed the implementation of the controlKeyListener class.
 - Jose: Worked on getting the south and west panels working; with the timers for keeping track of Points, Levels, Lines, Next Piece, and Next Level in as a  part of those panels.
 - Avi: Helped with finishing up the centerpanel.java and putting the finishing touches on the gui such as implementing the backgrounds for the panels.
 
 ### Sprint 3 Meetings 
 - https://docs.google.com/document/d/1Hq2A3zF28I5R794mcIX3-NElclsdM7Mi9it_RWHOGXo/edit?usp=sharing
-- Meeting times: 3/2/2023 (12:40pm),3/5/2023 (12:00pm), met on discord both times.
-- We had smaller meetings in class and it was regarding the discussion of our output on the centerpanel and in regards to our PropertyChangeListener implmentation.
+- Meeting times: 3/7/2023 (1:00pm), 3/9/2023 (1:00pm), 3/12/2023 (5:00pm). All three times we met on discord both times.
+- We had smaller meetings in class and it was regarding the discussion of any confusions we had with certain implementations of methods in the classes that are located in the view module.
 - Primary form of communication for everyone was on our own discord server for the project.
-
 
 ### Sprint 3 comments:
 -Checkstyle: Method buildUserOptions length is 104 lines (max allowed is 100) in GUIWINDOW needs to be ignored because this was caused by additional lines that were added to a print statement in the "About" Section in regards to the resources we used in our project.
 -Scoring algorithm can be found under the File Options
+
 #### Changes to Board Class: 
 -Made board lass implements PropertyChangeEnabledControls interface, which is designed to be used
   in the Observer Design pattern through the propertyChangeSupport class. 
@@ -71,3 +71,10 @@ will make centerplanel class listen to key events in guiwindow and update for th
 - fired new value of completeRows, when it updated in checkRows method.
 - fired new value of myGameOver, when it updated in setPoint method.
 - add a public method to the board class to end game
+
+### Resources that were used (Along with Links for them):
+- https://farsidevisuals.tumblr.com/post/700498811129315328 : background images sourced from this picture
+- Game music: https://www.youtube.com/watch?v=a2GYYyNVEHg
+- Audio effects: https://mixkit.co/free-sound-effects/game/
+- https://www.youtube.com/watch?v=nUHh_J2Acy8&t=720s - For Sound
+- https://docs.oracle.com/javase/7/docs/api/javax/swing/Timer.html - For Timer
