@@ -79,11 +79,4 @@ public class Sound {
     public void loop() {
         myClip.loop(Clip.LOOP_CONTINUOUSLY);
     }
-
-    /**
-     * Method that stops the audio clip from playing.
-     */
-    public void stop() {
-        myClip.stop();
-    }
 }

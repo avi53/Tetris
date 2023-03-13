@@ -136,9 +136,6 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
         mySound.play();
         mySound.loop();
     }
-    public void stopMusic() {
-        mySound.stop();
-    }
     public void playSE(final int theIndex) {
         mySound.setFile(theIndex);
         mySound.play();
