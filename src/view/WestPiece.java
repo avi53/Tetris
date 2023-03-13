@@ -217,11 +217,14 @@ public class WestPiece extends JPanel implements PropertyChangeListener {
             myLevelLabel.setText(Integer.toString(level));
         }
         if (Board.PROPERTY_COMPLETE_ROWS_LIST.equals(theEvt.getPropertyName())) {
+
             myLinesCleared++;
+            System.out.println("Total lines cleared: "+myLinesCleared);
             myTotalLinesCleared += myLinesCleared;
 
             if (myLinesCleared < SCORE_ENTRY) {
                 myScore += calculateScoreLineClear();
+                myLinesCleared = 0;
             }
             if (myLinesCleared > SCORE_ENTRY) {
                 level++;
