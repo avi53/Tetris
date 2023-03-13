@@ -29,7 +29,6 @@ import model.TetrisPiece;
 
 public class EastPiece extends JPanel implements PropertyChangeListener {
 
-
     /** East piece width.*/
     private static final int EAST_WIDTH = 200;
 
@@ -165,13 +164,12 @@ public class EastPiece extends JPanel implements PropertyChangeListener {
             myNextLevelCountLabel.setText(myNextLevelCount + MESSAGE_LINES);
             repaint();
         }
-        final int linesCleared;
+
         if (Board.PROPERTY_COMPLETE_ROWS_LIST.equals(theEvt.getPropertyName())) {
-            linesCleared = WestPiece.getLinesCleared() + 1;
-
+            final int linesCleared = WestPiece.getLinesCleared() + 1;
             if (linesCleared < NEXT_LEVEL_OFFSET) {
-                myNextLevelCount = NEXT_LEVEL_OFFSET - linesCleared;
 
+                myNextLevelCount = NEXT_LEVEL_OFFSET - linesCleared;
 
                 myNextLevelCountLabel.setText(myNextLevelCount + MESSAGE_LINES);
                 repaint();
@@ -181,7 +179,6 @@ public class EastPiece extends JPanel implements PropertyChangeListener {
             final boolean gameOverStatus = (boolean) theEvt.getNewValue();
             if (gameOverStatus) {
                 myNextLevelCount = NEXT_LEVEL_COUNT_SETTER;
-
 
                 repaint();
             }
