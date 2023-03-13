@@ -60,7 +60,7 @@ public class EastPiece extends JPanel implements PropertyChangeListener {
     private static final int PIECE_STROKE_2 = 3;
 
     /** The number constant of times needed for next level. */
-    private static final int NEXT_LEVEL_OFFSET = 4;
+    private static final int NEXT_LEVEL_OFFSET = 5;
 
     /** The number of times needed for next level. */
     private static final int NEXT_LEVEL_COUNT_SETTER = 5;
