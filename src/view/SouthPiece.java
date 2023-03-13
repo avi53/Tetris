@@ -71,8 +71,8 @@ public class SouthPiece extends JPanel {
 
         try {
             myBackground = ImageIO.read(new File("src/image/image.jpg"));
-        } catch (final IOException e) {
-            e.printStackTrace();
+        } catch (final IOException ignored) {
+
         }
 
         createSouthPiece();

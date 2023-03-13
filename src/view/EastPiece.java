@@ -111,8 +111,8 @@ public class EastPiece extends JPanel implements PropertyChangeListener {
 
         try {
             myBackground = ImageIO.read(new File("src/image/image3.PNG"));
-        } catch (final IOException e) {
-            e.printStackTrace();
+        } catch (final IOException ignored) {
+
         }
 
         setBackground(Color.BLACK);

@@ -73,8 +73,8 @@ public class CenterPanel extends JPanel implements PropertyChangeListener {
 
         try {
             myBackground = ImageIO.read(new File("src/image/image.jpg"));
-        } catch (final IOException e) {
-            e.printStackTrace();
+        } catch (final IOException ignored) {
+
         }
 
         createCenterPiece();
