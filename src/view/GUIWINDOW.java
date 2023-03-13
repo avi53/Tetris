@@ -39,7 +39,7 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
     /**
      * Board object to be referenced.
      */
-    private Board myTetrisBoard  = new Board();
+    private final Board myTetrisBoard  = new Board();
     /**
      * Time object.
      */
@@ -236,7 +236,11 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
 
             @Override
             public void actionPerformed(final ActionEvent theE) {
-                JOptionPane.showMessageDialog(about, "This is group 6's Tetris project");
+                JOptionPane.showMessageDialog(about, "Resources and Links:\n "
+                        + "Background Image: "
+                        + "https://farsidevisuals.tumblr.com/post/700498811129315328\n"
+                        + "Game Music: https://www.youtube.com/watch?v=a2GYYyNVEHg\n"
+                        + "Game Sound Effects: https://mixkit.co/free-sound-effects/game/ ");
 
             }
         });
