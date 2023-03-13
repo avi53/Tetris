@@ -24,6 +24,10 @@ public class Sound {
      */
     private static final int ARRAY_SIZE = 5;
     /**
+     * Final index of mySoundURL array.
+     */
+    private static final int FINAL_INDEX = 3;
+    /**
      * Stores a short audio clip that can be played, repeated,
      * or stopped at any time.
      */
@@ -32,18 +36,17 @@ public class Sound {
      * An array that stores the address of sound files.
      */
     private final URL[] mySoundURL = new URL[ARRAY_SIZE];
-
     /**
      * Sound constructor that adds all the audio files into the array.
      */
     public Sound() {
-        final int index = 3;
         mySoundURL[0] = getClass().getResource("/Sound/main_music.wav");
         mySoundURL[1] = getClass().getResource
                 ("/Sound/mixkit-bonus-earned-in-video-game-2058.wav");
         mySoundURL[2] = getClass().getResource
                 ("/Sound/mixkit-electronic-retro-block-hit-2185.wav");
-        mySoundURL[index] = getClass().getResource("/Sound/mixkit-game-bonus-reached-2065.wav");
+        mySoundURL[FINAL_INDEX] = getClass().getResource
+                ("/Sound/mixkit-game-bonus-reached-2065.wav");
 
     }
 

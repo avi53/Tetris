@@ -17,6 +17,10 @@ import javax.swing.Timer;
  */
 public class TimeTicker extends JLabel implements ActionListener {
     /**
+     * The delay change everytime the game levels up.
+     */
+    private static final int MY_SPEED_VAL = 50;
+    /**
      * Initial time delay.
      */
     private static final int INITIAL_DELAY = 1000;
@@ -33,10 +37,6 @@ public class TimeTicker extends JLabel implements ActionListener {
      * Tetris board.
      */
     private final Board myBoard;
-    /**
-     * The delay change everytime the game levels up.
-     */
-    private final int mySpeedVal = 50;
 
     /**
      * TimeTicker constructor that sets how often the timer "tick".
@@ -107,8 +107,8 @@ public class TimeTicker extends JLabel implements ActionListener {
      * every time it's called.
      */
     public void speedUpTimer() {
-        if (myDelay > mySpeedVal) {
-            myDelay -= mySpeedVal;
+        if (myDelay > MY_SPEED_VAL) {
+            myDelay -= MY_SPEED_VAL;
         }
         myTimer.setDelay(myDelay);
     }
