@@ -1,8 +1,8 @@
 package view;
 
-
+import controller.Sound;
+import controller.TimeTicker;
 import java.awt.BorderLayout;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -17,8 +17,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import model.Board;
-import model.Sound;
-import model.TimeTicker;
+
 
 
 
@@ -113,8 +112,8 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
     }
 
     @Override
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-        super.addPropertyChangeListener(listener);
+    public void addPropertyChangeListener(final PropertyChangeListener theListener) {
+        super.addPropertyChangeListener(theListener);
     }
 
     @Override

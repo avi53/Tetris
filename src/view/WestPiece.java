@@ -1,19 +1,16 @@
 package view;
 
+import controller.Sound;
+import controller.TimeTicker;
+import model.*;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
+import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import javax.swing.BorderFactory;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import java.util.LinkedList;
+import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
-import model.Board;
-import model.Sound;
-import model.TimeTicker;
 
 
 /**
@@ -26,68 +23,59 @@ import model.TimeTicker;
  */
 
 public class WestPiece extends JPanel implements PropertyChangeListener {
-    /** The current level of the game. */
-    private static int level;
-    /** Lines that were cleared for the current level. */
-    private static int myLinesCleared;
     /** West piece width.*/
     private static final int WEST_WIDTH = 100;
+
     /** West piece height.*/
     private static final int WEST_HEIGHT = 100;
-    /** West piece inside panel width.*/
-    private static final int WEST_INSIDE_PANEL_WIDTH = 60;
-    /** West piece inside panel height.*/
-    private static final int WEST_INSIDE_PANEL_HEIGHT = 60;
-    /** One lines clear point. */
-    private static final int SCORE_MULTIPLIER_ONE = 40;
-    /** Two lines clear point. */
-    private static final int SCORE_MULTIPLIER_TWO = 100;
-    /** Three lines clear point. */
-    private static final int SCORE_MULTIPLIER_THREE = 300;
-    /** Four lines clear point. */
-    private static final int SCORE_MULTIPLIER_FOUR = 1200;
-    /** Add four points to the score when a piece freezes. */
-    private static final int SCORE_PER_FREEZE = 4;
-    /** One line. */
-    private static final int ONE_LINE = 1;
-    /** Two line. */
-    private static final int TWO_LINE = 2;
-    /** Three line. */
-    private static final int THREE_LINE = 3;
-    /** Four line. */
-    private static final int FOUR_LINE = 4;
-    /** The Four lines needed to calculate score. */
-    private static final int SCORE_ENTRY = 4;
-    /** The music SE. */
-    private static final int MUSIC_SE = 3;
-    /** The game status display. */
-    private JLabel myGameStatus;
-    /** Display the game points. */
-    private JLabel myGamePoints;
-    /** The lines of the current game. */
+
+    private JLabel gameStatus;
+    private JLabel gamePoints;
+
     private int myLines;
-    /** Display the lines of the current game. */
-    private JLabel myGameLines;
-    /** The top panel of the west area. */
-    private JPanel myTopPanel;
-    /** The center panel of the west area. */
-    private JPanel myCenterPanel;
-    /** The bottom panel of the west area. */
-    private JPanel myBotPanel;
-    /** Display the current level. */
-    private JLabel myLevelLabel;
+    private JLabel gameLines;
+    private JPanel topPanel;
+    private JPanel centerPanel;
+    private JPanel botPanel;
+    private static int level;
+    private JLabel levelLabel;
     /** Buffer next piece. */
-    private int myPieceCounter;
-    /** The current score of the game. */
-    private int myScore;
-    /** Lines that were cleared for the whole game. */
+    private int pieceCounter;
+
+
+    /**
+     * Counter for the points.
+     */
+    private int score;
+
+    /**
+     * Score multiplier.
+     */
+    private int  myScoreMultiplier;
+    /**
+     * Lines that were cleared for the current level.
+     */
+    private static int myLinescleared;
+
+    /**
+     * Lines that were cleared for the whole game.
+     */
     private int myTotalLinesCleared;
-    /** My timer. */
+    /** The background color. */
+    private LinkedList<Block[]> myFrozenBlocks;
+    /**
+     * My timer.
+     */
     private final TimeTicker myTime;
     /** The Status of the game. */
-    private boolean myGameOverStatus;
-    /** Variable to add sound to the panel. */
+    private boolean gameOverStatus;
+    /**
+     * Variable to add sound to the panel.
+     */
     private final Sound mySound = new Sound();
+
+
+
 
     /**
      * West piece constructor. Initialize the west piece panel.
@@ -95,12 +83,23 @@ public class WestPiece extends JPanel implements PropertyChangeListener {
     public WestPiece(final TimeTicker theTime) {
         super();
         myTime = theTime;
-        enableGameFunction();
+        pieceCounter = 0;
+        gameStatus = new JLabel("");
+        myTotalLinesCleared=0;
+        myLinescleared =0;
+        level = 0;
+        score = 0;
+        myFrozenBlocks = new LinkedList<>();
+
+        gameOverStatus = false;
         createTop();
         createCenter();
         createBot();
         createWestPiece();
+
     }
+
+
 
     /**
      * Create the west piece width, height, and set the color.
@@ -110,133 +109,122 @@ public class WestPiece extends JPanel implements PropertyChangeListener {
         setPreferredSize(new Dimension(WEST_WIDTH, WEST_HEIGHT));
         setBackground(Color.GREEN);
 
-        add(myTopPanel, BorderLayout.NORTH);
-        add(myCenterPanel, BorderLayout.CENTER);
-        add(myBotPanel, BorderLayout.SOUTH);
-    }
-    private void enableGameFunction() {
-        myPieceCounter = 0;
-        myGameStatus = new JLabel("");
-        myGameOverStatus = false;
-        myTotalLinesCleared = 0;
-        myLinesCleared = 0;
-        level = 0;
-        myScore = 0;
 
+
+
+        add(topPanel, BorderLayout.NORTH);
+        add(centerPanel, BorderLayout.CENTER);
+        add(botPanel, BorderLayout.SOUTH);
     }
 
     private void createTop() {
-        myTopPanel = new JPanel();
-        myGamePoints = new JLabel(Integer.toString(myScore));
+        topPanel = new JPanel();
+        gamePoints = new JLabel(Integer.toString(score));
 
-        myTopPanel.setPreferredSize(new Dimension(WEST_WIDTH + WEST_INSIDE_PANEL_WIDTH,
-                WEST_HEIGHT + WEST_INSIDE_PANEL_HEIGHT));
-        final Border border = BorderFactory.createCompoundBorder
-                (BorderFactory.createTitledBorder
-                (BorderFactory.createLineBorder(Color.BLUE, 2),
-                        "Points", TitledBorder.CENTER, TitledBorder.TOP),
+        topPanel.setPreferredSize(new Dimension(WEST_WIDTH + 60, WEST_HEIGHT + 60));
+        Border border = BorderFactory.createCompoundBorder(BorderFactory.createTitledBorder
+                (BorderFactory.createLineBorder(Color.BLUE, 2), "Points", TitledBorder.CENTER, TitledBorder.TOP),
                 BorderFactory.createEmptyBorder(5, 5, 5, 5));
-        myTopPanel.setBorder(border);
-        myTopPanel.add(myGamePoints);
+        topPanel.setBorder(border);
+        topPanel.add(gamePoints);
     }
     private void createCenter() {
-        myCenterPanel = new JPanel();
+        centerPanel = new JPanel();
 
-        myLevelLabel = new JLabel(Integer.toString(level));
+        levelLabel = new JLabel(Integer.toString(level));
 
 
-        myCenterPanel.setPreferredSize(new Dimension(WEST_WIDTH, WEST_HEIGHT));
-        final Border border = BorderFactory.createCompoundBorder
-                (BorderFactory.createTitledBorder
-                        (BorderFactory.createLineBorder(Color.BLUE, 2)
-                                , "Level", TitledBorder.CENTER, TitledBorder.TOP),
+        centerPanel.setPreferredSize(new Dimension(WEST_WIDTH, WEST_HEIGHT));
+        Border border = BorderFactory.createCompoundBorder(BorderFactory.createTitledBorder
+                        (BorderFactory.createLineBorder(Color.BLUE, 2), "Level", TitledBorder.CENTER, TitledBorder.TOP),
                 BorderFactory.createEmptyBorder(5, 5, 5, 5));
-        myCenterPanel.setBorder(border);
+        centerPanel.setBorder(border);
 
-        myCenterPanel.add(myLevelLabel);
-        myCenterPanel.add(myGameStatus);
+        centerPanel.add(levelLabel);
+        centerPanel.add(gameStatus);
     }
 
     private void createBot() {
-        myBotPanel = new JPanel();
-        myGameLines = new JLabel(Integer.toString(myLines));
+        botPanel = new JPanel();
+        gameLines = new JLabel(Integer.toString(myLines));
 
-        myBotPanel.setPreferredSize(new Dimension(WEST_WIDTH + WEST_INSIDE_PANEL_WIDTH,
-                WEST_HEIGHT + WEST_INSIDE_PANEL_HEIGHT));
-        final Border border = BorderFactory.createCompoundBorder
-                (BorderFactory.createTitledBorder
-                        (BorderFactory.createLineBorder(Color.BLUE, 2)
-                                , "Lines", TitledBorder.CENTER, TitledBorder.TOP),
+        botPanel.setPreferredSize(new Dimension(WEST_WIDTH + 60, WEST_HEIGHT + 60));
+        Border border = BorderFactory.createCompoundBorder(BorderFactory.createTitledBorder
+                        (BorderFactory.createLineBorder(Color.BLUE, 2), "Lines", TitledBorder.CENTER, TitledBorder.TOP),
                 BorderFactory.createEmptyBorder(5, 5, 5, 5));
-        myBotPanel.setBorder(border);
+        botPanel.setBorder(border);
 
-        myBotPanel.add(myGameLines);
+        botPanel.add(gameLines);
     }
     /**
      * Calculates score when a line is cleared.
      */
     public int calculateScoreLineClear() {
         int scoreToReturn = 0;
-        if (myLinesCleared == ONE_LINE) {
-            scoreToReturn = SCORE_MULTIPLIER_ONE * level;
-        } else if (myLinesCleared == TWO_LINE) {
-            scoreToReturn = SCORE_MULTIPLIER_TWO * level;
-        } else if (myLinesCleared == THREE_LINE) {
-            scoreToReturn = SCORE_MULTIPLIER_THREE * level;
-        } else if (myLinesCleared == FOUR_LINE) {
-            scoreToReturn = SCORE_MULTIPLIER_FOUR * level;
+        if (myLinescleared == 1) {
+            scoreToReturn = 40 * level;
+        } else if (myLinescleared == 2) {
+            scoreToReturn = 100 * level;
+        } else if (myLinescleared == 3) {
+            scoreToReturn = 300 * level;
+        } else if (myLinescleared == 4) {
+            scoreToReturn = 400 * level;
         }
         return scoreToReturn;
     }
     public static int getLinesCleared() {
-        return myLinesCleared;
+        return myLinescleared;
     }
 
     @Override
-    public void propertyChange(final PropertyChangeEvent theEvt) {
-        if (Board.PROPERTY_GAME_OVER.equals(theEvt.getPropertyName())) {
-            myGameOverStatus = (boolean) theEvt.getNewValue();
-            if (myGameOverStatus) {
-                myGameStatus.setText("Game over ");
+    public void propertyChange(PropertyChangeEvent evt) {
+        if (Board.PROPERTY_GAME_OVER.equals(evt.getPropertyName())) {
+            gameOverStatus = (boolean) evt.getNewValue();
+            if (gameOverStatus) {
+                gameStatus.setText("Game over ");
                 level = 0;
-                myScore = 0;
-                myPieceCounter = 0;
-                myLines = 0;
-
+                score = 0;
+                pieceCounter = 0;
             } else {
-                myGameStatus.setText("Game on    ");
+                gameStatus.setText("Game on    ");
                 level = 1;
-                myLevelLabel.setText(Integer.toString(level));
-                myGameLines.setText(Integer.toString(myLines));
+                levelLabel.setText(Integer.toString(level));
             }
         }
-        if (Board.PROPERTY_NEXT_PIECE.equals(theEvt.getPropertyName())) {
-            myPieceCounter++;
-            if (myPieceCounter > 2) {
-                myScore = myScore + SCORE_PER_FREEZE;
-            }
-            myGamePoints.setText(Integer.toString(myScore));
-            myLevelLabel.setText(Integer.toString(level));
-        }
-        if (Board.PROPERTY_COMPLETE_ROWS_LIST.equals(theEvt.getPropertyName())) {
-            myLinesCleared++;
-            myTotalLinesCleared += myLinesCleared;
 
-            if (myLinesCleared < SCORE_ENTRY) {
-                myScore += calculateScoreLineClear();
+        if (Board.PROPERTY_NEXT_PIECE.equals(evt.getPropertyName())) {
+            pieceCounter++;
+            if (pieceCounter > 2) {
+                score = score + 4;
             }
-            if (myLinesCleared > SCORE_ENTRY) {
+
+            gamePoints.setText(Integer.toString(score));
+            levelLabel.setText(Integer.toString(level));
+        }
+        if (Board.PROPERTY_COMPLETE_ROWS_LIST.equals(evt.getPropertyName())) {
+
+            myLinescleared++;
+            myTotalLinesCleared += myLinescleared;
+
+            if (myLinescleared < 4) {
+                score += calculateScoreLineClear();
+
+            }
+            if (myLinescleared > 4) {
                 level++;
                 myTime.speedUpTimer();
-                myLinesCleared = 0;
-                playSE(MUSIC_SE);
+                myLinescleared = 0;
+                playSE(3);
             }
-            myLevelLabel.setText(Integer.toString(level));
-            myGameLines.setText(Integer.toString(myTotalLinesCleared));
+            levelLabel.setText(Integer.toString(level));
+            gameLines.setText(Integer.toString(myTotalLinesCleared));
         }
     }
     public void playSE(final int theIndex) {
         mySound.setFile(theIndex);
         mySound.play();
     }
+//    public static int getLevel() {
+//        return level;
+//    }
 }

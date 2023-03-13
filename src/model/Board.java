@@ -11,6 +11,8 @@ import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+
+import controller.PropertyChangeEnabledBoardControls;
 import model.wallkicks.WallKick;
 
 /**
@@ -579,12 +581,10 @@ public class Board implements PropertyChangeEnabledBoardControls {
      * fires the new values to the propertyChangeSupport Object.
      */
     private void prepareNextMovablePiece() {
-       // made local variables to see the old myGameOver, old myNextPiece
-        // and old myNonRandomPieces fields when they changed
+       // made local variables to see the old myGameOver, and old myNextPiece.
        // fired the new values when they were updated.
         final boolean oldGameOver =  myGameOver;
         final boolean share = myNextPiece != null;
-        final List<TetrisPiece> oldNonRandomPiece = myNonRandomPieces;
         final TetrisPiece oldNextPiece = myNextPiece;
         if (myNonRandomPieces == null || myNonRandomPieces.isEmpty()) {
             myNextPiece = TetrisPiece.getRandomPiece();
@@ -594,8 +594,7 @@ public class Board implements PropertyChangeEnabledBoardControls {
         } else {
             mySequenceIndex %= myNonRandomPieces.size();
             myNextPiece = myNonRandomPieces.get(mySequenceIndex++);
-            myPcs.firePropertyChange(PROPERTY_NON_RANDOM_PIECE, oldNonRandomPiece,
-                    myNonRandomPieces);
+
             myPcs.firePropertyChange(PROPERTY_NEXT_PIECE, oldNextPiece, myNextPiece);
         }
         if (share && !myGameOver) {
