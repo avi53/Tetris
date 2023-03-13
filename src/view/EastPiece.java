@@ -67,6 +67,8 @@ public class EastPiece extends JPanel implements PropertyChangeListener {
 
     /** The text of the panels size. */
     private static final int TEXT_SIZE = 16;
+    /** The text of the panels size. */
+    private static final float TEXT_FLOAT = 12f;
 
     /** String to display after the number of lines. */
     private static final String MESSAGE_LINES = " Lines";
@@ -84,16 +86,10 @@ public class EastPiece extends JPanel implements PropertyChangeListener {
     private JLabel myNextLevelCountLabel;
 
     /** The next level in # of lines. */
-    private int myNextLevelCount = 4;
-
-    /** The number of lines cleared. */
-    private int myLinescleared = 0;
+    private int myNextLevelCount;
 
     /** Background image.*/
     private Image myBackground;
-
-    /** The Status of the game. */
-    private boolean myGameOverStatus;
 
     /**
      * East piece constructor. Initialize the east piece panel.
@@ -101,7 +97,6 @@ public class EastPiece extends JPanel implements PropertyChangeListener {
     public EastPiece() {
         super();
         createEastPiece();
-
     }
 
     /**
@@ -114,6 +109,7 @@ public class EastPiece extends JPanel implements PropertyChangeListener {
         } catch (final IOException ignored) {
 
         }
+        myNextLevelCount = NEXT_LEVEL_OFFSET;
 
         setBackground(Color.BLACK);
         setLayout(new BorderLayout());
@@ -130,7 +126,7 @@ public class EastPiece extends JPanel implements PropertyChangeListener {
     private void secondPanel() {
 
         mySecondPanel = new JPanel();
-        myNextLevelCountLabel = new JLabel(Integer.toString(myNextLevelCount) + MESSAGE_LINES);
+        myNextLevelCountLabel = new JLabel(myNextLevelCount + MESSAGE_LINES);
         myNextLevelCountLabel.setForeground(Color.WHITE);
         mySecondPanel.setBackground(new Color(0, 0, 0, 0));
         mySecondPanel.setPreferredSize(new Dimension(SECOND_PANEL_WIDTH, SECOND_PANEL_HEIGHT));
@@ -139,7 +135,7 @@ public class EastPiece extends JPanel implements PropertyChangeListener {
         innerPanel.setBackground(new Color(0, 0, 0, 0));
         innerPanel.setPreferredSize(new Dimension(INNER_PANEL_WIDTH, INNER_PANEL_HEIGHT));
         Font font = new Font(TEXT_STYLE, Font.BOLD, TEXT_SIZE);
-        font = font.deriveFont(Font.BOLD, 12f).deriveFont(Collections.singletonMap
+        font = font.deriveFont(Font.BOLD, TEXT_FLOAT).deriveFont(Collections.singletonMap
                 (TextAttribute.FOREGROUND, Color.WHITE));
 
         final Border border = BorderFactory.createCompoundBorder(
@@ -169,22 +165,23 @@ public class EastPiece extends JPanel implements PropertyChangeListener {
             myNextLevelCountLabel.setText(myNextLevelCount + MESSAGE_LINES);
             repaint();
         }
+        final int linesCleared;
         if (Board.PROPERTY_COMPLETE_ROWS_LIST.equals(theEvt.getPropertyName())) {
-            myLinescleared = WestPiece.getLinesCleared() + 1;
+            linesCleared = WestPiece.getLinesCleared() + 1;
 
-            if (myLinescleared < NEXT_LEVEL_OFFSET) {
-                myNextLevelCount = NEXT_LEVEL_OFFSET - myLinescleared;
+            if (linesCleared < NEXT_LEVEL_OFFSET) {
+                myNextLevelCount = NEXT_LEVEL_OFFSET - linesCleared;
 
-                myLinescleared = 0;
+
                 myNextLevelCountLabel.setText(myNextLevelCount + MESSAGE_LINES);
                 repaint();
             }
         }
         if (Board.PROPERTY_GAME_OVER.equals(theEvt.getPropertyName())) {
-            myGameOverStatus = (boolean) theEvt.getNewValue();
-            if (myGameOverStatus) {
+            final boolean gameOverStatus = (boolean) theEvt.getNewValue();
+            if (gameOverStatus) {
                 myNextLevelCount = NEXT_LEVEL_COUNT_SETTER;
-                myLinescleared = 0;
+
 
                 repaint();
             }
@@ -206,7 +203,7 @@ public class EastPiece extends JPanel implements PropertyChangeListener {
             setBackground(Color.LIGHT_GRAY);
             setPreferredSize(new Dimension(WIDTH, HEIGHT));
             Font font = new Font(TEXT_STYLE, Font.BOLD, TEXT_SIZE);
-            font = font.deriveFont(Font.BOLD, 12f).deriveFont(Collections.singletonMap
+            font = font.deriveFont(Font.BOLD, TEXT_FLOAT).deriveFont(Collections.singletonMap
                     (TextAttribute.FOREGROUND, Color.WHITE));
 
             final Border border = BorderFactory.createCompoundBorder(
