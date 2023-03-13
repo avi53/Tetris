@@ -30,7 +30,11 @@ public class TimeTicker extends JLabel implements ActionListener {
     /**
      * Tetris board.
      */
-    private Board myBoard;
+    private final Board myBoard;
+    /**
+     * The delay change everytime the game levels up.
+     */
+    private final int mySpeedVal = 50;
 
     /**
      * TimeTicker constructor that sets how often the timer "tick".
@@ -93,6 +97,7 @@ public class TimeTicker extends JLabel implements ActionListener {
         myCounter++;
         myBoard.down();
         System.out.println("tick");
+        System.out.println(myDelay);
     }
 
     /**
@@ -100,9 +105,8 @@ public class TimeTicker extends JLabel implements ActionListener {
      * every time it's called.
      */
     public void speedUpTimer() {
-        final int speedVal = 50;
-        if(myDelay > speedVal) {
-            myDelay -= speedVal;
+        if (myDelay > mySpeedVal) {
+            myDelay -= mySpeedVal;
         }
         myTimer.setDelay(myDelay);
     }
