@@ -19,6 +19,14 @@ import model.Block;
 import model.Board;
 import model.MovableTetrisPiece;
 
+/**
+ * The center panel that contains the board.
+ * @author David Hoang
+ * @author Avinash Bavisetty
+ * @author Yonas Omega
+ * @author Jose Rodriguez
+ * @version Winter 2023
+ */
 
 public class CenterPanel extends JPanel implements PropertyChangeListener {
     /**

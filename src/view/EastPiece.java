@@ -28,7 +28,7 @@ import model.Point;
 import model.TetrisPiece;
 
 /**
- * Score user, user information, Green.
+ * Next block piece and the next level counter.
  * @author David Hoang
  * @author Avinash Bavisetty
  * @author Yonas Omega
@@ -176,11 +176,15 @@ public class EastPiece extends JPanel implements PropertyChangeListener {
         if (Board.PROPERTY_COMPLETE_ROWS_LIST.equals(theEvt.getPropertyName())) {
             final int linesCleared = WestPiece.getLinesCleared() + 1;
             if (linesCleared < NEXT_LEVEL_OFFSET) {
-                myNextLevelCount = NEXT_LEVEL_OFFSET - linesCleared;
 
+                myNextLevelCount = NEXT_LEVEL_OFFSET - linesCleared;
                 myNextLevelCountLabel.setText(myNextLevelCount + MESSAGE_LINES);
                 repaint();
+
+            } else {
+                myNextLevelCount = NEXT_LEVEL_COUNT_SETTER;
             }
+
         }
         if (Board.PROPERTY_GAME_OVER.equals(theEvt.getPropertyName())) {
             final boolean gameOverStatus = (boolean) theEvt.getNewValue();
