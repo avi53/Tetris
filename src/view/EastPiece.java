@@ -176,11 +176,9 @@ public class EastPiece extends JPanel implements PropertyChangeListener {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if (background != null) {
-            g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
-        }
-    }
+        g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
 
+    }
     @Override
     public void propertyChange(final PropertyChangeEvent theEvt) {
         if (Board.PROPERTY_NEXT_PIECE.equals(theEvt.getPropertyName())) {
