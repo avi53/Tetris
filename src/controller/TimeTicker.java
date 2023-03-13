@@ -82,19 +82,6 @@ public class TimeTicker extends JLabel implements ActionListener {
      * @param theE the event to be processed
      */
     public void actionPerformed(final ActionEvent theE) {
-//        final ArrayList<Integer> delayTimes = new ArrayList<>();
-//        for (int i = 1000; i >= 50; i = i - 50) {
-//            delayTimes.add(i);
-//        }
-//
-//        final int level = WestPiece.getLevel();
-//        int delayTime = myDelay;
-//        if (level > delayTimes.size()) {
-//            delayTime = delayTimes.get(delayTimes.size() - 1);
-//        } else {
-//            delayTime = delayTimes.get(level - 1);
-//        }
-//        myTimer.setDelay(delayTime); // reset the Timer with the new delay time
         myBoard.down();
     }
 
