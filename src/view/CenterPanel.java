@@ -1,15 +1,13 @@
 package view;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import java.awt.Shape;
+import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.LinkedList;
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import model.*;
@@ -29,9 +27,8 @@ public class CenterPanel extends JPanel implements PropertyChangeListener {
      */
     private static final int PIECE_SIZE = 40;
 
-
-
-
+    /** Background image. */
+    private Image background;
 
     /**
      * Tetris piece.
@@ -50,6 +47,12 @@ public class CenterPanel extends JPanel implements PropertyChangeListener {
 
     public CenterPanel() {
         super();
+
+        try {
+            background = ImageIO.read(new File("src/image/image.jpg"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         createCenterPiece();
 
@@ -111,6 +114,8 @@ public class CenterPanel extends JPanel implements PropertyChangeListener {
         super.paintComponent(theGraphics);
         final Graphics2D g2d = (Graphics2D) theGraphics;
 
+        g2d.drawImage(background, 0, 0, 1200, 1200, null);
+
         // for better graphics display
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
@@ -120,11 +125,11 @@ public class CenterPanel extends JPanel implements PropertyChangeListener {
             // Draw the blocks of the piece
         if (myPiece != null) {
             // Draw the blocks of the piece
-            final int[][] myPoints =  myPiece.getTetrisPiece().getPointsByRotation(myPiece.getRotation());
+            final int[][] points =  myPiece.getTetrisPiece().getPointsByRotation(myPiece.getRotation());
             for (int i=0; i < 4; i++) {
                 final Color pieceColor = getBlockColor(myPiece.getTetrisPiece().getBlock());
-                final int x = (myPoints[i][0] + myPiece.getPosition().x()) * PIECE_SIZE;
-                final int y = (-(myPoints[i][1]+ myPiece.getPosition().y()) + 19) * PIECE_SIZE;
+                final int x = (points[i][0] + myPiece.getPosition().x()) * PIECE_SIZE;
+                final int y = (-(points[i][1]+ myPiece.getPosition().y()) + 19) * PIECE_SIZE;
                 final Shape rectangle = new Rectangle2D.Double(x, y, PIECE_SIZE, PIECE_SIZE);
                 g2d.setPaint(pieceColor);
                 g2d.fill(rectangle);

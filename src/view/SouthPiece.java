@@ -1,6 +1,10 @@
 package view;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import javax.swing.JTextField;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -45,11 +49,20 @@ public class SouthPiece extends JPanel {
     /** A label to display the message. 6 */
     private JLabel myMessageLabel7;
 
+    /** Background image. */
+    private Image background;
+
     /**
      * South piece constructor. Initialize the south piece panel.
      */
     public SouthPiece() {
         super();
+
+        try {
+            background = ImageIO.read(new File("src/image/image.jpg"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         createSouthPiece();
     }
@@ -105,5 +118,12 @@ public class SouthPiece extends JPanel {
         add(myMessageLabel6);
         add(myMessageLabel7);
 
+    }
+
+    public void paintComponent(final Graphics theGraphics) {
+        super.paintComponent(theGraphics);
+        final Graphics2D g2d = (Graphics2D) theGraphics;
+
+        g2d.drawImage(background, 0, 0, 1200, 1200, null);
     }
 }

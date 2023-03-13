@@ -6,7 +6,10 @@ import java.awt.font.TextAttribute;
 import java.awt.geom.Rectangle2D;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.Collections;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
@@ -38,6 +41,9 @@ public class EastPiece extends JPanel implements PropertyChangeListener {
     /** The number of lines cleared. */
     private int myLinescleared = 0;
 
+    /** Background image.*/
+    private Image background;
+
 
     /**
      * East piece constructor. Initialize the east piece panel.
@@ -52,7 +58,15 @@ public class EastPiece extends JPanel implements PropertyChangeListener {
     * Create the east piece width, height, and set the color.
     */
     private void createEastPiece() {
-        setBackground(Color.BLUE);
+
+        try {
+            background = ImageIO.read(new File("src/image/image3.PNG"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        setBackground(Color.BLACK);
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(EAST_WIDTH, EAST_HEIGHT));
         final InsidePanel insidePanel = new InsidePanel();
@@ -65,20 +79,20 @@ public class EastPiece extends JPanel implements PropertyChangeListener {
         /** The panel which holds the next level counter panel*/
         mySecondPanel = new JPanel();
         myNextLevelCountLabel = new JLabel(Integer.toString(myNextLevelCount) + " Lines");
-        myNextLevelCountLabel.setForeground(Color.WHITE);
-        mySecondPanel.setBackground(Color.BLUE);
+        myNextLevelCountLabel.setForeground(new Color(0, 0, 0, 0));
+        mySecondPanel.setBackground(new Color(0, 0, 0, 0));
         mySecondPanel.setPreferredSize(new Dimension(50, 50));
         /** The panel which holds the next level counter*/
-        JPanel innerPanel = new JPanel();
-        innerPanel.setBackground(Color.BLUE);
-        innerPanel.setPreferredSize(new Dimension(180,80));
+        final JPanel innerPanel = new JPanel();
+        innerPanel.setBackground(new Color(0, 0, 0, 0));
+        innerPanel.setPreferredSize(new Dimension(180, 80));
         Font font = new Font("Arial", Font.BOLD, 16);
         font = font.deriveFont(Font.BOLD, 12f).deriveFont(Collections.singletonMap
                 (TextAttribute.FOREGROUND, Color.WHITE));
 
         Border border = BorderFactory.createCompoundBorder(
                 BorderFactory.createTitledBorder(
-                        BorderFactory.createLineBorder(Color.WHITE, 2),
+                        BorderFactory.createLineBorder(Color.BLUE, 2),
                         "Next level in:",
                         TitledBorder.CENTER,
                         TitledBorder.TOP,
@@ -107,9 +121,9 @@ public class EastPiece extends JPanel implements PropertyChangeListener {
             font = font.deriveFont(Font.BOLD, 12f).deriveFont(Collections.singletonMap
                     (TextAttribute.FOREGROUND, Color.WHITE));
 
-            Border border = BorderFactory.createCompoundBorder(
+            final Border border = BorderFactory.createCompoundBorder(
                     BorderFactory.createTitledBorder(
-                            BorderFactory.createLineBorder(Color.WHITE, 2),
+                            BorderFactory.createLineBorder(Color.BLUE, 2),
                             "Next Piece",
                             TitledBorder.CENTER,
                             TitledBorder.TOP,
@@ -121,9 +135,12 @@ public class EastPiece extends JPanel implements PropertyChangeListener {
         }
 
         @Override
-        public void paintComponent(Graphics g) {
+        public void paintComponent(final Graphics g) {
             super.paintComponent(g);
             Graphics2D g2d = (Graphics2D) g;
+
+            g2d.drawImage(background, 0, 0,  600, 600 , null);
+
 
             if (myPiece != null) {
                 final Point[] blocks = myPiece.getPoints();
@@ -156,14 +173,21 @@ public class EastPiece extends JPanel implements PropertyChangeListener {
         }
     }
 
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        if (background != null) {
+            g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
+        }
+    }
 
     @Override
-    public void propertyChange(final PropertyChangeEvent evt) {
-        if (Board.PROPERTY_NEXT_PIECE.equals(evt.getPropertyName())) {
-            myPiece = (TetrisPiece) evt.getNewValue();
+    public void propertyChange(final PropertyChangeEvent theEvt) {
+        if (Board.PROPERTY_NEXT_PIECE.equals(theEvt.getPropertyName())) {
+            myPiece = (TetrisPiece) theEvt.getNewValue();
             repaint();
         }
-        if (Board.PROPERTY_COMPLETE_ROWS_LIST.equals(evt.getPropertyName())) {
+        if (Board.PROPERTY_COMPLETE_ROWS_LIST.equals(theEvt.getPropertyName())) {
             myLinescleared = WestPiece.getLinesCleared() + 1;
 
             if (myLinescleared <= 4) {
