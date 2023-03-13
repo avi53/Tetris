@@ -57,9 +57,9 @@ will make centerplanel class listen to key events in guiwindow and update for th
 
 ### Sprint 3 comments:
 -Checkstyle: Method buildUserOptions length is 104 lines (max allowed is 100) in GUIWINDOW needs to be ignored because this was caused by additional lines that were added to a print statement in the "About" Section in regards to the resources we used in our project.
-- Scoring algorithm can be found under the File Options
+-Scoring algorithm can be found under the File Options
 #### Changes to Board Class: 
-- Made board lass implements PropertyChangeEnabledControls interface, which is designed to be used
+-Made board lass implements PropertyChangeEnabledControls interface, which is designed to be used
   in the Observer Design pattern through the propertyChangeSupport class. 
   made local variables to see the old sequence index, the old game over status and my drop fields when they changed
  fired the new values when they were updated in newGame method. 
