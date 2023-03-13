@@ -121,11 +121,10 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
             myGameOverDisplay = (boolean) theEvt.getNewValue();
             if (myGameOverDisplay)  {
                 myTime.stopTimer();
-                System.out.println("Game is over");
 
             }
             if (!myGameOverDisplay) {
-                System.out.println("Game starts");
+
                 myTime.restartTimer();
             }
         }
@@ -298,37 +297,37 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
             }
         }
         private void handleUpKey() {
-            System.out.println("up");
+
             myTetrisBoard.rotateCW();
             playSE(1);
         }
 
         private void handleDownKey() {
-            System.out.println("down");
+
             myTetrisBoard.down();
             playSE(1);
         }
 
         private void handleLeftKey() {
-            System.out.println("left");
+
             myTetrisBoard.left();
             playSE(1);
         }
 
         private void handleRightKey() {
-            System.out.println("right");
+
             myTetrisBoard.right();
             playSE(1);
         }
 
         private void handleSpaceKey() {
-            System.out.println("space");
+
             myTetrisBoard.drop();
             playSE(2);
         }
 
         private void handleRotateCCWKey() {
-            System.out.println("rotate ccw");
+
             myTetrisBoard.rotateCCW();
             playSE(1);
         }
@@ -342,10 +341,10 @@ public class GUIWINDOW extends JPanel implements PropertyChangeListener {
         private void toggleTimer() {
             if (myTime.checkTimer()) {
                 myTime.stopTimer();
-                System.out.println("pause");
+
             } else if (!myTime.checkTimer()) {
                 myTime.startTimer();
-                System.out.println("start");
+
             }
         }
     }
