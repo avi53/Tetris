@@ -44,6 +44,9 @@ public class EastPiece extends JPanel implements PropertyChangeListener {
     /** Background image.*/
     private Image background;
 
+    /** The Status of the game. */
+    private boolean myGameOverStatus;
+
 
     /**
      * East piece constructor. Initialize the east piece panel.
@@ -177,12 +180,12 @@ public class EastPiece extends JPanel implements PropertyChangeListener {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
-
     }
     @Override
     public void propertyChange(final PropertyChangeEvent theEvt) {
         if (Board.PROPERTY_NEXT_PIECE.equals(theEvt.getPropertyName())) {
             myPiece = (TetrisPiece) theEvt.getNewValue();
+            myNextLevelCountLabel.setText(myNextLevelCount + " Lines");
             repaint();
         }
         if (Board.PROPERTY_COMPLETE_ROWS_LIST.equals(theEvt.getPropertyName())) {
@@ -195,7 +198,15 @@ public class EastPiece extends JPanel implements PropertyChangeListener {
                 myNextLevelCountLabel.setText(myNextLevelCount + " Lines");
             }
         }
+        if (Board.PROPERTY_GAME_OVER.equals(theEvt.getPropertyName())) {
+            myGameOverStatus = (boolean) theEvt.getNewValue();
+            if (myGameOverStatus) {
+                myNextLevelCount = 5;
+                myLinescleared = 0;
 
+                repaint();
+            }
+        }
     }
 }
 
