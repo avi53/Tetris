@@ -34,17 +34,17 @@ public class WestPiece extends JPanel implements PropertyChangeListener {
     /** West piece height.*/
     private static final int WEST_HEIGHT = 100;
     /** West piece inside panel width.*/
-    private static final int WEST_INSIDE_PANEL_WIDTH = 60;
+    private static final int INSIDE_WIDTH = 60;
     /** West piece inside panel height.*/
-    private static final int WEST_INSIDE_PANEL_HEIGHT = 60;
+    private static final int INSIDE_HEIGHT = 60;
     /** One lines clear point. */
-    private static final int SCORE_MULTIPLIER_ONE = 40;
+    private static final int SCORE_MULT_ONE = 40;
     /** Two lines clear point. */
-    private static final int SCORE_MULTIPLIER_TWO = 100;
+    private static final int SCORE_MULTI_TWO = 100;
     /** Three lines clear point. */
-    private static final int SCORE_MULTIPLIER_THREE = 300;
+    private static final int SCORE_MULTI_THREE = 300;
     /** Four lines clear point. */
-    private static final int SCORE_MULTIPLIER_FOUR = 1200;
+    private static final int SCORE_MULTI_FOUR = 1200;
     /** Add four points to the score when a piece freezes. */
     private static final int SCORE_PER_FREEZE = 4;
     /** One line. */
@@ -80,7 +80,7 @@ public class WestPiece extends JPanel implements PropertyChangeListener {
     /** The current score of the game. */
     private int myScore;
     /** Lines that were cleared for the whole game. */
-    private int myTotalLinesCleared;
+    private int myTotalLinesClear;
     /** My timer. */
     private final TimeTicker myTime;
     /** The Status of the game. */
@@ -117,7 +117,7 @@ public class WestPiece extends JPanel implements PropertyChangeListener {
         myPieceCounter = 0;
         myGameStatus = new JLabel("");
         myGameOverStatus = false;
-        myTotalLinesCleared = 0;
+        myTotalLinesClear = 0;
         myLinesCleared = 0;
         level = 0;
         myScore = 0;
@@ -127,8 +127,8 @@ public class WestPiece extends JPanel implements PropertyChangeListener {
         myTopPanel = new JPanel();
         myGamePoints = new JLabel(Integer.toString(myScore));
 
-        myTopPanel.setPreferredSize(new Dimension(WEST_WIDTH + WEST_INSIDE_PANEL_WIDTH,
-                WEST_HEIGHT + WEST_INSIDE_PANEL_HEIGHT));
+        myTopPanel.setPreferredSize(new Dimension(WEST_WIDTH + INSIDE_WIDTH,
+                WEST_HEIGHT + INSIDE_HEIGHT));
         final Border border = BorderFactory.createCompoundBorder
                 (BorderFactory.createTitledBorder
                                 (BorderFactory.createLineBorder(Color.BLUE, 2),
@@ -159,8 +159,8 @@ public class WestPiece extends JPanel implements PropertyChangeListener {
         myBotPanel = new JPanel();
         myGameLines = new JLabel(Integer.toString(myLines));
 
-        myBotPanel.setPreferredSize(new Dimension(WEST_WIDTH + WEST_INSIDE_PANEL_WIDTH,
-                WEST_HEIGHT + WEST_INSIDE_PANEL_HEIGHT));
+        myBotPanel.setPreferredSize(new Dimension(WEST_WIDTH + INSIDE_WIDTH,
+                WEST_HEIGHT + INSIDE_HEIGHT));
         final Border border = BorderFactory.createCompoundBorder
                 (BorderFactory.createTitledBorder
                                 (BorderFactory.createLineBorder(Color.BLUE, 2)
@@ -176,20 +176,32 @@ public class WestPiece extends JPanel implements PropertyChangeListener {
     public int calculateScoreLineClear() {
         int scoreToReturn = 0;
         if (myLinesCleared == ONE_LINE) {
-            scoreToReturn = SCORE_MULTIPLIER_ONE * level;
+            scoreToReturn = SCORE_MULT_ONE * level;
         } else if (myLinesCleared == TWO_LINE) {
-            scoreToReturn = SCORE_MULTIPLIER_TWO * level;
+            scoreToReturn = SCORE_MULTI_TWO * level;
         } else if (myLinesCleared == THREE_LINE) {
-            scoreToReturn = SCORE_MULTIPLIER_THREE * level;
+            scoreToReturn = SCORE_MULTI_THREE * level;
         } else if (myLinesCleared == FOUR_LINE) {
-            scoreToReturn = SCORE_MULTIPLIER_FOUR * level;
+            scoreToReturn = SCORE_MULTI_FOUR * level;
         }
         return scoreToReturn;
     }
+
+    /**
+     * Gets the number of lines cleared.
+     *
+     * @return the number of lines cleared
+     */
     public static int getLinesCleared() {
         return myLinesCleared;
     }
 
+    /**
+     * Notifies the west piece to make changes to level, score, and lines.
+     *
+     * @param theEvt A PropertyChangeEvent object describing the event source
+     *          and the property that has changed.
+     */
     @Override
     public void propertyChange(final PropertyChangeEvent theEvt) {
         if (Board.PROPERTY_GAME_OVER.equals(theEvt.getPropertyName())) {
@@ -219,8 +231,7 @@ public class WestPiece extends JPanel implements PropertyChangeListener {
         if (Board.PROPERTY_COMPLETE_ROWS_LIST.equals(theEvt.getPropertyName())) {
 
             myLinesCleared++;
-            System.out.println("Total lines cleared: " + myLinesCleared);
-            myTotalLinesCleared += myLinesCleared;
+            myTotalLinesClear += myLinesCleared;
 
             if (myLinesCleared < SCORE_ENTRY) {
                 myScore += calculateScoreLineClear();
@@ -233,9 +244,15 @@ public class WestPiece extends JPanel implements PropertyChangeListener {
                 playSE(MUSIC_SE);
             }
             myLevelLabel.setText(Integer.toString(level));
-            myGameLines.setText(Integer.toString(myTotalLinesCleared));
+            myGameLines.setText(Integer.toString(myTotalLinesClear));
         }
     }
+
+    /**
+     * Plays the music.
+     *
+     * @param theIndex The index for music.
+     */
     public void playSE(final int theIndex) {
         mySound.setFile(theIndex);
         mySound.play();
