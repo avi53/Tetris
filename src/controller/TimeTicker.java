@@ -14,23 +14,25 @@ import model.Board;
  * @version Winter 2023
  */
 public class TimeTicker extends JLabel implements ActionListener {
+
     /**
      * The delay change everytime the game levels up.
      */
     private static final int MY_SPEED_VAL = 50;
+
     /**
      * Initial time delay.
      */
     private static final int INITIAL_DELAY = 1000;
+
     /**
      * Delay Time.
      */
     private static int myDelay = INITIAL_DELAY;
+
     /** Timer field. */
     private final Timer myTimer;
-    /**
-     * Counter field. */
-    private int myCounter;
+
     /**
      * Tetris board.
      */
@@ -93,11 +95,7 @@ public class TimeTicker extends JLabel implements ActionListener {
 //            delayTime = delayTimes.get(level - 1);
 //        }
 //        myTimer.setDelay(delayTime); // reset the Timer with the new delay time
-
-        myCounter++;
         myBoard.down();
-        System.out.println("tick");
-        System.out.println(myDelay);
     }
 
     /**
