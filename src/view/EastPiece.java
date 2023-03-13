@@ -156,6 +156,40 @@ public class EastPiece extends JPanel implements PropertyChangeListener {
         innerPanel.add(myNextLevelCountLabel);
         mySecondPanel.add(innerPanel);
     }
+    @Override
+    protected final void paintComponent(final Graphics theGraphics) {
+        super.paintComponent(theGraphics);
+        theGraphics.drawImage(myBackground, 0, 0, getWidth(), getHeight(), this);
+    }
+
+    @Override
+    public final void propertyChange(final PropertyChangeEvent theEvt) {
+        if (Board.PROPERTY_NEXT_PIECE.equals(theEvt.getPropertyName())) {
+            myPiece = (TetrisPiece) theEvt.getNewValue();
+            myNextLevelCountLabel.setText(myNextLevelCount + MESSAGE_LINES);
+            repaint();
+        }
+        if (Board.PROPERTY_COMPLETE_ROWS_LIST.equals(theEvt.getPropertyName())) {
+            myLinescleared = WestPiece.getLinesCleared() + 1;
+
+            if (myLinescleared < NEXT_LEVEL_OFFSET) {
+                myNextLevelCount = NEXT_LEVEL_OFFSET - myLinescleared;
+
+                myLinescleared = 0;
+                myNextLevelCountLabel.setText(myNextLevelCount + MESSAGE_LINES);
+                repaint();
+            }
+        }
+        if (Board.PROPERTY_GAME_OVER.equals(theEvt.getPropertyName())) {
+            myGameOverStatus = (boolean) theEvt.getNewValue();
+            if (myGameOverStatus) {
+                myNextLevelCount = NEXT_LEVEL_COUNT_SETTER;
+                myLinescleared = 0;
+
+                repaint();
+            }
+        }
+    }
 
     /**
      * The next piece panel that holds the next piece paint.
@@ -221,41 +255,6 @@ public class EastPiece extends JPanel implements PropertyChangeListener {
                     g2d.setStroke(new BasicStroke(PIECE_STROKE_2));
                     g2d.draw(rectangle);
                 }
-            }
-        }
-    }
-
-    @Override
-    protected final void paintComponent(final Graphics theGraphics) {
-        super.paintComponent(theGraphics);
-        theGraphics.drawImage(myBackground, 0, 0, getWidth(), getHeight(), this);
-    }
-
-    @Override
-    public final void propertyChange(final PropertyChangeEvent theEvt) {
-        if (Board.PROPERTY_NEXT_PIECE.equals(theEvt.getPropertyName())) {
-            myPiece = (TetrisPiece) theEvt.getNewValue();
-            myNextLevelCountLabel.setText(myNextLevelCount + MESSAGE_LINES);
-            repaint();
-        }
-        if (Board.PROPERTY_COMPLETE_ROWS_LIST.equals(theEvt.getPropertyName())) {
-            myLinescleared = WestPiece.getLinesCleared() + 1;
-
-            if (myLinescleared < NEXT_LEVEL_OFFSET) {
-                myNextLevelCount = NEXT_LEVEL_OFFSET - myLinescleared;
-
-                myLinescleared = 0;
-                myNextLevelCountLabel.setText(myNextLevelCount + MESSAGE_LINES);
-                repaint();
-            }
-        }
-        if (Board.PROPERTY_GAME_OVER.equals(theEvt.getPropertyName())) {
-            myGameOverStatus = (boolean) theEvt.getNewValue();
-            if (myGameOverStatus) {
-                myNextLevelCount = NEXT_LEVEL_COUNT_SETTER;
-                myLinescleared = 0;
-
-                repaint();
             }
         }
     }
