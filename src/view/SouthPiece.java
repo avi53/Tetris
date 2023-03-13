@@ -103,6 +103,7 @@ public class SouthPiece extends JPanel {
         myMessageLabel5 = new JLabel("Drop: space ");
         myMessageLabel6 = new JLabel("Pause/Unpause: P ");
         myMessageLabel7 = new JLabel("Rotate Counter Clockwise: E");
+
     }
     /**
      * Helper method to set Message colors.
