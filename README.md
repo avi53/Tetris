@@ -1,8 +1,6 @@
 # group6-tetris
 
-## Group 6, TCSS 305 Section A
-
-### Group Members:
+### Team Members:
 
 - David Hoang
 - Avinash Bavisetty
